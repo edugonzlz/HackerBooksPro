@@ -1,5 +1,8 @@
 #import "_Location.h"
+#import "Note.h"
 
 @interface Location : _Location
-// Custom logic goes here.
+
++(instancetype)locationWithNote:(Note *)note latitude:(NSString *)latitude longitude:(NSString *)longitude inContext:(NSManagedObjectContext *)context;
+
 @end

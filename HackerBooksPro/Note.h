@@ -1,5 +1,8 @@
 #import "_Note.h"
+#import "Book.h"
 
 @interface Note : _Note
-// Custom logic goes here.
+
++(instancetype)noteWithBook:(Book *)book inContext:(NSManagedObjectContext *)context;
+
 @end

@@ -19,4 +19,12 @@
     return pdf;
 }
 
++(instancetype)pdfWithURL:(NSString *)pdfURL forBook:(Book *)book inContext:(NSManagedObjectContext *)context{
+
+    Pdf *pdf = [Pdf pdfWithURL:pdfURL
+                      inContext:context];
+    pdf.book = book;
+    
+    return pdf;
+}
 @end

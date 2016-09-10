@@ -8,6 +8,16 @@
 
 @implementation Location
 
-// Custom logic goes here.
++(instancetype)locationWithNote:(Note *)note latitude:(NSString *)latitude longitude:(NSString *)longitude inContext:(NSManagedObjectContext *)context{
+
+    Location *loc = [NSEntityDescription insertNewObjectForEntityForName:[Location entityName]
+                                                  inManagedObjectContext:context];
+
+    loc.note = note;
+    loc.latitude = latitude;
+    loc.longitude = longitude;
+
+    return loc;
+}
 
 @end
