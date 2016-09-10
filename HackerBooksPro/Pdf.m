@@ -8,6 +8,15 @@
 
 @implementation Pdf
 
-// Custom logic goes here.
++(instancetype)pdfWithURL:(NSString *)pdfURL inContext:(NSManagedObjectContext *)context{
+
+    Pdf *pdf = [NSEntityDescription insertNewObjectForEntityForName:[Pdf entityName]
+                                             inManagedObjectContext:context];
+
+// TODO: - enviar a segundo plano
+    pdf.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:pdfURL]];
+
+    return pdf;
+}
 
 @end

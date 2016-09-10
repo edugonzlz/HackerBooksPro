@@ -16,6 +16,20 @@
 		341A498A1D844F5A0039F3CB /* AGTSimpleCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49891D844F5A0039F3CB /* AGTSimpleCoreDataStack.m */; };
 		341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A498C1D844F6C0039F3CB /* AGTCoreDataTableViewController.m */; };
 		341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 341A49961D8453250039F3CB /* Model.xcdatamodeld */; };
+		341A4A0A1D8490520039F3CB /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49EF1D8490520039F3CB /* Book.m */; };
+		341A4A0B1D8490520039F3CB /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49F11D8490520039F3CB /* Tag.m */; };
+		341A4A0C1D8490520039F3CB /* _Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49F31D8490520039F3CB /* _Book.m */; };
+		341A4A0D1D8490520039F3CB /* _Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49F51D8490520039F3CB /* _Location.m */; };
+		341A4A0E1D8490520039F3CB /* _Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49F71D8490520039F3CB /* _Note.m */; };
+		341A4A0F1D8490520039F3CB /* _Pdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49F91D8490520039F3CB /* _Pdf.m */; };
+		341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49FB1D8490520039F3CB /* _PhotoCover.m */; };
+		341A4A111D8490520039F3CB /* _PhotoNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49FD1D8490520039F3CB /* _PhotoNote.m */; };
+		341A4A121D8490520039F3CB /* _Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49FF1D8490520039F3CB /* _Tag.m */; };
+		341A4A131D8490520039F3CB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A011D8490520039F3CB /* Location.m */; };
+		341A4A141D8490520039F3CB /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A031D8490520039F3CB /* Note.m */; };
+		341A4A151D8490520039F3CB /* Pdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A051D8490520039F3CB /* Pdf.m */; };
+		341A4A161D8490520039F3CB /* PhotoCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A071D8490520039F3CB /* PhotoCover.m */; };
+		341A4A171D8490520039F3CB /* PhotoNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A091D8490520039F3CB /* PhotoNote.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +69,34 @@
 		341A498B1D844F6C0039F3CB /* AGTCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataTableViewController.h; sourceTree = "<group>"; };
 		341A498C1D844F6C0039F3CB /* AGTCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataTableViewController.m; sourceTree = "<group>"; };
 		341A49971D8453250039F3CB /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		341A49EE1D8490520039F3CB /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		341A49EF1D8490520039F3CB /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		341A49F01D8490520039F3CB /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		341A49F11D8490520039F3CB /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		341A49F21D8490520039F3CB /* _Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Book.h; sourceTree = "<group>"; };
+		341A49F31D8490520039F3CB /* _Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Book.m; sourceTree = "<group>"; };
+		341A49F41D8490520039F3CB /* _Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Location.h; sourceTree = "<group>"; };
+		341A49F51D8490520039F3CB /* _Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Location.m; sourceTree = "<group>"; };
+		341A49F61D8490520039F3CB /* _Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Note.h; sourceTree = "<group>"; };
+		341A49F71D8490520039F3CB /* _Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Note.m; sourceTree = "<group>"; };
+		341A49F81D8490520039F3CB /* _Pdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Pdf.h; sourceTree = "<group>"; };
+		341A49F91D8490520039F3CB /* _Pdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Pdf.m; sourceTree = "<group>"; };
+		341A49FA1D8490520039F3CB /* _PhotoCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _PhotoCover.h; sourceTree = "<group>"; };
+		341A49FB1D8490520039F3CB /* _PhotoCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _PhotoCover.m; sourceTree = "<group>"; };
+		341A49FC1D8490520039F3CB /* _PhotoNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _PhotoNote.h; sourceTree = "<group>"; };
+		341A49FD1D8490520039F3CB /* _PhotoNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _PhotoNote.m; sourceTree = "<group>"; };
+		341A49FE1D8490520039F3CB /* _Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Tag.h; sourceTree = "<group>"; };
+		341A49FF1D8490520039F3CB /* _Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Tag.m; sourceTree = "<group>"; };
+		341A4A001D8490520039F3CB /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		341A4A011D8490520039F3CB /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		341A4A021D8490520039F3CB /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		341A4A031D8490520039F3CB /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		341A4A041D8490520039F3CB /* Pdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pdf.h; sourceTree = "<group>"; };
+		341A4A051D8490520039F3CB /* Pdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pdf.m; sourceTree = "<group>"; };
+		341A4A061D8490520039F3CB /* PhotoCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCover.h; sourceTree = "<group>"; };
+		341A4A071D8490520039F3CB /* PhotoCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCover.m; sourceTree = "<group>"; };
+		341A4A081D8490520039F3CB /* PhotoNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoNote.h; sourceTree = "<group>"; };
+		341A4A091D8490520039F3CB /* PhotoNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoNote.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +195,21 @@
 		341A498F1D844FBE0039F3CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				341A4A181D8490570039F3CB /* moGenerator */,
+				341A49EE1D8490520039F3CB /* Book.h */,
+				341A49EF1D8490520039F3CB /* Book.m */,
+				341A4A041D8490520039F3CB /* Pdf.h */,
+				341A4A051D8490520039F3CB /* Pdf.m */,
+				341A4A061D8490520039F3CB /* PhotoCover.h */,
+				341A4A071D8490520039F3CB /* PhotoCover.m */,
+				341A49F01D8490520039F3CB /* Tag.h */,
+				341A49F11D8490520039F3CB /* Tag.m */,
+				341A4A021D8490520039F3CB /* Note.h */,
+				341A4A031D8490520039F3CB /* Note.m */,
+				341A4A081D8490520039F3CB /* PhotoNote.h */,
+				341A4A091D8490520039F3CB /* PhotoNote.m */,
+				341A4A001D8490520039F3CB /* Location.h */,
+				341A4A011D8490520039F3CB /* Location.m */,
 				341A49921D8451650039F3CB /* Custom */,
 				341A49961D8453250039F3CB /* Model.xcdatamodeld */,
 			);
@@ -185,6 +242,27 @@
 				341A49891D844F5A0039F3CB /* AGTSimpleCoreDataStack.m */,
 			);
 			name = Custom;
+			sourceTree = "<group>";
+		};
+		341A4A181D8490570039F3CB /* moGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				341A49F21D8490520039F3CB /* _Book.h */,
+				341A49F31D8490520039F3CB /* _Book.m */,
+				341A49F41D8490520039F3CB /* _Location.h */,
+				341A49F51D8490520039F3CB /* _Location.m */,
+				341A49F61D8490520039F3CB /* _Note.h */,
+				341A49F71D8490520039F3CB /* _Note.m */,
+				341A49F81D8490520039F3CB /* _Pdf.h */,
+				341A49F91D8490520039F3CB /* _Pdf.m */,
+				341A49FA1D8490520039F3CB /* _PhotoCover.h */,
+				341A49FB1D8490520039F3CB /* _PhotoCover.m */,
+				341A49FC1D8490520039F3CB /* _PhotoNote.h */,
+				341A49FD1D8490520039F3CB /* _PhotoNote.m */,
+				341A49FE1D8490520039F3CB /* _Tag.h */,
+				341A49FF1D8490520039F3CB /* _Tag.m */,
+			);
+			name = moGenerator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,10 +400,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				341A491D1D844D2A0039F3CB /* AppDelegate.m in Sources */,
+				341A4A141D8490520039F3CB /* Note.m in Sources */,
+				341A4A0E1D8490520039F3CB /* _Note.m in Sources */,
+				341A4A161D8490520039F3CB /* PhotoCover.m in Sources */,
 				341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */,
+				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
+				341A4A151D8490520039F3CB /* Pdf.m in Sources */,
+				341A4A121D8490520039F3CB /* _Tag.m in Sources */,
+				341A4A0C1D8490520039F3CB /* _Book.m in Sources */,
 				341A49871D844F470039F3CB /* AGTCoreDataCollectionViewController.m in Sources */,
+				341A4A0B1D8490520039F3CB /* Tag.m in Sources */,
 				341A498A1D844F5A0039F3CB /* AGTSimpleCoreDataStack.m in Sources */,
+				341A4A0A1D8490520039F3CB /* Book.m in Sources */,
+				341A4A0D1D8490520039F3CB /* _Location.m in Sources */,
+				341A4A0F1D8490520039F3CB /* _Pdf.m in Sources */,
+				341A4A111D8490520039F3CB /* _PhotoNote.m in Sources */,
+				341A4A131D8490520039F3CB /* Location.m in Sources */,
+				341A4A171D8490520039F3CB /* PhotoNote.m in Sources */,
 				341A491A1D844D2A0039F3CB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,6 +639,7 @@
 				341A49441D844D2A0039F3CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		341A49451D844D2A0039F3CB /* Build configuration list for PBXNativeTarget "HackerBooksProTests" */ = {
 			isa = XCConfigurationList;
@@ -555,6 +648,7 @@
 				341A49471D844D2A0039F3CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		341A49481D844D2A0039F3CB /* Build configuration list for PBXNativeTarget "HackerBooksProUITests" */ = {
 			isa = XCConfigurationList;
@@ -563,6 +657,7 @@
 				341A494A1D844D2A0039F3CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

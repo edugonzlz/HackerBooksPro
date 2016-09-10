@@ -25,15 +25,15 @@
     book.title = title;
     book.author = author;
 
-    NSSet<Tag *> *myTags = nil;
+    NSMutableSet<Tag *> *myTags = nil;
     for (NSString *tag in tags) {
-        Tag *new = [Tag initWithName:tag context:context];
-        [myTags setByAddingObject:new];
+        Tag *new = [Tag tagWithName:tag inContext:context];
+        [myTags addObject:new];
     }
     book.tags = myTags;
 
-    book.photoCover.imageURL = coverURL;
-    book.pdf.pdfURL = pdfURL;
+    book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
+    book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
 
     return book;
 }

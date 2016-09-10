@@ -1,5 +1,7 @@
 #import "_Pdf.h"
 
 @interface Pdf : _Pdf
-// Custom logic goes here.
+
++(instancetype)pdfWithURL:(NSString *)pdfURL inContext:(NSManagedObjectContext *)context;
+
 @end

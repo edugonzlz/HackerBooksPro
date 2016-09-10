@@ -8,7 +8,7 @@
 
 @implementation Tag
 
-+(instancetype)initWithName:(NSString *)name context:(NSManagedObjectContext *)context{
++(instancetype)tagWithName:(NSString *)name inContext:(NSManagedObjectContext *)context{
 
     Tag *tag = [NSEntityDescription insertNewObjectForEntityForName:[Tag entityName]
                                              inManagedObjectContext:context];
