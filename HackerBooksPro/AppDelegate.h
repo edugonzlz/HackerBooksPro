@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AGTSimpleCoreDataStack;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, strong) AGTSimpleCoreDataStack *model;
 
 @end
 

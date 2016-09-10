@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AGTSimpleCoreDataStack.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    self.model = [AGTSimpleCoreDataStack coreDataStackWithModelName:@"Model"];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    // Crear VC y asignar rootVC
+
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
