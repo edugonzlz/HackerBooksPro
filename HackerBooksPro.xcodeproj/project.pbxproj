@@ -15,6 +15,9 @@
 		341A49281D844D2A0039F3CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 341A49261D844D2A0039F3CB /* LaunchScreen.storyboard */; };
 		341A49331D844D2A0039F3CB /* HackerBooksProTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49321D844D2A0039F3CB /* HackerBooksProTests.m */; };
 		341A493E1D844D2A0039F3CB /* HackerBooksProUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A493D1D844D2A0039F3CB /* HackerBooksProUITests.m */; };
+		341A49871D844F470039F3CB /* AGTCoreDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49861D844F470039F3CB /* AGTCoreDataCollectionViewController.m */; };
+		341A498A1D844F5A0039F3CB /* AGTSimpleCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A49891D844F5A0039F3CB /* AGTSimpleCoreDataStack.m */; };
+		341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A498C1D844F6C0039F3CB /* AGTCoreDataTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,12 @@
 		341A49391D844D2A0039F3CB /* HackerBooksProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerBooksProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		341A493D1D844D2A0039F3CB /* HackerBooksProUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerBooksProUITests.m; sourceTree = "<group>"; };
 		341A493F1D844D2A0039F3CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		341A49851D844F470039F3CB /* AGTCoreDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataCollectionViewController.h; sourceTree = "<group>"; };
+		341A49861D844F470039F3CB /* AGTCoreDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataCollectionViewController.m; sourceTree = "<group>"; };
+		341A49881D844F5A0039F3CB /* AGTSimpleCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTSimpleCoreDataStack.h; sourceTree = "<group>"; };
+		341A49891D844F5A0039F3CB /* AGTSimpleCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTSimpleCoreDataStack.m; sourceTree = "<group>"; };
+		341A498B1D844F6C0039F3CB /* AGTCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataTableViewController.h; sourceTree = "<group>"; };
+		341A498C1D844F6C0039F3CB /* AGTCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,13 +110,11 @@
 		341A49171D844D2A0039F3CB /* HackerBooksPro */ = {
 			isa = PBXGroup;
 			children = (
+				341A49901D844FCC0039F3CB /* Views */,
 				341A491B1D844D2A0039F3CB /* AppDelegate.h */,
 				341A491C1D844D2A0039F3CB /* AppDelegate.m */,
-				341A491E1D844D2A0039F3CB /* ViewController.h */,
-				341A491F1D844D2A0039F3CB /* ViewController.m */,
-				341A49211D844D2A0039F3CB /* Main.storyboard */,
-				341A49241D844D2A0039F3CB /* Assets.xcassets */,
-				341A49261D844D2A0039F3CB /* LaunchScreen.storyboard */,
+				341A498E1D844FB20039F3CB /* Controllers */,
+				341A498F1D844FBE0039F3CB /* Models */,
 				341A49291D844D2A0039F3CB /* Info.plist */,
 				341A49181D844D2A0039F3CB /* Supporting Files */,
 			);
@@ -138,6 +145,54 @@
 				341A493F1D844D2A0039F3CB /* Info.plist */,
 			);
 			path = HackerBooksProUITests;
+			sourceTree = "<group>";
+		};
+		341A498E1D844FB20039F3CB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				341A49911D84515D0039F3CB /* Custom */,
+				341A491E1D844D2A0039F3CB /* ViewController.h */,
+				341A491F1D844D2A0039F3CB /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		341A498F1D844FBE0039F3CB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				341A49921D8451650039F3CB /* Custom */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		341A49901D844FCC0039F3CB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				341A49211D844D2A0039F3CB /* Main.storyboard */,
+				341A49241D844D2A0039F3CB /* Assets.xcassets */,
+				341A49261D844D2A0039F3CB /* LaunchScreen.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		341A49911D84515D0039F3CB /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				341A498B1D844F6C0039F3CB /* AGTCoreDataTableViewController.h */,
+				341A498C1D844F6C0039F3CB /* AGTCoreDataTableViewController.m */,
+				341A49851D844F470039F3CB /* AGTCoreDataCollectionViewController.h */,
+				341A49861D844F470039F3CB /* AGTCoreDataCollectionViewController.m */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
+		341A49921D8451650039F3CB /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				341A49881D844F5A0039F3CB /* AGTSimpleCoreDataStack.h */,
+				341A49891D844F5A0039F3CB /* AGTSimpleCoreDataStack.m */,
+			);
+			name = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +333,9 @@
 			files = (
 				341A49201D844D2A0039F3CB /* ViewController.m in Sources */,
 				341A491D1D844D2A0039F3CB /* AppDelegate.m in Sources */,
+				341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */,
+				341A49871D844F470039F3CB /* AGTCoreDataCollectionViewController.m in Sources */,
+				341A498A1D844F5A0039F3CB /* AGTSimpleCoreDataStack.m in Sources */,
 				341A491A1D844D2A0039F3CB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
