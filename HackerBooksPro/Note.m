@@ -4,11 +4,15 @@
 
 @interface Note ()
 
-// Private interface goes here.
++(NSArray *)observableKeyNames;
 
 @end
 
 @implementation Note
+
++(NSArray *)observableKeyNames{
+    return @[@"text", @"creationDate", @"photo.imageData"];
+}
 
 +(instancetype)noteWithBook:(Book *)book inContext:(NSManagedObjectContext *)context{
 
@@ -18,7 +22,9 @@
     note.book = book;
     note.creationDate = [NSDate date];
     note.modificationDate = [NSDate date];
-// TODO: - Añadir la localizacion
+// TODO: - Conseguir localizacion en segundo plano
+    // enviar un bloque de finalizacion en el que se guardan las coordenadas en location
+    // la vista del mapa debera observar por KVO el cambio
     note.location = [Location locationWithNote:self
                                       latitude:@""
                                      longitude:@""
@@ -27,6 +33,46 @@
                                     inContext:context];
 
     return note;
+}
+
+// MARK: - KVO
+-(void)setupKVO{
+    for (NSString *key in [Note observableKeyNames]) {
+        [self addObserver:self
+               forKeyPath:key
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionOld
+                  context:NULL];
+    }
+
+}
+
+-(void)tearDownKVO{
+    for (NSString *key in [Note observableKeyNames]) {
+        [self removeObserver:self forKeyPath:key];
+    }
+}
+
+-(void)addObserver:(NSObject *)observer
+        forKeyPath:(NSString *)keyPath
+           options:(NSKeyValueObservingOptions)options
+           context:(void *)context{
+
+    // Cuando nos informen del cambio de las propiedades indicadas cambiamos la fecha de modificacion
+    self.modificationDate = [NSDate date];
+}
+
+// MARK: - Lifecycle
+-(void)awakeFromInsert{
+    [self awakeFromInsert];
+    [self setupKVO];
+}
+-(void)awakeFromFetch{
+    [super awakeFromFetch];
+    [self setupKVO];
+}
+-(void)willTurnIntoFault{
+    [super willTurnIntoFault];
+    [self tearDownKVO];
 }
 
 @end

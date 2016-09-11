@@ -14,6 +14,7 @@
 }
 -(UIImage *)image{
 
+// TODO: - si imageData es nil, retornar una foto generica
     return [UIImage imageWithData:self.imageData];
 }
 

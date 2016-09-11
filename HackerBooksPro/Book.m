@@ -38,4 +38,7 @@
     return book;
 }
 
+// TODO: - implementar un inicializador con un diccionario
+// el diccionario nos lo pasaran despues de serializar el JSON descargado en diccionarios
+
 @end
