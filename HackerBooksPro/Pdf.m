@@ -22,6 +22,8 @@
         dispatch_async(download, ^{
 
             self.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.pdfURL]];
+        // TODO: - que pasa cuando ha terminado de descargar??
+            // es mejor hacer la descarga desde el controlador de pdf?? y desde alli guardarlo en coreData??
 
         });
 

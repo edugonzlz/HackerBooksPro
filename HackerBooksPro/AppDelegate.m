@@ -33,23 +33,35 @@
     NSURL *lastUrl = [[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
 
-    NSData *data = nil;
+     __block NSData *data = nil;
 
     // Mirar si tenemos JSON en local
     if ([fm fileExistsAtPath:fileUrl.path]) {
 
         [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
 
-        [self.window makeKeyAndVisible];
-
     }else{
         // Si no lo tenemos descargar JSON
 
         // TODO: - realizar en segundo plano con bloque de finalizacion
         // el blque envia toda la serializacion
-        NSLog(@"Descargando JSON");
-        data = [NSData dataWithContentsOfURL:JSONUrl];
 
+        dispatch_queue_t download = dispatch_queue_create("json", 0);
+        dispatch_async(download, ^{
+
+            NSLog(@"Descargando JSON");
+            data = [NSData dataWithContentsOfURL:JSONUrl];
+
+            // Guardamos en la ruta
+            [data writeToFile:fileUrl.path atomically:YES];
+
+            NSLog(@"JSON guardado en: %@", fileUrl);
+            [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+            });
+        });
 
 
 //        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -64,20 +76,11 @@
 //        }];
 //        [task resume];
 
-
-
-
-
-        // Guardamos en la ruta
-        [data writeToFile:fileUrl.path atomically:YES];
-
-        NSLog(@"JSON guardado en: %@", fileUrl);
-        [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
-
-        [self.window makeKeyAndVisible];
-
     }
 
+
+
+    
 //    // Podemos observar cuando existe el fichero y entonces serializar
 //    NSData *JSONData = [NSData dataWithContentsOfURL:fileUrl];
 //
@@ -123,6 +126,7 @@
 //
 //    self.window.rootViewController = [nbVC wrappedInNavigation];
 
+    [self.window makeKeyAndVisible];
 
     return YES;
 }

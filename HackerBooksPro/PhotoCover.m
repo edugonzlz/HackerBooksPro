@@ -17,7 +17,7 @@
     // Si no existe la imagen la descargamos
     if (!self.imageData) {
 
-        dispatch_queue_t download = dispatch_queue_create("pdf", 0);
+        dispatch_queue_t download = dispatch_queue_create("photoCover", 0);
 
         dispatch_async(download, ^{
 
