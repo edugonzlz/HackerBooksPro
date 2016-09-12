@@ -19,6 +19,7 @@
     Note *note = [NSEntityDescription insertNewObjectForEntityForName:[Note entityName]
                                                inManagedObjectContext:context];
 
+// TODO: - sumar a la fecha [NSTimeZone systemTimeZone]
     note.book = book;
     note.creationDate = [NSDate date];
     note.modificationDate = [NSDate date];

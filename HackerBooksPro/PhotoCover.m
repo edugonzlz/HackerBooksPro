@@ -14,7 +14,14 @@
 }
 -(UIImage *)image{
 
-// TODO: - si imageData es nil, retornar una foto generica
+    // TODO: - si imageData es nil, retornar una foto generica
+
+    // TODO: - gestionar en el getter de imageData y enviar a segundo plano
+    // enviar con un completion block
+    // el completion block pide que se guarde el data en el modelo
+    // el controlador por KVO observara esa propiedad y cuando cambie refresca
+    self.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]];
+
     return [UIImage imageWithData:self.imageData];
 }
 
@@ -23,11 +30,8 @@
     PhotoCover *cover = [NSEntityDescription insertNewObjectForEntityForName:[PhotoCover entityName]
                                                       inManagedObjectContext:context];
 
-    // TODO: - enviar a segundo plano
-    // enviar con un completion block
-    // el completion block pide que se guarde el data en el modelo
-    // el controlador por KVO observara esa propiedad y cuando cambie refresca
-    cover.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoCoverURL]];
+
+    cover.imageURL = photoCoverURL;
 
     return cover;
 }

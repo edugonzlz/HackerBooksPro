@@ -7,6 +7,8 @@
                         tags:(NSArray *)tags
                     coverURL:(NSString *)coverURL
                       pdfURL:(NSString *)pdfURL
-                     context:(NSManagedObjectContext *)context;
+                     inContext:(NSManagedObjectContext *)context;
+
+-(instancetype)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context;
 
 @end

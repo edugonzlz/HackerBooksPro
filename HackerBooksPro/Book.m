@@ -16,7 +16,7 @@
                         tags:(NSArray *)tags
                     coverURL:(NSString *)coverURL
                       pdfURL:(NSString *)pdfURL
-                     context:(NSManagedObjectContext *)context{
+                     inContext:(NSManagedObjectContext *)context{
 
     Book *book = [NSEntityDescription insertNewObjectForEntityForName:[Book entityName]
                                                inManagedObjectContext:context];
@@ -40,5 +40,19 @@
 
 // TODO: - implementar un inicializador con un diccionario
 // el diccionario nos lo pasaran despues de serializar el JSON descargado en diccionarios
+-(instancetype)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
+
+    NSString *tags = [dict objectForKey:@"tags"];
+    NSArray *arrayOfTags = [tags componentsSeparatedByString:@" ,"];
+
+    return [Book bookWithTitle:[dict objectForKey:@"title"]
+                        author:[dict objectForKey:@"authors"]
+                          tags:arrayOfTags
+                      coverURL:[dict objectForKey:@"image_url"]
+                        pdfURL:[dict objectForKey:@"pdf_url"]
+                       inContext:context];
+
+
+}
 
 @end
