@@ -14,13 +14,21 @@
 }
 -(UIImage *)image{
 
-    // TODO: - si imageData es nil, retornar una foto generica
+    // Si no existe la imagen la descargamos
+    if (!self.imageData) {
 
-    // TODO: - gestionar en el getter de imageData y enviar a segundo plano
-    // enviar con un completion block
-    // el completion block pide que se guarde el data en el modelo
-    // el controlador por KVO observara esa propiedad y cuando cambie refresca
-    self.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]];
+        dispatch_queue_t download = dispatch_queue_create("pdf", 0);
+
+        dispatch_async(download, ^{
+
+            // que nos observen por KVO para ver cuando hemos cambiado y refresquen??
+            self.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]];
+
+        });
+
+        // Mientras se descarga hemos enviado una por defecto
+        return [UIImage imageNamed:@"bookIcon.png"];
+    }
 
     return [UIImage imageWithData:self.imageData];
 }
