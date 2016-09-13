@@ -28,7 +28,10 @@
 // MARK: - Download
     NSURL *JSONUrl = [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"];
 
-    //
+// TODO: - CARGAR EL MODELO EN OTRO LUGAR?? - QUIZA EN EL CONTROLADOR DE TABLA INICIAL
+    // PUEDO DESCARGAR SEGUN SE CARGA LA VISTA,
+    // PERO CUANDO INICIALIZO LOS BOOKS??
+    
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *lastUrl = [[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
@@ -43,10 +46,8 @@
     }else{
         // Si no lo tenemos descargar JSON
 
-        // TODO: - realizar en segundo plano con bloque de finalizacion
-        // el blque envia toda la serializacion
-
         dispatch_queue_t download = dispatch_queue_create("json", 0);
+
         dispatch_async(download, ^{
 
             NSLog(@"Descargando JSON");
@@ -59,72 +60,11 @@
             [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-
+                
             });
         });
 
-
-//        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-//        NSURLSessionDownloadTask *task = [session downloadTaskWithURL:JSONUrl completionHandler:^(NSURL * _Nullable location,
-//                                                                                                  NSURLResponse * _Nullable response,
-//                                                                                                  NSError * _Nullable error) {
-//
-//            // comprobamos la respuesta
-//
-//            // si es buena, cambiamos de sitio el archivo guardado en location
-//        }];
-//        [task resume];
-
     }
-
-
-
-    
-//    // Podemos observar cuando existe el fichero y entonces serializar
-//    NSData *JSONData = [NSData dataWithContentsOfURL:fileUrl];
-//
-//    if (JSONData != nil) {
-//        // Si todo esta bien serializamos
-//        NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data
-//                                                               options:kNilOptions
-//                                                                 error:&error];
-//
-//        // Si todo va bien convertimos sacamos cada diccionario/book y lo inicializamos
-//        if (JSONObjects != nil) {
-//            for (NSDictionary *dict in JSONObjects) {
-//                Book *book = [[Book alloc]initWithDict:dict inContext:self.model.context];
-//                NSLog(@"titulo: %@", book.title);
-//            }
-//        }else{
-//            // Se ha producido un error al parsear el JSON
-//            NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
-//        }
-//    }else{
-//        // Error al descargar los datos del servidor
-//        NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
-//    }
-
-
-    // Crear VC y asignar rootVC
-
-//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[AGTNotebook entityName]];
-//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:AGTNamedEntityAttributes.modificationDate
-//                                                          ascending:NO],
-//                            [NSSortDescriptor sortDescriptorWithKey:AGTNamedEntityAttributes.name
-//                                                          ascending:YES]];
-//
-//    NSFetchedResultsController *results = [[NSFetchedResultsController alloc] initWithFetchRequest:req
-//                                                                              managedObjectContext:self.model.context
-//                                                                                sectionNameKeyPath:nil
-//                                                                                         cacheName:nil];
-//
-//    AGTNotebooksViewController *nbVC = [[AGTNotebooksViewController alloc]
-//                                        initWithFetchedResultsController:results
-//                                        style:UITableViewStylePlain];
-//
-//
-//    self.window.rootViewController = [nbVC wrappedInNavigation];
 
     [self.window makeKeyAndVisible];
 

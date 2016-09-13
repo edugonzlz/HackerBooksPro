@@ -17,12 +17,14 @@
 
     if (!self.pdfData) {
 
+    // TODO: - usar mejor NSURLSession para indicar el progreso???
+
         dispatch_queue_t download = dispatch_queue_create("pdf", 0);
 
         dispatch_async(download, ^{
 
             self.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.pdfURL]];
-        // TODO: - que pasa cuando ha terminado de descargar??
+            // TODO: - que pasa cuando ha terminado de descargar?? notificamos??
             // es mejor hacer la descarga desde el controlador de pdf?? y desde alli guardarlo en coreData??
 
         });
