@@ -34,6 +34,7 @@
 		346A587C1D86EF0A00B0F579 /* iosStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58781D86EF0A00B0F579 /* iosStar.png */; };
 		346A587D1D86EF0A00B0F579 /* iosStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58791D86EF0A00B0F579 /* iosStar@2x.png */; };
 		346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A587A1D86EF0A00B0F579 /* iosStar@3x.png */; };
+		346A58891D87FF5C00B0F579 /* LibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58881D87FF5C00B0F579 /* LibraryTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,8 @@
 		346A58781D86EF0A00B0F579 /* iosStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosStar.png; sourceTree = "<group>"; };
 		346A58791D86EF0A00B0F579 /* iosStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iosStar@2x.png"; sourceTree = "<group>"; };
 		346A587A1D86EF0A00B0F579 /* iosStar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iosStar@3x.png"; sourceTree = "<group>"; };
+		346A58871D87FF5C00B0F579 /* LibraryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableViewController.h; sourceTree = "<group>"; };
+		346A58881D87FF5C00B0F579 /* LibraryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +200,8 @@
 			isa = PBXGroup;
 			children = (
 				341A49911D84515D0039F3CB /* Custom */,
+				346A58871D87FF5C00B0F579 /* LibraryTableViewController.h */,
+				346A58881D87FF5C00B0F579 /* LibraryTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				341A4A0F1D8490520039F3CB /* _Pdf.m in Sources */,
 				341A4A111D8490520039F3CB /* _PhotoNote.m in Sources */,
 				341A4A131D8490520039F3CB /* Location.m in Sources */,
+				346A58891D87FF5C00B0F579 /* LibraryTableViewController.m in Sources */,
 				341A4A171D8490520039F3CB /* PhotoNote.m in Sources */,
 				341A491A1D844D2A0039F3CB /* main.m in Sources */,
 			);

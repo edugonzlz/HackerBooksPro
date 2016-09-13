@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "AGTSimpleCoreDataStack.h"
 #import "Book.h"
+#import "LibraryTableViewController.h"
+#import "Tag.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +25,8 @@
     self.model = [AGTSimpleCoreDataStack coreDataStackWithModelName:@"Model"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    [self.model zapAllData];
 
 
 // MARK: - Download
@@ -66,6 +70,24 @@
 
     }
 
+    // request - Orden - Predicate - Controller - rootView
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+
+    NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+                                                                         managedObjectContext:self.model.context
+                                                                           sectionNameKeyPath:@"tags.name"
+                                                                                    cacheName:nil];
+
+    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
+                                                                                                    style:UITableViewStylePlain];
+
+    UINavigationController *navVC = [[UINavigationController alloc]initWithRootViewController:lVC];
+
+    self.window.rootViewController = navVC;
+    
     [self.window makeKeyAndVisible];
 
     return YES;
@@ -84,7 +106,15 @@
         if (JSONObjects != nil) {
             for (NSDictionary *dict in JSONObjects) {
                 Book *book = [[Book alloc]initWithDict:dict inContext:self.model.context];
-                NSLog(@"titulo: %@", book.title);
+
+                NSString *tags = [dict objectForKey:@"tags"];
+                NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
+                for (NSString *tagName in arrayOfTags) {
+
+                    Tag *tag = [Tag tagWithName:tagName inContext:self.model.context];
+                    NSLog(@"%@: %@",tagName, tag.name);
+                }
+//                NSLog(@"titulo: %@", book.title);
             }
         }else{
             // Se ha producido un error al parsear el JSON
