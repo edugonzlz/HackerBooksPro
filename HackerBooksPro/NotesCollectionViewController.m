@@ -21,6 +21,8 @@ static NSString *cellId = @"noteCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    self.collectionView.backgroundColor = [UIColor grayColor];
+
     [self registerCell];
 
 }

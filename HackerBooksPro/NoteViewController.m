@@ -38,6 +38,13 @@
     [super viewWillAppear:animated];
 
     self.title = self.model.text;
+    self.textView.text = self.model.text;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+
+    self.model.text = self.textView.text;
 }
 
 - (IBAction)displayPhoto:(id)sender {

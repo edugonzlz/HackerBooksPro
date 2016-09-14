@@ -17,7 +17,8 @@
     return [UIImage imageWithData:self.imageData];
 }
 
-+(instancetype)photoNoteWithNote:(Note *)note inContext:(NSManagedObjectContext *)context{
++(instancetype)photoNoteWithNote:(Note *)note
+                       inContext:(NSManagedObjectContext *)context{
 
     PhotoNote *photo = [NSEntityDescription insertNewObjectForEntityForName:[PhotoNote entityName]
                                                      inManagedObjectContext:context];
@@ -26,7 +27,9 @@
     return photo;
 }
 
-+(instancetype)photoNoteWithNote:(Note *)note image:(UIImage *)image inContext:(NSManagedObjectContext *)context{
++(instancetype)photoNoteWithNote:(Note *)note
+                           image:(UIImage *)image
+                       inContext:(NSManagedObjectContext *)context{
 
     PhotoNote *photo = [PhotoNote photoNoteWithNote:note
                                           inContext:context];

@@ -10,6 +10,8 @@
 #import "PhotoCover.h"
 #import "PdfViewController.h"
 #import "Book.h"
+#import "Note.h"
+#import "NotesCollectionViewController.h"
 
 @interface BookViewController ()
 
@@ -22,7 +24,7 @@
 
     if (self = [super initWithNibName:nil bundle:nil]) {
 
-        self.model = model;
+        _model = model;
     };
     return self;
 }
@@ -37,21 +39,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)switchFav:(UIBarButtonItem *)sender {
 
@@ -76,6 +63,27 @@
 }
 
 - (IBAction)readNotes:(UIBarButtonItem *)sender {
+
+    // req - orden - predicate -rcontroller -controller -push
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:YES]];
+
+//    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", [self.model]];
+    
+    NSFetchedResultsController *frC = [[NSFetchedResultsController alloc]initWithFetchRequest:req
+                                                                         managedObjectContext:self.model.managedObjectContext
+                                                                           sectionNameKeyPath:nil
+                                                                                    cacheName:nil];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.minimumLineSpacing = 10;
+    layout.minimumInteritemSpacing = 10;
+    layout.itemSize = CGSizeMake(140, 150);
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+
+    NotesCollectionViewController *notesVC = [NotesCollectionViewController coreDataCollectionViewControllerWithFetchedResultsController:frC
+                                                                                                                                  layout:layout];
+    [self.navigationController pushViewController:notesVC animated:true];
 }
 
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender {

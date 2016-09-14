@@ -49,11 +49,9 @@
             </constraints>
             <size key="customSize" width="100" height="52"/>
             <connections>
-                <outlet property="modificationDateView" destination="qsV-nJ-uFi" id="deW-rN-2dc"/>
                 <outlet property="photoView" destination="QtL-PX-9Wk" id="PrN-H3-G8W"/>
                 <outlet property="subtitleLabel" destination="ZQm-sJ-6H3" id="1p4-lD-MFo"/>
                 <outlet property="titleLabel" destination="qsV-nJ-uFi" id="aoh-If-kT8"/>
-                <outlet property="titleView" destination="ZQm-sJ-6H3" id="nBZ-M2-hXW"/>
             </connections>
         </collectionViewCell>
     </objects>

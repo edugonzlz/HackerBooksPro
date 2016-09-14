@@ -32,6 +32,8 @@
                        options:NSKeyValueObservingOptionNew
                        context:NULL];
     }
+
+    [self syncModelView];
 }
 -(void)prepareForReuse{
     for (NSString *key in [NoteViewCell observableKeys]) {
@@ -40,19 +42,30 @@
     }
 
     self.note = nil;
+
+    [self syncModelView];
 }
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context{
+
+    [self syncModelView];
+}
+
 -(void)syncModelView{
 
     self.titleLabel.text = self.note.text;
 
     NSDateFormatter *formater = [[NSDateFormatter alloc]init];
-    formater.dateStyle = NSDateFormatterShortStyle;
+    formater.dateFormat = @"dd/MM/yyyy";
     self.subtitleLabel.text = [formater stringFromDate: self.note.modificationDate];
 
     // si no tenemos foto devolvemos una por defecto
     UIImage *image;
     if (self.note.photo.image == nil) {
-        image = [UIImage imageWithContentsOfFile:@"noImage.png"];
+        image = [UIImage imageNamed:@"noImage.png"];
     }else{
         image = self.note.photo.image;
     }
