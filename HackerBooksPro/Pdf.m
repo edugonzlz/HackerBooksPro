@@ -30,7 +30,7 @@
         });
 
         // TODO: - si pdf es nil enviar una imagen por defecto????
-        return [NSData dataWithContentsOfFile:@""];
+        return nil;
     }
 
     return self.pdfData;

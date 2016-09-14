@@ -14,5 +14,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) AGTSimpleCoreDataStack *model;
 
+-(void)JSONSerialization:(NSData *)JSONData;
+
 @end
 

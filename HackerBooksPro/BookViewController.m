@@ -8,6 +8,7 @@
 
 #import "BookViewController.h"
 #import "PhotoCover.h"
+#import "PdfViewController.h"
 
 @interface BookViewController ()
 
@@ -67,6 +68,10 @@
 }
 
 - (IBAction)readPdf:(UIBarButtonItem *)sender {
+
+    PdfViewController *pdfVC = [[PdfViewController alloc]initWithModel:self.model];
+
+    [self.navigationController pushViewController:pdfVC animated:YES];
 }
 
 - (IBAction)readNotes:(UIBarButtonItem *)sender {
@@ -77,6 +82,7 @@
 
 -(void)syncModelWithView{
 
+    self.title = self.model.title;
     self.authorsLabel.text = self.model.author;
     self.tagsLabel.text = self.model.tagsString;
     self.coverImage.image = self.model.photoCover.image;

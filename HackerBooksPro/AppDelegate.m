@@ -28,7 +28,6 @@
 
     [self.model zapAllData];
 
-
 // MARK: - Download
     NSURL *JSONUrl = [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"];
 
