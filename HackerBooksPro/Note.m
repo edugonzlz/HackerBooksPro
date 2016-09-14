@@ -26,11 +26,11 @@
 // TODO: - Conseguir localizacion en segundo plano
     // enviar un bloque de finalizacion en el que se guardan las coordenadas en location
     // la vista del mapa debera observar por KVO el cambio
-    note.location = [Location locationWithNote:self
-                                      latitude:@""
-                                     longitude:@""
+    note.location = [Location locationWithNote:note
+                                      latitude:@"lat"
+                                     longitude:@"long"
                                      inContext:context];
-    note.photo = [PhotoNote photoNoteWithNote:self
+    note.photo = [PhotoNote photoNoteWithNote:note
                                     inContext:context];
 
     return note;
@@ -64,7 +64,7 @@
 
 // MARK: - Lifecycle
 -(void)awakeFromInsert{
-    [self awakeFromInsert];
+    [super awakeFromInsert];
     [self setupKVO];
 }
 -(void)awakeFromFetch{

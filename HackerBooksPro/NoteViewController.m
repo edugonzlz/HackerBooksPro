@@ -17,7 +17,7 @@
 
 -(id)initWithModel:(Note *)model{
 
-    if (self == [super initWithNibName:nil bundle:nil]) {
+    if (self = [super initWithNibName:nil bundle:nil]) {
 
         _model = model;
     }

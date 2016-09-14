@@ -8,6 +8,7 @@
 
 #import "PdfViewController.h"
 #import "Pdf.h"
+#import "NoteViewController.h"
 
 @interface PdfViewController ()
 
@@ -18,7 +19,7 @@
 
 -(id)initWithModel:(Book *)model{
 
-    if (self == [super initWithNibName:nil bundle:nil]) {
+    if (self = [super initWithNibName:nil bundle:nil]) {
         _model = model;
     }
     return self;
@@ -28,8 +29,19 @@
     [super viewWillAppear:animated];
 
     [self syncModelWithView];
+
+    UIBarButtonItem *addNote = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                            target:self
+                                                                            action:@selector(addNote:)];
+    self.navigationItem.rightBarButtonItem = addNote;
 }
 
+-(void)addNote:(id)sender{
+
+    NoteViewController *nVC = [[NoteViewController alloc]initNewNoteForBook:self.model];
+
+    [self.navigationController pushViewController:nVC animated:true];
+}
 -(void)webViewDidStartLoad:(UIWebView *)webView{
 
     self.activityIndicator.hidden = NO;
