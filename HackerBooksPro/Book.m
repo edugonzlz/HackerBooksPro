@@ -13,13 +13,10 @@
 
 -(NSString *)tagsString{
 
-// TODO: - NO funciona!! Es posible que todavia no se hayan creado las entidades Tag
-    NSString *allTags;
+    NSString *allTags = @"";
     for (Tag *tag in self.tags) {
-        allTags = [[allTags stringByAppendingString:@", "]stringByAppendingString:tag.name];
-        NSLog(@"tagn: %@", tag.name);
+        allTags = [[allTags stringByAppendingString:tag.name]stringByAppendingString:@", "];
     }
-    NSLog(@"tags:%@", allTags);
     return allTags;
 }
 -(void)setTagsString:(NSString *)tags{
@@ -41,7 +38,7 @@
     book.title = title;
     book.author = author;
 
-    NSMutableSet<Tag *> *myTags = nil;
+    NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
     for (NSString *tag in tags) {
         Tag *new = [Tag tagWithName:tag inContext:context];
         [myTags addObject:new];

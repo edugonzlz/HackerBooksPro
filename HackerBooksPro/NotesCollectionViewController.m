@@ -44,7 +44,6 @@ static NSString *cellId = @"noteCell";
         self.book  = book;
     }
     return self;
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -58,8 +57,6 @@ static NSString *cellId = @"noteCell";
                                                                             target:self
                                                                             action:@selector(addNote:)];
     self.navigationItem.rightBarButtonItem = addNote;
-
-
 }
 
 -(void)addNote:(id)sender{
