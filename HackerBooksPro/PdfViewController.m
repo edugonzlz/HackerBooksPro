@@ -9,6 +9,7 @@
 #import "PdfViewController.h"
 #import "Pdf.h"
 #import "NoteViewController.h"
+#import "Book.h"
 
 @interface PdfViewController ()
 

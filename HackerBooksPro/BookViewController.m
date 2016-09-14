@@ -9,6 +9,7 @@
 #import "BookViewController.h"
 #import "PhotoCover.h"
 #import "PdfViewController.h"
+#import "Book.h"
 
 @interface BookViewController ()
 

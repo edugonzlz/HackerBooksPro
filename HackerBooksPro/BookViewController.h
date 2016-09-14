@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
+@class Book;
 
 @interface BookViewController : UIViewController
 

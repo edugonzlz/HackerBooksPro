@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
-#import "Note.h"
+@class Book;
+@class Note;
 
 @interface NoteViewController : UIViewController
 
