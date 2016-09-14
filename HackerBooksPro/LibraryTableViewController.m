@@ -9,6 +9,7 @@
 #import "LibraryTableViewController.h"
 #import "Book.h"
 #import "PhotoCover.h"
+#import "Tag.h"
 
 @implementation LibraryTableViewController
 
@@ -22,14 +23,20 @@
     //celda
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
                                      reuseIdentifier:cellId];
     }
 
     cell.textLabel.text = book.title;
     cell.imageView.image = book.photoCover.image;
-    
+    cell.detailTextLabel.text = book.tagsString;
+
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    
 }
 
 @end

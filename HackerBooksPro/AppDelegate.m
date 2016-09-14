@@ -78,7 +78,7 @@
 
     NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
                                                                          managedObjectContext:self.model.context
-                                                                           sectionNameKeyPath:@"tags.name"
+                                                                           sectionNameKeyPath:nil
                                                                                     cacheName:nil];
 
     LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
@@ -112,7 +112,7 @@
                 for (NSString *tagName in arrayOfTags) {
 
                     Tag *tag = [Tag tagWithName:tagName inContext:self.model.context];
-                    NSLog(@"%@: %@",tagName, tag.name);
+//                    NSLog(@"%@: %@",tagName, tag.name);
                 }
 //                NSLog(@"titulo: %@", book.title);
             }

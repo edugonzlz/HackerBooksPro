@@ -35,6 +35,8 @@
 		346A587D1D86EF0A00B0F579 /* iosStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58791D86EF0A00B0F579 /* iosStar@2x.png */; };
 		346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A587A1D86EF0A00B0F579 /* iosStar@3x.png */; };
 		346A58891D87FF5C00B0F579 /* LibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58881D87FF5C00B0F579 /* LibraryTableViewController.m */; };
+		346A58991D89509F00B0F579 /* BookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58971D89509F00B0F579 /* BookViewController.m */; };
+		346A589A1D89509F00B0F579 /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346A58981D89509F00B0F579 /* BookViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,9 @@
 		346A587A1D86EF0A00B0F579 /* iosStar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iosStar@3x.png"; sourceTree = "<group>"; };
 		346A58871D87FF5C00B0F579 /* LibraryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableViewController.h; sourceTree = "<group>"; };
 		346A58881D87FF5C00B0F579 /* LibraryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewController.m; sourceTree = "<group>"; };
+		346A58961D89509F00B0F579 /* BookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookViewController.h; sourceTree = "<group>"; };
+		346A58971D89509F00B0F579 /* BookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookViewController.m; sourceTree = "<group>"; };
+		346A58981D89509F00B0F579 /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +207,8 @@
 				341A49911D84515D0039F3CB /* Custom */,
 				346A58871D87FF5C00B0F579 /* LibraryTableViewController.h */,
 				346A58881D87FF5C00B0F579 /* LibraryTableViewController.m */,
+				346A58961D89509F00B0F579 /* BookViewController.h */,
+				346A58971D89509F00B0F579 /* BookViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -233,6 +240,7 @@
 		341A49901D844FCC0039F3CB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				346A58981D89509F00B0F579 /* BookViewController.xib */,
 				341A49241D844D2A0039F3CB /* Assets.xcassets */,
 			);
 			name = Views;
@@ -404,6 +412,7 @@
 				346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */,
 				346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */,
 				346A587C1D86EF0A00B0F579 /* iosStar.png in Resources */,
+				346A589A1D89509F00B0F579 /* BookViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +442,7 @@
 				341A4A0E1D8490520039F3CB /* _Note.m in Sources */,
 				341A4A161D8490520039F3CB /* PhotoCover.m in Sources */,
 				341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */,
+				346A58991D89509F00B0F579 /* BookViewController.m in Sources */,
 				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
 				341A4A151D8490520039F3CB /* Pdf.m in Sources */,

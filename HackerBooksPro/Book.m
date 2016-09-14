@@ -11,6 +11,22 @@
 
 @implementation Book
 
+-(NSString *)tagsString{
+
+// TODO: - NO funciona!! Es posible que todavia no se hayan creado las entidades Tag
+    NSString *allTags;
+    for (Tag *tag in self.tags) {
+        allTags = [[allTags stringByAppendingString:@", "]stringByAppendingString:tag.name];
+        NSLog(@"tagn: %@", tag.name);
+    }
+    NSLog(@"tags:%@", allTags);
+    return allTags;
+}
+-(void)setTagsString:(NSString *)tags{
+
+    self.tagsString = tags;
+}
+
 +(instancetype)bookWithTitle:(NSString *)title
                       author:(NSString *)author
                         tags:(NSArray *)tags
@@ -43,8 +59,8 @@
 -(instancetype)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
 
     NSString *tags = [dict objectForKey:@"tags"];
-    NSArray *arrayOfTags = [tags componentsSeparatedByString:@" ,"];
-
+    NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
+    
     return [Book bookWithTitle:[dict objectForKey:@"title"]
                         author:[dict objectForKey:@"authors"]
                           tags:arrayOfTags

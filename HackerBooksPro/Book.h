@@ -2,6 +2,8 @@
 
 @interface Book : _Book
 
+@property (nonatomic, strong) NSString *tagsString;
+
 +(instancetype)bookWithTitle:(NSString *)title
                       author:(NSString *)author
                         tags:(NSArray *)tags
