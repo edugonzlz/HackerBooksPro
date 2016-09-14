@@ -19,6 +19,34 @@ static NSString *cellId = @"noteCell";
 
 @implementation NotesCollectionViewController
 
+-(id)initWithBook:(Book *)book{
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
+
+    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", book];
+
+    NSFetchedResultsController *frC = [[NSFetchedResultsController alloc]initWithFetchRequest:req
+                                                                         managedObjectContext:book.managedObjectContext
+                                                                           sectionNameKeyPath:nil
+                                                                                    cacheName:nil];
+
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.minimumLineSpacing = 10;
+    layout.minimumInteritemSpacing = 10;
+    layout.itemSize = CGSizeMake(140, 150);
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+
+    if (self = [super initWithFetchedResultsController:frC
+                                                layout:layout]) {
+        self.fetchedResultsController = frC;
+        self.book  = book;
+    }
+    return self;
+
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 

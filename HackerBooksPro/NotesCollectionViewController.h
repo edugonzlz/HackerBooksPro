@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) Book *book;
 
+-(id)initWithBook:(Book *)book;
+
 @end
