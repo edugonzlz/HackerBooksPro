@@ -22,6 +22,6 @@
 - (IBAction)readNotes:(UIBarButtonItem *)sender;
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender;
 
--(void)initWithModel:(Book *)model;
+-(id)initWithModel:(Book *)model;
 
 @end

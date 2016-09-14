@@ -74,7 +74,7 @@
                                 <constraint firstAttribute="height" constant="44" id="62z-UP-S0e"/>
                             </constraints>
                             <items>
-                                <barButtonItem title="Fav" id="tBC-Ip-59D">
+                                <barButtonItem image="fav" id="tBC-Ip-59D">
                                     <connections>
                                         <action selector="switchFav:" destination="-1" id="30h-BR-vnV"/>
                                     </connections>
@@ -123,4 +123,7 @@
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="fav" width="21" height="28"/>
+    </resources>
 </document>

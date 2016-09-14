@@ -39,9 +39,7 @@
 
     Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    BookViewController *bVC = [[BookViewController alloc]init];
-
-    bVC.model = book;
+    BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
 
     [self.navigationController pushViewController:bVC animated:true];
 

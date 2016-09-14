@@ -16,21 +16,19 @@
 @implementation BookViewController
 
 
--(void)initWithModel:(Book *)model{
-
+-(id)initWithModel:(Book *)model{
 
     if (self == [super initWithNibName:nil bundle:nil]) {
 
         self.model = model;
     };
+    return self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
-    self.authorsLabel.text = self.model.author;
-    self.tagsLabel.text = self.model.tagsString;
-    self.coverImage.image = self.model.photoCover.image;
+    [self syncModelWithView];
 
 }
 - (void)viewDidLoad {
@@ -54,6 +52,18 @@
 */
 
 - (IBAction)switchFav:(UIBarButtonItem *)sender {
+
+// TODO: - esperando respuesta de fernando
+
+    BOOL fav = [self.model.isFavorite boolValue];
+    if (!fav) {
+        self.model.isFavorite = [NSNumber numberWithBool:YES];
+
+    } else if (fav){
+        self.model.isFavorite = [NSNumber numberWithBool:NO];
+    }
+
+    [self syncModelWithView];
 }
 
 - (IBAction)readPdf:(UIBarButtonItem *)sender {
@@ -63,5 +73,22 @@
 }
 
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender {
+}
+
+-(void)syncModelWithView{
+
+    self.authorsLabel.text = self.model.author;
+    self.tagsLabel.text = self.model.tagsString;
+    self.coverImage.image = self.model.photoCover.image;
+
+    // Favorito
+    BOOL fav = [self.model.isFavorite boolValue];
+    if (fav) {
+        self.favButton.tintColor = [UIColor orangeColor];
+
+    } else if (!fav){
+        self.favButton.tintColor = [UIColor grayColor];
+
+    }
 }
 @end
