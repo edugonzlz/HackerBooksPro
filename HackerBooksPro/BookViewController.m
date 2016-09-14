@@ -83,6 +83,10 @@
 
     NotesCollectionViewController *notesVC = [NotesCollectionViewController coreDataCollectionViewControllerWithFetchedResultsController:frC
                                                                                                                                   layout:layout];
+    // Informamos de que book somos
+
+    notesVC.book = self.model;
+    
     [self.navigationController pushViewController:notesVC animated:true];
 }
 

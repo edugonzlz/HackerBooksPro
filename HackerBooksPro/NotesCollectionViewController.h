@@ -7,7 +7,10 @@
 //
 
 #import "AGTCoreDataCollectionViewController.h"
+@class Book;
 
 @interface NotesCollectionViewController : AGTCoreDataCollectionViewController
+
+@property (nonatomic, strong) Book *book;
 
 @end

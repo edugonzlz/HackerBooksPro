@@ -20,7 +20,7 @@
 
 +(NSArray *)observableKeys{
 
-    return @[@"modificationDate", @"photo.imageData", @"text"];
+    return @[@"text", @"modificationDate", @"photo.imageData"];
 }
 -(void)observeNote:(Note *)note{
 
@@ -41,8 +41,8 @@
                        forKeyPath:key];
     }
 
+    // Reseteamos la celda para que la usen de nuevo
     self.note = nil;
-
     [self syncModelView];
 }
 
@@ -51,7 +51,9 @@
                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                       context:(void *)context{
 
+// TODO: - no me llega la notificacion
     [self syncModelView];
+    NSLog(@"NOTIFICATION!!!");
 }
 
 -(void)syncModelView{

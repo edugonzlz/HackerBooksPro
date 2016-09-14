@@ -43,6 +43,7 @@
 
     [self.navigationController pushViewController:nVC animated:true];
 }
+
 -(void)webViewDidStartLoad:(UIWebView *)webView{
 
     self.activityIndicator.hidden = NO;
