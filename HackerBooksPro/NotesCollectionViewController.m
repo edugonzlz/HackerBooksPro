@@ -56,6 +56,7 @@ static NSString *cellId = @"noteCell";
 
     UINib *nib = [UINib nibWithNibName:@"NoteViewCell"
                                 bundle:nil];
+    
     [self.collectionView registerNib:nib
           forCellWithReuseIdentifier:cellId];
 }

@@ -42,8 +42,6 @@
 
 - (IBAction)switchFav:(UIBarButtonItem *)sender {
 
-// TODO: - esperando respuesta de fernando
-
     BOOL fav = self.model.isFavoriteValue;
     if (!fav) {
         self.model.isFavorite = [NSNumber numberWithBool:YES];
@@ -66,10 +64,10 @@
 
     // req - orden - predicate -rcontroller -controller -push
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:YES]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
 
-//    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", [self.model]];
-    
+    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", self.model];
+
     NSFetchedResultsController *frC = [[NSFetchedResultsController alloc]initWithFetchRequest:req
                                                                          managedObjectContext:self.model.managedObjectContext
                                                                            sectionNameKeyPath:nil
