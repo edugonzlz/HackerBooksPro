@@ -38,7 +38,6 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
 
-// TODO: - parece que nunca llama a este metodo
     [self.activityIndicator stopAnimating];
     self.activityIndicator.hidden = YES;
 
@@ -50,6 +49,8 @@
     self.title = @"Loading PDF...";
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
+
+    self.browser.delegate = self;
 
     if(self.model.pdf.pdfData == nil){
 

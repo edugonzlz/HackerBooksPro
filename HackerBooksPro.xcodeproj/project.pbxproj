@@ -40,6 +40,8 @@
 		346A589F1D89811A00B0F579 /* DownloadData.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A589E1D89811A00B0F579 /* DownloadData.m */; };
 		346A58A31D8984EE00B0F579 /* PdfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58A11D8984EE00B0F579 /* PdfViewController.m */; };
 		346A58A41D8984EE00B0F579 /* PdfViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346A58A21D8984EE00B0F579 /* PdfViewController.xib */; };
+		346A58A81D89961A00B0F579 /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58A61D89961A00B0F579 /* NoteViewController.m */; };
+		346A58A91D89961A00B0F579 /* NoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346A58A71D89961A00B0F579 /* NoteViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,9 @@
 		346A58A01D8984EE00B0F579 /* PdfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfViewController.h; sourceTree = "<group>"; };
 		346A58A11D8984EE00B0F579 /* PdfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PdfViewController.m; sourceTree = "<group>"; };
 		346A58A21D8984EE00B0F579 /* PdfViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PdfViewController.xib; sourceTree = "<group>"; };
+		346A58A51D89961A00B0F579 /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
+		346A58A61D89961A00B0F579 /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
+		346A58A71D89961A00B0F579 /* NoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +226,8 @@
 				346A58971D89509F00B0F579 /* BookViewController.m */,
 				346A58A01D8984EE00B0F579 /* PdfViewController.h */,
 				346A58A11D8984EE00B0F579 /* PdfViewController.m */,
+				346A58A51D89961A00B0F579 /* NoteViewController.h */,
+				346A58A61D89961A00B0F579 /* NoteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -255,6 +262,7 @@
 				341A49241D844D2A0039F3CB /* Assets.xcassets */,
 				346A58981D89509F00B0F579 /* BookViewController.xib */,
 				346A58A21D8984EE00B0F579 /* PdfViewController.xib */,
+				346A58A71D89961A00B0F579 /* NoteViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -424,6 +432,7 @@
 				341A49251D844D2A0039F3CB /* Assets.xcassets in Resources */,
 				346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */,
 				346A58A41D8984EE00B0F579 /* PdfViewController.xib in Resources */,
+				346A58A91D89961A00B0F579 /* NoteViewController.xib in Resources */,
 				346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */,
 				346A587C1D86EF0A00B0F579 /* iosStar.png in Resources */,
 				346A589A1D89509F00B0F579 /* BookViewController.xib in Resources */,
@@ -459,6 +468,7 @@
 				346A58991D89509F00B0F579 /* BookViewController.m in Sources */,
 				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
+				346A58A81D89961A00B0F579 /* NoteViewController.m in Sources */,
 				341A4A151D8490520039F3CB /* Pdf.m in Sources */,
 				341A4A121D8490520039F3CB /* _Tag.m in Sources */,
 				341A4A0C1D8490520039F3CB /* _Book.m in Sources */,

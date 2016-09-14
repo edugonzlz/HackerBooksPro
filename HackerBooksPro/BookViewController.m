@@ -56,7 +56,7 @@
 
 // TODO: - esperando respuesta de fernando
 
-    BOOL fav = [self.model.isFavorite boolValue];
+    BOOL fav = self.model.isFavoriteValue;
     if (!fav) {
         self.model.isFavorite = [NSNumber numberWithBool:YES];
 
@@ -88,7 +88,7 @@
     self.coverImage.image = self.model.photoCover.image;
 
     // Favorito
-    BOOL fav = [self.model.isFavorite boolValue];
+    BOOL fav = self.model.isFavoriteValue;
     if (fav) {
         self.favButton.tintColor = [UIColor orangeColor];
 
