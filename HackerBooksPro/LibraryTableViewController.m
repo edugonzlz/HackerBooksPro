@@ -10,6 +10,7 @@
 #import "Book.h"
 #import "PhotoCover.h"
 #import "Tag.h"
+#import "BookViewController.h"
 
 @implementation LibraryTableViewController
 
@@ -36,7 +37,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    
+    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    BookViewController *bVC = [[BookViewController alloc]init];
+
+    bVC.model = book;
+
+    [self.navigationController pushViewController:bVC animated:true];
+
 }
 
 @end
