@@ -11,4 +11,8 @@
 
 @interface LibraryTableViewController : AGTCoreDataTableViewController
 
+@property (nonatomic, strong) NSManagedObjectContext *context;
+
+-(id)initWithContext:(NSManagedObjectContext *)context;
+
 @end

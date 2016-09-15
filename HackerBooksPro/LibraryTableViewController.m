@@ -14,9 +14,28 @@
 
 @implementation LibraryTableViewController
 
+-(id)initWithContext:(NSManagedObjectContext *)context{
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+
+    NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+                                                                         managedObjectContext:context
+                                                                           sectionNameKeyPath:@"tagsString"
+                                                                                    cacheName:nil];
+
+    if (self = [super initWithFetchedResultsController:fr
+                                                style:UITableViewStylePlain]) {
+        self.fetchedResultsController = fr;
+        self.context = context;
+    }
+
+    return self;
+
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
 
     NSString *cellId = @"bookCell";
     //book
@@ -51,8 +70,8 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    BookID *bookId = [book objectID];
-    [defaults setValue:bookId forKey:@"lastSelectedBook"];
+    NSURL *bookId = [book.objectID URIRepresentation];
+    [defaults setURL:bookId forKey:@"lastSelectedBook"];
 
     [defaults synchronize];
 }
@@ -60,20 +79,16 @@
 -(Book *)lastSelectedBook{
 
     // TODO: - que hacer cuando aun no se ha guardado ningun ultimo seleccionado
-    // estamos obteniendo bien el contexto y haciendo bien la busqueda?
     // En el caso de que usemos un splitView en un ipad, cargar el ultimo book en la vista de detalle
-    BookID *bookID = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
-//    if (!bookID) {
-//    }
+    NSURL *bookId = [[NSUserDefaults standardUserDefaults]URLForKey:@"lastSelectedBook"];
 
-        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
-        req.predicate = [NSPredicate predicateWithFormat:@"objectID == %@", bookID];
-        NSFetchedResultsController *results = [[NSFetchedResultsController alloc]initWithFetchRequest:req
-                                                                                 managedObjectContext:self.fetchedResultsController.managedObjectContext
-                                                                                   sectionNameKeyPath:nil
-                                                                                            cacheName:nil];
-        Book *book = (Book *)results;
-        return book;
+    NSManagedObjectID *id = [self.context.persistentStoreCoordinator managedObjectIDForURIRepresentation:bookId];
+
+    NSError *error;
+    Book *book = [self.context existingObjectWithID:id
+                                              error:&error];
+
+    return book;
 }
 
 @end

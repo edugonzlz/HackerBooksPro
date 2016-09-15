@@ -69,20 +69,21 @@
 
     }
 
-// TODO: - Esta responsabilidad la podemos pasar al book?
+// TODO: - Esta responsabilidad la podemos pasar a la library?
     // asi con la barra de busqueda o botones de orden cambiamos la tabla
 
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
-
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
-
-    NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
-                                                                         managedObjectContext:self.model.context
-                                                                           sectionNameKeyPath:@"tagsString"
-                                                                                    cacheName:nil];
-
-    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
-                                                                                                    style:UITableViewStylePlain];
+//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+//
+//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+//
+//    NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+//                                                                         managedObjectContext:self.model.context
+//                                                                           sectionNameKeyPath:@"tagsString"
+//                                                                                    cacheName:nil];
+//
+//    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
+//                                                                                                    style:UITableViewStylePlain];
+    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithContext:self.model.context];
 
     UINavigationController *navVC = [[UINavigationController alloc]initWithRootViewController:lVC];
 
