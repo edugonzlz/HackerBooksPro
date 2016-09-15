@@ -13,20 +13,22 @@
 
 -(NSString *)tagsString{
 
+// TODO: - corregir que no nos entreguen una coma al final
     NSString *allTags = @"";
     for (Tag *tag in self.tags) {
         allTags = [[allTags stringByAppendingString:tag.name]stringByAppendingString:@", "];
     }
+
     return allTags;
 }
--(void)setTagsString:(NSString *)tags{
-
-    self.tagsString = tags;
-}
-
+//-(void)setTagsString:(NSString *)tags{
+//
+//    self.tagsString = tags;
+//}
+// MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title
                       author:(NSString *)author
-                        tags:(NSArray *)tags
+                        tags:(NSString *)tags
                     coverURL:(NSString *)coverURL
                       pdfURL:(NSString *)pdfURL
                      inContext:(NSManagedObjectContext *)context{
@@ -34,38 +36,63 @@
     Book *book = [NSEntityDescription insertNewObjectForEntityForName:[Book entityName]
                                                inManagedObjectContext:context];
 
-
     book.title = title;
     book.author = author;
 
+    NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
     NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
-    for (NSString *tag in tags) {
+
+    for (NSString *tag in arrayOfTags) {
         Tag *new = [Tag tagWithName:tag inContext:context];
         [myTags addObject:new];
     }
     book.tags = myTags;
+//    book.tagsString = tags;
 
     book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
     book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
 
     return book;
 }
+// TODO: - debo de usar este inicializaodr?
+// yo creo que no porque debemos crear una entidad de book, que lo hace el de clase
+// MARK: - inicializador designado
+-(instancetype)initWithTitle:(NSString *)title
+                      author:(NSString *)author
+                        tags:(NSString *)tags
+                    coverURL:(NSString *)coverURL
+                      pdfURL:(NSString *)pdfURL
+                   inContext:(NSManagedObjectContext *)context{
+    if (self = [super init]) {
+        self.title = title;
+        self.author = author;
 
-// TODO: - implementar un inicializador con un diccionario
-// el diccionario nos lo pasaran despues de serializar el JSON descargado en diccionarios
+        NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
+        NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
+
+        for (NSString *tag in arrayOfTags) {
+            Tag *new = [Tag tagWithName:tag inContext:context];
+            [myTags addObject:new];
+        }
+        self.tags = myTags;
+        self.tagsString = tags;
+
+        self.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
+        self.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
+
+    }
+    return self;
+}
+
+// MARK: - inicializador de conveniencia
 -(instancetype)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
-
-    NSString *tags = [dict objectForKey:@"tags"];
-    NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
     
     return [Book bookWithTitle:[dict objectForKey:@"title"]
                         author:[dict objectForKey:@"authors"]
-                          tags:arrayOfTags
+                          tags:[dict objectForKey:@"tags"]
                       coverURL:[dict objectForKey:@"image_url"]
                         pdfURL:[dict objectForKey:@"pdf_url"]
                        inContext:context];
-
-
 }
 
 @end

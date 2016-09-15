@@ -69,7 +69,8 @@
 
     }
 
-    // request - Orden - Predicate - Controller - rootView
+// TODO: - Esta responsabilidad la podemos pasar al book?
+    // asi con la barra de busqueda o botones de orden cambiamos la tabla
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
 
@@ -77,7 +78,7 @@
 
     NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
                                                                          managedObjectContext:self.model.context
-                                                                           sectionNameKeyPath:nil
+                                                                           sectionNameKeyPath:@"tagsString"
                                                                                     cacheName:nil];
 
     LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
@@ -106,14 +107,14 @@
             for (NSDictionary *dict in JSONObjects) {
                 Book *book = [[Book alloc]initWithDict:dict inContext:self.model.context];
 
+            // TODO: - es necesario inicializar tags ahora?
                 NSString *tags = [dict objectForKey:@"tags"];
                 NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
+
                 for (NSString *tagName in arrayOfTags) {
 
                     Tag *tag = [Tag tagWithName:tagName inContext:self.model.context];
-//                    NSLog(@"%@: %@",tagName, tag.name);
                 }
-//                NSLog(@"titulo: %@", book.title);
             }
         }else{
             // Se ha producido un error al parsear el JSON

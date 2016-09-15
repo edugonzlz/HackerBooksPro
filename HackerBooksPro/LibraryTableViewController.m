@@ -42,8 +42,38 @@
 
     BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
 
-    [self.navigationController pushViewController:bVC animated:true];
+    [self saveLastBookSelected: book];
 
+    [self.navigationController pushViewController:bVC animated:true];
+}
+
+-(void)saveLastBookSelected:(Book *)book{
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    BookID *bookId = [book objectID];
+    [defaults setValue:bookId forKey:@"lastSelectedBook"];
+
+    [defaults synchronize];
+}
+
+-(Book *)lastSelectedBook{
+
+    // TODO: - que hacer cuando aun no se ha guardado ningun ultimo seleccionado
+    // estamos obteniendo bien el contexto y haciendo bien la busqueda?
+    // En el caso de que usemos un splitView en un ipad, cargar el ultimo book en la vista de detalle
+    BookID *bookID = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
+//    if (!bookID) {
+//    }
+
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+        req.predicate = [NSPredicate predicateWithFormat:@"objectID == %@", bookID];
+        NSFetchedResultsController *results = [[NSFetchedResultsController alloc]initWithFetchRequest:req
+                                                                                 managedObjectContext:self.fetchedResultsController.managedObjectContext
+                                                                                   sectionNameKeyPath:nil
+                                                                                            cacheName:nil];
+        Book *book = (Book *)results;
+        return book;
 }
 
 @end
