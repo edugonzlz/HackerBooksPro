@@ -38,25 +38,25 @@
 
 // MARK: - KVO
 -(void)setupKVO{
-    for (NSString *key in [[self class] observableKeyNames]) {
+    for (NSString *key in [Note observableKeyNames]) {
         [self addObserver:self
                forKeyPath:key
                   options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionOld
                   context:NULL];
     }
-
 }
 
 -(void)tearDownKVO{
     for (NSString *key in [Note observableKeyNames]) {
-        [self removeObserver:self forKeyPath:key];
+        [self removeObserver:self
+                  forKeyPath:key];
     }
 }
 
--(void)addObserver:(NSObject *)observer
-        forKeyPath:(NSString *)keyPath
-           options:(NSKeyValueObservingOptions)options
-           context:(void *)context{
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context{
 
     // Cuando nos informen del cambio de las propiedades indicadas cambiamos la fecha de modificacion
     self.modificationDate = [NSDate date];
@@ -66,15 +66,14 @@
 -(void)awakeFromInsert{
     [super awakeFromInsert];
     [self setupKVO];
-    NSLog(@"kkkk");
 }
-//-(void)awakeFromFetch{
-//    [super awakeFromFetch];
-//    [self setupKVO];
-//}
-//-(void)willTurnIntoFault{
-//    [super willTurnIntoFault];
-//    [self tearDownKVO];
-//}
+-(void)awakeFromFetch{
+    [super awakeFromFetch];
+    [self setupKVO];
+}
+-(void)willTurnIntoFault{
+    [super willTurnIntoFault];
+    [self tearDownKVO];
+}
 
 @end

@@ -44,16 +44,19 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
-    self.title = self.model.text;
-    self.textView.text = self.model.text;
-
     // Si es una nota nueva damos la posibilidad de cancelarla con un boton
     if (self.newNote){
+
+        self.title = @"New Note";
 
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                      target:self
                                                                                      action:@selector(cancelNote:)];
         self.navigationItem.rightBarButtonItem = cancelButton;
+
+    }else{
+        self.title = self.model.text;
+        self.textView.text = self.model.text;
     }
 }
 
