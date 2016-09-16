@@ -83,6 +83,7 @@
 //
 //    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
 //                                                                                                    style:UITableViewStylePlain];
+    
     LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithContext:self.model.context];
 
     UINavigationController *navVC = [[UINavigationController alloc]initWithRootViewController:lVC];

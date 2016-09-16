@@ -12,12 +12,15 @@
 
 @interface NoteViewController ()
 
+@property (nonatomic)BOOL newNote;
+@property (nonatomic)BOOL deleteNote;
+
 @end
 
 @implementation NoteViewController
 
 
--(id)initWithModel:(Note *)model{
+-(id)initWithModel:(id)model{
 
     if (self = [super initWithNibName:nil bundle:nil]) {
 
@@ -31,22 +34,41 @@
     Note *newNote = [Note noteWithBook:book
                              inContext:book.managedObjectContext];
 
+    // marcamos la propiedad newNote para añadir un boton de cancelar
+    _newNote = YES;
+
     return [self initWithModel:newNote];
 }
 
+// MARK: - Lifecycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
     self.title = self.model.text;
     self.textView.text = self.model.text;
+
+    // Si es una nota nueva damos la posibilidad de cancelarla con un boton
+    if (self.newNote){
+
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                     target:self
+                                                                                     action:@selector(cancelNote:)];
+        self.navigationItem.rightBarButtonItem = cancelButton;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 
-    self.model.text = self.textView.text;
+    if (self.deleteNote) {
+        [self.model.managedObjectContext deleteObject:self.model];
+
+    }else{
+        self.model.text = self.textView.text;
+    }
 }
 
+// MARK: - Actions
 - (IBAction)displayPhoto:(id)sender {
 }
 
@@ -54,8 +76,18 @@
 }
 
 - (IBAction)deleteNote:(id)sender {
+    self.deleteNote = YES;
+    [self.navigationController popViewControllerAnimated:true];
 }
 
 - (IBAction)addNewNote:(id)sender {
 }
+
+-(void)cancelNote:(id)sender{
+
+    // si cancelamos la nota, la marcamos para borrarla y volvemos a la pantalla anterior
+    self.deleteNote = YES;
+    [self.navigationController popViewControllerAnimated:true];
+}
+
 @end

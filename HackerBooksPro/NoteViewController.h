@@ -20,7 +20,7 @@
 - (IBAction)deleteNote:(id)sender;
 - (IBAction)addNewNote:(id)sender;
 
--(id)initWithModel:(Note *)model;
+-(id)initWithModel:(id)model;
 
 -(id)initNewNoteForBook:(Book *)book;
 

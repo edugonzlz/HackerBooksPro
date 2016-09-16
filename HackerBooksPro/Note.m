@@ -38,7 +38,7 @@
 
 // MARK: - KVO
 -(void)setupKVO{
-    for (NSString *key in [Note observableKeyNames]) {
+    for (NSString *key in [[self class] observableKeyNames]) {
         [self addObserver:self
                forKeyPath:key
                   options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionOld
@@ -66,14 +66,15 @@
 -(void)awakeFromInsert{
     [super awakeFromInsert];
     [self setupKVO];
+    NSLog(@"kkkk");
 }
--(void)awakeFromFetch{
-    [super awakeFromFetch];
-    [self setupKVO];
-}
--(void)willTurnIntoFault{
-    [super willTurnIntoFault];
-    [self tearDownKVO];
-}
+//-(void)awakeFromFetch{
+//    [super awakeFromFetch];
+//    [self setupKVO];
+//}
+//-(void)willTurnIntoFault{
+//    [super willTurnIntoFault];
+//    [self tearDownKVO];
+//}
 
 @end
