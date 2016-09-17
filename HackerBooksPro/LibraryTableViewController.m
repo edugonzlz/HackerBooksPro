@@ -29,6 +29,7 @@
                                                 style:UITableViewStylePlain]) {
         self.fetchedResultsController = fr;
         self.context = context;
+        self.title = @"Books";
     }
 
     return self;
@@ -79,8 +80,11 @@
 -(Book *)lastSelectedBook{
 
     // TODO: - que hacer cuando aun no se ha guardado ningun ultimo seleccionado
-    // En el caso de que usemos un splitView en un ipad, cargar el ultimo book en la vista de detalle
     NSURL *bookId = [[NSUserDefaults standardUserDefaults]URLForKey:@"lastSelectedBook"];
+
+    if (bookId == nil) {
+        bookId = [self setDefaultSelectedBook];
+    }
 
     NSManagedObjectID *id = [self.context.persistentStoreCoordinator managedObjectIDForURIRepresentation:bookId];
 
@@ -89,6 +93,27 @@
                                               error:&error];
 
     return book;
+}
+
+-(NSURL *)setDefaultSelectedBook{
+
+    // Guardamos el primer libro por defecto
+//    Book *book = [Book bookWithTitle:@""
+//                              author:@""
+//                                tags:@""
+//                            coverURL:@""
+//                              pdfURL:@""
+//                           inContext:self.context];
+
+//    [self saveLastBookSelected:book];
+// TODO: - no nos permite hacer esta busqueda
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self saveLastBookSelected:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+
+    // Recuperamos
+    NSURL *bookId = [[NSUserDefaults standardUserDefaults]URLForKey:@"lastSelectedBook"];
+
+    return bookId;
 }
 
 @end

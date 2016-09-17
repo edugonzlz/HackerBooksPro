@@ -9,8 +9,11 @@
 #import "AppDelegate.h"
 #import "AGTSimpleCoreDataStack.h"
 #import "Book.h"
-#import "LibraryTableViewController.h"
 #import "Tag.h"
+#import "LibraryTableViewController.h"
+#import "BookViewController.h"
+
+#define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 
 @interface AppDelegate ()
 
@@ -69,27 +72,16 @@
 
     }
 
-// TODO: - Esta responsabilidad la podemos pasar a la library?
-    // asi con la barra de busqueda o botones de orden cambiamos la tabla
+    // Dependiendo del dispositivo presentamos splitView o no
+    UIViewController *rootVC = nil;
+    if (!(IS_IPHONE)) {
+        rootVC = [self rootViewControllerForPadWithContext:self.model.context];
+    } else {
+        rootVC = [self rootViewControllerForPhoneWithContext:self.model.context];
+    }
 
-//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
-//
-//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
-//
-//    NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
-//                                                                         managedObjectContext:self.model.context
-//                                                                           sectionNameKeyPath:@"tagsString"
-//                                                                                    cacheName:nil];
-//
-//    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithFetchedResultsController:fr
-//                                                                                                    style:UITableViewStylePlain];
-    
-    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithContext:self.model.context];
+    self.window.rootViewController = rootVC;
 
-    UINavigationController *navVC = [[UINavigationController alloc]initWithRootViewController:lVC];
-
-    self.window.rootViewController = navVC;
-    
     [self.window makeKeyAndVisible];
 
     return YES;
@@ -107,7 +99,7 @@
         // Si todo va bien convertimos sacamos cada diccionario/book y lo inicializamos
         if (JSONObjects != nil) {
             for (NSDictionary *dict in JSONObjects) {
-                Book *book = [Book bookWithDict:dict inContext:self.model.context];
+                [Book bookWithDict:dict inContext:self.model.context];
 
             // TODO: - es necesario inicializar tags ahora?
                 NSString *tags = [dict objectForKey:@"tags"];
@@ -115,7 +107,7 @@
 
                 for (NSString *tagName in arrayOfTags) {
 
-                    Tag *tag = [Tag tagWithName:tagName inContext:self.model.context];
+                    [Tag tagWithName:tagName inContext:self.model.context];
                 }
             }
         }else{
@@ -126,6 +118,30 @@
         // Error al descargar los datos del servidor
         NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
     }
+}
+
+-(UIViewController *)rootViewControllerForPhoneWithContext:(NSManagedObjectContext *)context{
+
+    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithContext:context];
+
+    UINavigationController *libraryNav = [[UINavigationController alloc]initWithRootViewController:lVC];
+
+    return libraryNav;
+
+}
+-(UIViewController *)rootViewControllerForPadWithContext:(NSManagedObjectContext *)context{
+
+    LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithContext:context];
+    UINavigationController *libraryNav = [[UINavigationController alloc]initWithRootViewController:lVC];
+
+    Book *lastSelectedBook = [lVC lastSelectedBook];
+    BookViewController *bVC = [[BookViewController alloc]initWithModel:lastSelectedBook];
+    UINavigationController *bookNav = [[UINavigationController alloc]initWithRootViewController:bVC];
+
+    UISplitViewController *splitVC = [[UISplitViewController alloc]init];
+    splitVC.viewControllers = @[libraryNav, bookNav];
+
+    return splitVC;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

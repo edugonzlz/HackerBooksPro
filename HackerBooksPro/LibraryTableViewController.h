@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "AGTCoreDataTableViewController.h"
+@class Book;
 
 @interface LibraryTableViewController : AGTCoreDataTableViewController
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
 -(id)initWithContext:(NSManagedObjectContext *)context;
+
+-(Book *)lastSelectedBook;
 
 @end
