@@ -26,9 +26,15 @@
     return self;
 }
 
+// MARK: - lifecycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    // Notificacion cuando se selecciona book en SplitView
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(didSelectedBook:)
+                                                name:@"lastBookSelected"
+                                              object:nil];
     [self syncModelWithView];
 
     UIBarButtonItem *addNote = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -36,14 +42,13 @@
                                                                             action:@selector(addNote:)];
     self.navigationItem.rightBarButtonItem = addNote;
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
 
--(void)addNote:(id)sender{
-
-    NoteViewController *nVC = [[NoteViewController alloc]initNewNoteForBook:self.model];
-
-    [self.navigationController pushViewController:nVC animated:true];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+// MARK: - WebViewDelegate
 -(void)webViewDidStartLoad:(UIWebView *)webView{
 
     self.activityIndicator.hidden = NO;
@@ -58,6 +63,7 @@
     self.title = @"";
 }
 
+// MARK: - Utils
 -(void)syncModelWithView{
 
     self.title = @"Loading PDF...";
@@ -91,6 +97,19 @@
                   MIMEType:@"application/pdf"
           textEncodingName:@"utf-8"
                    baseURL:[NSURL URLWithString:self.model.pdf.pdfURL]];
+}
+-(void)addNote:(id)sender{
+
+    NoteViewController *nVC = [[NoteViewController alloc]initNewNoteForBook:self.model];
+
+    [self.navigationController pushViewController:nVC animated:true];
+}
+
+-(void)didSelectedBook:(NSNotification *)notification{
+
+    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
+    self.model = book;
+    [self syncModelWithView];
 }
 
 @end

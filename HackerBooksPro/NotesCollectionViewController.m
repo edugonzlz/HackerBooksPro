@@ -19,6 +19,7 @@ static NSString *cellId = @"noteCell";
 
 @implementation NotesCollectionViewController
 
+// MARK: - Inits
 -(id)initWithBook:(Book *)book{
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
@@ -46,8 +47,15 @@ static NSString *cellId = @"noteCell";
     return self;
 }
 
+// MARK: - LifeCycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+
+    // Notificacion cuando se selecciona book en SplitView
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(didSelectedBook:)
+                                                name:@"lastBookSelected"
+                                              object:nil];
 
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
 
@@ -58,14 +66,14 @@ static NSString *cellId = @"noteCell";
                                                                             action:@selector(addNote:)];
     self.navigationItem.rightBarButtonItem = addNote;
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
 
--(void)addNote:(id)sender{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    NoteViewController *nVC = [[NoteViewController alloc]initNewNoteForBook:self.book];
-
-    [self.navigationController pushViewController:nVC animated:true];
 }
 
+// MARK: - DataSource
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
 
     Note *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -77,15 +85,7 @@ static NSString *cellId = @"noteCell";
     return cell;
 }
 
--(void)registerCell{
-
-    UINib *nib = [UINib nibWithNibName:@"NoteViewCell"
-                                bundle:nil];
-    
-    [self.collectionView registerNib:nib
-          forCellWithReuseIdentifier:cellId];
-}
-
+// MARK: - CollectionDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
     Note *note = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -95,4 +95,28 @@ static NSString *cellId = @"noteCell";
     [self.navigationController pushViewController:nVC animated:true];
 }
 
+// MARK: - Utils
+-(void)didSelectedBook:(NSNotification *)notification{
+
+    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
+    self.book = book;
+// TODO: - no recarga la tabla. Si creo una nota si corresponde al book seleccionado
+    [self.collectionView reloadData];
+}
+
+-(void)registerCell{
+
+    UINib *nib = [UINib nibWithNibName:@"NoteViewCell"
+                                bundle:nil];
+
+    [self.collectionView registerNib:nib
+          forCellWithReuseIdentifier:cellId];
+}
+
+-(void)addNote:(id)sender{
+
+    NoteViewController *nVC = [[NoteViewController alloc]initNewNoteForBook:self.book];
+
+    [self.navigationController pushViewController:nVC animated:true];
+}
 @end

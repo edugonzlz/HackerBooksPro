@@ -19,7 +19,7 @@
 
 @implementation BookViewController
 
-
+// MARK: - Inits
 -(id)initWithModel:(Book *)model{
 
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -29,19 +29,27 @@
     return self;
 }
 
+// MARK: - LifeCycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(didSelectedBook:)
+                                                name:@"lastBookSelected"
+                                              object:nil];
+
+
     [self syncModelWithView];
-
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+
+// TODO: - no voy a dar de baja para no implementar delegado
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+// MARK: - Actions
 - (IBAction)switchFav:(UIBarButtonItem *)sender {
 
     BOOL fav = self.model.isFavoriteValue;
@@ -72,6 +80,7 @@
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender {
 }
 
+// MARK: - Utils
 -(void)syncModelWithView{
 
     self.title = self.model.title;
@@ -88,5 +97,12 @@
         self.favButton.tintColor = [UIColor grayColor];
 
     }
+}
+
+-(void)didSelectedBook:(NSNotification *)notification{
+
+    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
+    self.model = book;
+    [self syncModelWithView];
 }
 @end

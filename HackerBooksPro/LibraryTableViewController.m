@@ -12,8 +12,11 @@
 #import "Tag.h"
 #import "BookViewController.h"
 
+#define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
+
 @implementation LibraryTableViewController
 
+// MARK: - Inits
 -(id)initWithContext:(NSManagedObjectContext *)context{
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
@@ -36,6 +39,7 @@
 
 }
 
+// MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     NSString *cellId = @"bookCell";
@@ -56,6 +60,7 @@
     return cell;
 }
 
+// MARK: - TableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -65,18 +70,30 @@
     [self saveLastBookSelected: book];
 
 
+    if (IS_IPHONE) {
 
-    [self.navigationController pushViewController:bVC animated:true];
+        [self.navigationController pushViewController:bVC animated:true];
+    } else {
+        
+        [self postNotificationForBook:book];
+    }
 }
 
--(void)notifications{
+// MARK: - Utils
+-(void)postNotificationForBook:(Book *)book{
 
-//    NSNotificationCenter 
+
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+
+    NSNotification *notif = [NSNotification notificationWithName:@"lastBookSelected"
+                                                          object:self
+                                                        userInfo:@{@"lastBookSelected": book}];
+    [nc postNotification:notif];
 }
+
 // MARK: - LastBookSelected
 -(void)saveLastBookSelected:(Book *)book{
 
-    NSLog(@"EELAST: %@", book.title);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     NSURL *bookUri = [book.objectID URIRepresentation];
@@ -100,7 +117,6 @@
     if (bookManaged.isFault) {
         Book *book = (Book *)bookManaged;
         // TODO: - el objeto esta vacio por alguna razon
-        NSLog(@"EEfault: %@", bookManaged.description);
         return book;
     } else {
         NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
