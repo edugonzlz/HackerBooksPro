@@ -29,7 +29,7 @@
                                 <constraint firstAttribute="height" constant="44" id="RmR-Oo-dC7"/>
                             </constraints>
                             <items>
-                                <barButtonItem systemItem="camera" id="nWw-Eg-YzS">
+                                <barButtonItem title="Photo" id="nWw-Eg-YzS">
                                     <connections>
                                         <action selector="displayPhoto:" destination="-1" id="gmA-D6-M4N"/>
                                     </connections>

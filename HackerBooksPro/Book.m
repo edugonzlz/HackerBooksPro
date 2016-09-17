@@ -54,10 +54,23 @@
 
     return book;
 }
+
++(instancetype)bookWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
+
+    Book *book = [Book bookWithTitle:[dict objectForKey:@"title"]
+                              author:[dict objectForKey:@"authors"]
+                                tags:[dict objectForKey:@"tags"]
+                            coverURL:[dict objectForKey:@"image_url"]
+                              pdfURL:[dict objectForKey:@"pdf_url"]
+                           inContext:context];
+
+    return book;
+}
+
 // TODO: - debo de usar este inicializaodr?
 // yo creo que no porque debemos crear una entidad de book, que lo hace el de clase
 // MARK: - inicializador designado
--(instancetype)initWithTitle:(NSString *)title
+-(id)initWithTitle:(NSString *)title
                       author:(NSString *)author
                         tags:(NSString *)tags
                     coverURL:(NSString *)coverURL
@@ -84,8 +97,9 @@
     return self;
 }
 
+
 // MARK: - inicializador de conveniencia
--(instancetype)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
+-(id)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
     
     return [Book bookWithTitle:[dict objectForKey:@"title"]
                         author:[dict objectForKey:@"authors"]

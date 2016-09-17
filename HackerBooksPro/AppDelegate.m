@@ -107,7 +107,7 @@
         // Si todo va bien convertimos sacamos cada diccionario/book y lo inicializamos
         if (JSONObjects != nil) {
             for (NSDictionary *dict in JSONObjects) {
-                Book *book = [[Book alloc]initWithDict:dict inContext:self.model.context];
+                Book *book = [Book bookWithDict:dict inContext:self.model.context];
 
             // TODO: - es necesario inicializar tags ahora?
                 NSString *tags = [dict objectForKey:@"tags"];
