@@ -51,9 +51,7 @@
                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                       context:(void *)context{
 
-// TODO: - no me llega la notificacion
     [self syncModelView];
-    NSLog(@"NOTIFICATION!!!");
 }
 
 -(void)syncModelView{

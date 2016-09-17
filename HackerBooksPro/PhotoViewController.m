@@ -99,6 +99,27 @@
 }
 
 - (IBAction)deletePhoto:(id)sender {
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                         message:@"Are You Sure"
+                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Photo"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+
+                                                   // TODO: - entrando y saliendo en la nota y borrando se cae la app. Creo que por problemas en el refresco de las notas
+                                                       [self.model.managedObjectContext deleteObject:self.model.photo];
+                                                       [self.navigationController popViewControllerAnimated:true];
+                                                   }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+
+                                                   }];
+    [alert addAction:delete];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:true completion:^{
+    }];
 }
 
 // MARK: - UIImagePickerControllerDelegate
