@@ -26,7 +26,7 @@
                                                                                     cacheName:nil];
 
     if (self = [super initWithFetchedResultsController:fr
-                                                style:UITableViewStylePlain]) {
+                                                 style:UITableViewStylePlain]) {
         self.fetchedResultsController = fr;
         self.context = context;
         self.title = @"Books";
@@ -64,56 +64,78 @@
 
     [self saveLastBookSelected: book];
 
+
+
     [self.navigationController pushViewController:bVC animated:true];
 }
 
+-(void)notifications{
+
+//    NSNotificationCenter 
+}
+// MARK: - LastBookSelected
 -(void)saveLastBookSelected:(Book *)book{
 
+    NSLog(@"EELAST: %@", book.title);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSURL *bookId = [book.objectID URIRepresentation];
-    [defaults setURL:bookId forKey:@"lastSelectedBook"];
+    NSURL *bookUri = [book.objectID URIRepresentation];
+    NSData *bookData = [NSKeyedArchiver archivedDataWithRootObject:bookUri];
+
+    [defaults setObject:bookData forKey:@"lastSelectedBook"];
 
     [defaults synchronize];
 }
 
 -(Book *)lastSelectedBook{
 
-    // TODO: - que hacer cuando aun no se ha guardado ningun ultimo seleccionado
-    NSURL *bookId = [[NSUserDefaults standardUserDefaults]URLForKey:@"lastSelectedBook"];
-
-    if (bookId == nil) {
-        bookId = [self setDefaultSelectedBook];
+    NSData *bookData = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
+    if (bookData == nil) {
+        bookData = [self setDefaultSelectedBook];
     }
+    NSURL *bookUri = [NSKeyedUnarchiver unarchiveObjectWithData:bookData];
+    NSManagedObjectID *id = [self.context.persistentStoreCoordinator managedObjectIDForURIRepresentation:bookUri];
 
-    NSManagedObjectID *id = [self.context.persistentStoreCoordinator managedObjectIDForURIRepresentation:bookId];
+    NSManagedObject *bookManaged = [self.context objectWithID:id];
+    if (bookManaged.isFault) {
+        Book *book = (Book *)bookManaged;
+        // TODO: - el objeto esta vacio por alguna razon
+        NSLog(@"EEfault: %@", bookManaged.description);
+        return book;
+    } else {
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+        req.predicate = [NSPredicate predicateWithFormat:@"SELF = %@", bookManaged];
 
-    NSError *error;
-    Book *book = [self.context existingObjectWithID:id
-                                              error:&error];
+        NSError *error;
+        NSArray *res = [self.context executeFetchRequest:req
+                                                   error:&error];
 
-    return book;
+        if (res == nil) {
+            return nil;
+        } else {
+            return [res lastObject];
+        }
+    }
 }
 
--(NSURL *)setDefaultSelectedBook{
+-(NSData *)setDefaultSelectedBook{
 
-    // Guardamos el primer libro por defecto
-//    Book *book = [Book bookWithTitle:@""
-//                              author:@""
-//                                tags:@""
-//                            coverURL:@""
-//                              pdfURL:@""
-//                           inContext:self.context];
-
-//    [self saveLastBookSelected:book];
-// TODO: - no nos permite hacer esta busqueda
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    [self saveLastBookSelected:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    // Guardamos el primer libro por defecto. Es posible que este vacio
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    // TODO: - no me permite hacer el fetched
+    //    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Book *book = [Book bookWithTitle:@"titulo"
+                              author:@"autor"
+                                tags:@"tags"
+                            coverURL:nil
+                              pdfURL:nil
+                           inContext:self.context];
+    [self saveLastBookSelected:book];
 
     // Recuperamos
-    NSURL *bookId = [[NSUserDefaults standardUserDefaults]URLForKey:@"lastSelectedBook"];
-
-    return bookId;
+    NSData *bookData = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
+    
+    return bookData;
 }
 
 @end

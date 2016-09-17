@@ -29,7 +29,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    [self.model zapAllData];
+//    [self.model zapAllData];
 
 // MARK: - Download
     NSURL *JSONUrl = [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"];
@@ -134,8 +134,7 @@
     LibraryTableViewController *lVC = [[LibraryTableViewController alloc]initWithContext:context];
     UINavigationController *libraryNav = [[UINavigationController alloc]initWithRootViewController:lVC];
 
-    Book *lastSelectedBook = [lVC lastSelectedBook];
-    BookViewController *bVC = [[BookViewController alloc]initWithModel:lastSelectedBook];
+    BookViewController *bVC = [[BookViewController alloc]initWithModel:[lVC lastSelectedBook]];
     UINavigationController *bookNav = [[UINavigationController alloc]initWithRootViewController:bVC];
 
     UISplitViewController *splitVC = [[UISplitViewController alloc]init];
