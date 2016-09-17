@@ -20,7 +20,7 @@
 
 @implementation NoteViewController
 
-
+// MARK: - Inits
 -(id)initWithModel:(id)model{
 
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -56,6 +56,7 @@
         self.navigationItem.rightBarButtonItem = cancelButton;
 
     }else{
+
         self.title = self.model.text;
         self.textView.text = self.model.text;
     }

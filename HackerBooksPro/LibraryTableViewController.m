@@ -31,6 +31,7 @@
     if (self = [super initWithFetchedResultsController:fr
                                                  style:UITableViewStylePlain]) {
         self.fetchedResultsController = fr;
+        NSLog(@"Fetch de Library: %lu", [[fr fetchedObjects]count]);
         self.context = context;
         self.title = @"Books";
     }
@@ -116,7 +117,7 @@
     NSManagedObject *bookManaged = [self.context objectWithID:id];
     if (bookManaged.isFault) {
         Book *book = (Book *)bookManaged;
-        // TODO: - el objeto esta vacio por alguna razon
+        // TODO: - recuperamos libro, pero lo suma al resto
         return book;
     } else {
         NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];

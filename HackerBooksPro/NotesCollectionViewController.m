@@ -22,6 +22,7 @@ static NSString *cellId = @"noteCell";
 // MARK: - Inits
 -(id)initWithBook:(Book *)book{
 
+// TODO: - o no me guarda las notas o no las recupera en la siguiente sesion
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
 

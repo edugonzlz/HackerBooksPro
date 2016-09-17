@@ -31,27 +31,25 @@
 
 //    [self.model zapAllData];
 
-// MARK: - Download
+    [self autoSaveData];
+
+    // MARK: - Download
     NSURL *JSONUrl = [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"];
 
-// TODO: - CARGAR EL MODELO EN OTRO LUGAR?? - QUIZA EN EL CONTROLADOR DE TABLA INICIAL
+    // TODO: - CARGAR EL MODELO EN OTRO LUGAR?? - QUIZA EN EL CONTROLADOR DE TABLA INICIAL
     // PUEDO DESCARGAR SEGUN SE CARGA LA VISTA,
     // PERO CUANDO INICIALIZO LOS BOOKS??
-    
+
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *lastUrl = [[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
 
-     __block NSData *data = nil;
+    __block NSData *data = nil;
 
     // Mirar si tenemos JSON en local
-    if ([fm fileExistsAtPath:fileUrl.path]) {
+    if (![fm fileExistsAtPath:fileUrl.path]) {
 
-        [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
-
-    }else{
         // Si no lo tenemos descargar JSON
-
         dispatch_queue_t download = dispatch_queue_create("json", 0);
 
         dispatch_async(download, ^{
@@ -66,7 +64,7 @@
             [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+
             });
         });
 
@@ -101,7 +99,7 @@
             for (NSDictionary *dict in JSONObjects) {
                 [Book bookWithDict:dict inContext:self.model.context];
 
-            // TODO: - es necesario inicializar tags ahora?
+                // TODO: - es necesario inicializar tags ahora?
                 NSString *tags = [dict objectForKey:@"tags"];
                 NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
 
@@ -118,6 +116,7 @@
         // Error al descargar los datos del servidor
         NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
     }
+    NSLog(@"JSONSerial finalizado con exito");
 }
 
 -(UIViewController *)rootViewControllerForPhoneWithContext:(NSManagedObjectContext *)context{
@@ -146,12 +145,16 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+
+    [self saveData];
 }
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+    [self saveData];
 }
 
 
@@ -167,6 +170,23 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+// MARK: - Utils
+-(void)saveData{
+
+    [self.model saveWithErrorBlock:^(NSError *error) {
+        
+        NSLog(@"Error guardando los datos en CoreData");
+    }];
+}
+-(void)autoSaveData{
+    
+    [self saveData];
+    [self performSelector:@selector(saveData)
+               withObject:nil
+               afterDelay:5];
+    
 }
 
 
