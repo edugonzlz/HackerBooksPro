@@ -25,6 +25,8 @@
 //
 //    self.tagsString = tags;
 //}
+
+
 // MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title
                       author:(NSString *)author
@@ -66,47 +68,4 @@
 
     return book;
 }
-
-// TODO: - debo de usar este inicializaodr?
-// yo creo que no porque debemos crear una entidad de book, que lo hace el de clase
-// MARK: - inicializador designado
--(id)initWithTitle:(NSString *)title
-                      author:(NSString *)author
-                        tags:(NSString *)tags
-                    coverURL:(NSString *)coverURL
-                      pdfURL:(NSString *)pdfURL
-                   inContext:(NSManagedObjectContext *)context{
-    if (self = [super init]) {
-        self.title = title;
-        self.author = author;
-
-        NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
-        NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
-
-        for (NSString *tag in arrayOfTags) {
-            Tag *new = [Tag tagWithName:tag inContext:context];
-            [myTags addObject:new];
-        }
-        self.tags = myTags;
-        self.tagsString = tags;
-
-        self.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
-        self.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
-
-    }
-    return self;
-}
-
-
-// MARK: - inicializador de conveniencia
--(id)initWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
-    
-    return [Book bookWithTitle:[dict objectForKey:@"title"]
-                        author:[dict objectForKey:@"authors"]
-                          tags:[dict objectForKey:@"tags"]
-                      coverURL:[dict objectForKey:@"image_url"]
-                        pdfURL:[dict objectForKey:@"pdf_url"]
-                       inContext:context];
-}
-
 @end
