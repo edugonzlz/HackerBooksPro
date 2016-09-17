@@ -9,6 +9,7 @@
 #import "NoteViewController.h"
 #import "Book.h"
 #import "Note.h"
+#import "PhotoViewController.h"
 
 @interface NoteViewController ()
 
@@ -73,6 +74,10 @@
 
 // MARK: - Actions
 - (IBAction)displayPhoto:(id)sender {
+
+    PhotoViewController *pVC = [[PhotoViewController alloc]initWithNote:self.model];
+
+    [self.navigationController pushViewController:pVC animated:true];
 }
 
 - (IBAction)displayMap:(id)sender {

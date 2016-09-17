@@ -45,6 +45,8 @@
 		346A58B01D89BF0900B0F579 /* NoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58AE1D89BF0900B0F579 /* NoteViewCell.m */; };
 		346A58B31D89C84500B0F579 /* NoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346A58B21D89C84500B0F579 /* NoteViewCell.xib */; };
 		346A58B51D89C86A00B0F579 /* noImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58B41D89C86A00B0F579 /* noImage.png */; };
+		347BBE061D8D4B42006D6C08 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347BBE041D8D4B42006D6C08 /* PhotoViewController.m */; };
+		347BBE071D8D4B42006D6C08 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +135,9 @@
 		346A58AE1D89BF0900B0F579 /* NoteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewCell.m; sourceTree = "<group>"; };
 		346A58B21D89C84500B0F579 /* NoteViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteViewCell.xib; sourceTree = "<group>"; };
 		346A58B41D89C86A00B0F579 /* noImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noImage.png; sourceTree = "<group>"; };
+		347BBE031D8D4B42006D6C08 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		347BBE041D8D4B42006D6C08 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +242,8 @@
 				346A58AE1D89BF0900B0F579 /* NoteViewCell.m */,
 				346A58A51D89961A00B0F579 /* NoteViewController.h */,
 				346A58A61D89961A00B0F579 /* NoteViewController.m */,
+				347BBE031D8D4B42006D6C08 /* PhotoViewController.h */,
+				347BBE041D8D4B42006D6C08 /* PhotoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -272,6 +279,7 @@
 				346A58981D89509F00B0F579 /* BookViewController.xib */,
 				346A58A21D8984EE00B0F579 /* PdfViewController.xib */,
 				346A58A71D89961A00B0F579 /* NoteViewController.xib */,
+				347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */,
 				346A58B21D89C84500B0F579 /* NoteViewCell.xib */,
 			);
 			name = Views;
@@ -443,6 +451,7 @@
 				341A49251D844D2A0039F3CB /* Assets.xcassets in Resources */,
 				346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */,
 				346A58A41D8984EE00B0F579 /* PdfViewController.xib in Resources */,
+				347BBE071D8D4B42006D6C08 /* PhotoViewController.xib in Resources */,
 				346A58B51D89C86A00B0F579 /* noImage.png in Resources */,
 				346A58A91D89961A00B0F579 /* NoteViewController.xib in Resources */,
 				346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */,
@@ -479,6 +488,7 @@
 				341A4A161D8490520039F3CB /* PhotoCover.m in Sources */,
 				341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */,
 				346A58991D89509F00B0F579 /* BookViewController.m in Sources */,
+				347BBE061D8D4B42006D6C08 /* PhotoViewController.m in Sources */,
 				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
 				346A58AC1D89BED800B0F579 /* NotesCollectionViewController.m in Sources */,
