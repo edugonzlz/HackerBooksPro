@@ -9,6 +9,7 @@
 #import "NoteViewController.h"
 #import "Book.h"
 #import "Note.h"
+#import "PhotoNote.h"
 #import "PhotoViewController.h"
 
 @interface NoteViewController ()
@@ -59,6 +60,10 @@
 
         self.title = self.model.text;
         self.textView.text = self.model.text;
+
+        UIBarButtonItem *share = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                              target:self action:@selector(shareNote:)];
+        self.navigationItem.rightBarButtonItem = share;
     }
 }
 
@@ -89,7 +94,29 @@
     [self.navigationController popViewControllerAnimated:true];
 }
 
+
 - (IBAction)addNewNote:(id)sender {
+}
+
+- (void)shareNote:(id)sender {
+
+    UIActivityViewController *aVC = [[UIActivityViewController alloc]initWithActivityItems:[self arrayOfItems]
+                                                                     applicationActivities:nil];
+
+    [self presentViewController:aVC animated:true completion:nil];
+}
+
+-(NSArray *)arrayOfItems{
+
+    NSMutableArray *items = [NSMutableArray array];
+    if (self.model.text) {
+        [items addObject:self.model.text];
+    }
+    if (self.model.photo.image) {
+        [items addObject:self.model.photo.image];
+    }
+
+    return items;
 }
 
 -(void)cancelNote:(id)sender{

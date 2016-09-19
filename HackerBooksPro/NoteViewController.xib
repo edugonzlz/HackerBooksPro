@@ -45,7 +45,7 @@
                                         <action selector="deleteNote:" destination="-1" id="F2L-6D-LnP"/>
                                     </connections>
                                 </barButtonItem>
-                                <barButtonItem style="plain" systemItem="flexibleSpace" id="oNe-ob-ElR"/>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="xAY-ed-hgx"/>
                                 <barButtonItem systemItem="add" id="ffu-Zu-PzQ">
                                     <connections>
                                         <action selector="addNewNote:" destination="-1" id="3Fo-IE-6Bg"/>

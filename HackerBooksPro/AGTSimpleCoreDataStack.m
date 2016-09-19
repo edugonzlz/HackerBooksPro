@@ -11,8 +11,8 @@
 
 @interface AGTSimpleCoreDataStack ()
 
-@property (strong, nonatomic, readonly) NSManagedObjectModel *model;
 @property (strong, nonatomic, readonly) NSPersistentStoreCoordinator *storeCoordinator;
+@property (strong, nonatomic, readonly) NSManagedObjectModel *model;
 @property (strong, nonatomic) NSURL *modelURL;
 @property (strong, nonatomic) NSURL *dbURL;
 
@@ -44,8 +44,11 @@
 {
     if (_storeCoordinator == nil) {
         _storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
-        
-        
+
+        // TODO: - añadir estas opciones al coordinator
+        // Cuando se encuentre el nuevo modelo hara una transicion automatica y hara un mapeado automatico al nuevo modelo
+//        NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
+
         NSError *err = nil;
         if (![_storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                              configuration:nil

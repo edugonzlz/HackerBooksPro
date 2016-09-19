@@ -9,6 +9,8 @@
 #import "PhotoViewController.h"
 #import "PhotoNote.h"
 
+#define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
+
 @interface PhotoViewController ()
 
 @end
@@ -43,6 +45,10 @@
 }
 
 - (IBAction)takePhoto:(id)sender {
+
+    // TODO: - Si estamos en un ipad tenemos que meter todo esto en un popover
+
+    if (IS_IPHONE) {
 
     // Presentar un alert con dos opciones
     // hacer foto UIImagePickerControllerSourceTypeCamera
@@ -95,6 +101,8 @@
 
     [self presentViewController:picker animated:true completion:^{
     }];
+
+    }
 
 }
 
