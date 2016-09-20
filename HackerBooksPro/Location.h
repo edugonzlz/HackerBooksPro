@@ -1,5 +1,4 @@
 #import "_Location.h"
-#import "Note.h"
 
 @interface Location : _Location
 

@@ -1,13 +1,12 @@
 #import "_PhotoNote.h"
-#import "Note.h"
 #import <UIKit/UIKit.h>
 
 @interface PhotoNote : _PhotoNote
 
 @property (nonatomic, strong) UIImage *image;
 
-+(instancetype)photoNoteWithNote:(Note *)note inContext:(NSManagedObjectContext *)context;
++(instancetype)photoNoteForNote:(Note *)note;
 
-+(instancetype)photoNoteWithNote:(Note *)note image:(UIImage *)image inContext:(NSManagedObjectContext *)context;
++(instancetype)photoNoteForNote:(Note *)note withImage:(UIImage *)image;
 
 @end

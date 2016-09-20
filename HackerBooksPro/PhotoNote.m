@@ -1,4 +1,5 @@
 #import "PhotoNote.h"
+#import "Note.h"
 
 @interface PhotoNote ()
 
@@ -17,22 +18,18 @@
     return [UIImage imageWithData:self.imageData];
 }
 
-+(instancetype)photoNoteWithNote:(Note *)note
-                       inContext:(NSManagedObjectContext *)context{
++(instancetype)photoNoteForNote:(Note *)note{
 
     PhotoNote *photo = [NSEntityDescription insertNewObjectForEntityForName:[PhotoNote entityName]
-                                                     inManagedObjectContext:context];
-    photo.notes = [NSSet setWithObject:note];
+                                                     inManagedObjectContext:note.managedObjectContext];
+    [photo addNotesObject:note];
 
     return photo;
 }
 
-+(instancetype)photoNoteWithNote:(Note *)note
-                           image:(UIImage *)image
-                       inContext:(NSManagedObjectContext *)context{
++(instancetype)photoNoteForNote:(Note *)note withImage:(UIImage *)image{
 
-    PhotoNote *photo = [PhotoNote photoNoteWithNote:note
-                                          inContext:context];
+    PhotoNote *photo = [PhotoNote photoNoteForNote:note];
 
     photo.imageData = UIImageJPEGRepresentation(image, 0.9);
 

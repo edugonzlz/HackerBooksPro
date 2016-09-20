@@ -1,5 +1,4 @@
 #import "_Note.h"
-#import "Book.h"
 
 @interface Note : _Note
 

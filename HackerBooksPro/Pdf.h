@@ -1,5 +1,4 @@
 #import "_Pdf.h"
-#import "Book.h"
 
 @interface Pdf : _Pdf
 

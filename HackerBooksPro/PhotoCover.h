@@ -1,5 +1,4 @@
 #import "_PhotoCover.h"
-#import "Book.h"
 #import <UIKit/UIKit.h>
 
 @interface PhotoCover : _PhotoCover
