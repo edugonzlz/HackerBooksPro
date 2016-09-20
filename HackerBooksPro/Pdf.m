@@ -34,13 +34,12 @@
     return self.pdfData;
 }
 
-+(instancetype)pdfWithURL:(NSString *)pdfURL forBook:(Book *)book{
++(instancetype)pdfWithURL:(NSString *)pdfURL inContext:(NSManagedObjectContext *)context{
 
     Pdf *pdf = [NSEntityDescription insertNewObjectForEntityForName:[Pdf entityName]
-                                             inManagedObjectContext:book.managedObjectContext];
+                                             inManagedObjectContext:context];
 
     pdf.pdfURL = pdfURL;
-    pdf.book = book;
     
     return pdf;
 }

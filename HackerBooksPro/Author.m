@@ -9,12 +9,10 @@
 
 @implementation Author
 
-+(instancetype)authorWithName:(NSString *)name forBook:(Book *)book{
++(instancetype)authorWithName:(NSString *)name inContext:(NSManagedObjectContext *)context{
 
     Author *author = [NSEntityDescription insertNewObjectForEntityForName:[Author entityName]
-                                                   inManagedObjectContext:book.managedObjectContext];
-
-    [author addBooksObject:book];
+                                                   inManagedObjectContext:context];
 
     return author;
 }

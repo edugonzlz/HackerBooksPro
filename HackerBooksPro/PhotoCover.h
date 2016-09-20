@@ -5,6 +5,6 @@
 
 @property (nonatomic, strong) UIImage *image;
 
-+(instancetype)photoCoverWithURL:(NSString *)photoCoverURL forBook:(Book *)book;
++(instancetype)photoCoverWithURL:(NSString *)photoCoverURL inContext:(NSManagedObjectContext *)context;
 
 @end

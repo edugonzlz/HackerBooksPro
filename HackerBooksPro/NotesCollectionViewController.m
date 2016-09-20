@@ -10,6 +10,7 @@
 #import "Note.h"
 #import "NoteViewCell.h"
 #import "NoteViewController.h"
+#import "Book.h"
 
 @interface NotesCollectionViewController ()
 
@@ -22,7 +23,6 @@ static NSString *cellId = @"noteCell";
 // MARK: - Inits
 -(id)initWithBook:(Book *)book{
 
-// TODO: - o no me guarda las notas o no las recupera en la siguiente sesion
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
 
@@ -101,7 +101,7 @@ static NSString *cellId = @"noteCell";
 
     Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
     self.book = book;
-// TODO: - no recarga la tabla. Si creo una nota si corresponde al book seleccionado
+
     [self.collectionView reloadData];
 }
 

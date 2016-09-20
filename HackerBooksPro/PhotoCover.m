@@ -37,14 +37,13 @@
     }
 }
 
-+(instancetype)photoCoverWithURL:(NSString *)photoCoverURL forBook:(Book *)book{
++(instancetype)photoCoverWithURL:(NSString *)photoCoverURL inContext:(NSManagedObjectContext *)context{
 
     PhotoCover *cover = [NSEntityDescription insertNewObjectForEntityForName:[PhotoCover entityName]
-                                                      inManagedObjectContext:book.managedObjectContext];
+                                                      inManagedObjectContext:context];
 
 
     cover.imageURL = photoCoverURL;
-    cover.book = book;
 
     return cover;
 }

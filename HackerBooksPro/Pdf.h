@@ -4,6 +4,6 @@
 
 @property (nonatomic, strong) NSData *pdf;
 
-+(instancetype)pdfWithURL:(NSString *)pdfURL forBook:(Book *)book;
++(instancetype)pdfWithURL:(NSString *)pdfURL inContext:(NSManagedObjectContext *)context;
 
 @end

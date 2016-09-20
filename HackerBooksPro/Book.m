@@ -13,16 +13,14 @@
 
 @implementation Book
 
--(NSString *)tagsString{
-
-    return self.tagsString;
-}
-
--(void)setTagsString:(NSString *)tags{
-
-    self.tagsString = tags;
-}
-
+//-(NSString *)tagsString{
+//
+//    NSMutableArray *allTags = [[NSMutableArray alloc]init];
+//    for (Tag *tag in self.bookTags) {
+//        [allTags addObject:tag.name];
+//    }
+//    return [[allTags valueForKey:@"description"] componentsJoinedByString:@", "];;
+//}
 
 // MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title
@@ -39,27 +37,61 @@
     book.title = title;
 
 
+// TODO: - comprobar si el autor esta creado ya
     for (NSString *name in authors) {
-        Author *author = [Author authorWithName:name forBook:book];
+        Author *author = [Author authorWithName:name inContext:context];
 
         [book addAuthorsObject:author];
     }
-// TODO: - bucle tag bookTag... que necesito para crear cada uno??
-//    for (NSString *name in tags) {
-//        BookTag *bookTag = [BookTag bookTagWithBook:book andTag:<#(Tag *)#>];
-//        Tag *tag = [Tag tagWithName:name andBookTag:<#(BookTag *)#>];
-//
-//        [book addBookTagsObject:bookTag];
-//    }
 
+    for (NSString *name in tags) {
 
-    [book addBookTags:[NSSet setWithArray:tags]];
+        //Buscamos un tag con ese nombre
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Tag entityName]];
+        req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
 
-    book.tagsString = [[tags valueForKey:@"description"] componentsJoinedByString:@", "];
+        NSError *error = nil;
+        NSArray *results = [context executeFetchRequest:req
+                                                  error:&error];
 
-    book.photoCover = [PhotoCover photoCoverWithURL:coverURL forBook:book];
+        if (results == nil) {
 
-    book.pdf = [Pdf pdfWithURL:pdfURL forBook:book];
+            NSLog(@"Error en la busqueda del Tag: %@", name);
+
+        }else{
+
+            NSManagedObject *object = [results lastObject];
+
+            //Si hay resultados pero no hay tag la creamos
+            if (object == nil) {
+
+                NSLog(@"Tag %@ no encontrada. La creamos", name);
+                Tag *tag = [Tag tagWithName:name inContext:context];
+                BookTag *bookTag = [BookTag bookTagWithBook:book andTag:tag];
+
+                // TODO: - es necesario esto?
+//                [book addBookTagsObject:bookTag];
+//                [tag addBookTagsObject:bookTag];
+
+            } else {
+
+                NSLog(@"La Tag %@ ya existe", name);
+
+                Tag *existingTag = (Tag *)object;
+                // El bookTag no existe, lo creamos
+                BookTag *bookTag = [BookTag bookTagWithBook:book andTag:existingTag];
+
+                // Relacionamos
+//                [book addBookTagsObject:bookTag];
+//                [existingTag addBookTagsObject:bookTag];
+            }
+        }
+        
+    }
+
+    book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
+
+    book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
 
     return book;
 }

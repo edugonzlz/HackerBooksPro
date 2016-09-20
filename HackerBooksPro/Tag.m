@@ -9,13 +9,12 @@
 
 @implementation Tag
 
-+(instancetype)tagWithName:(NSString *)name andBookTag:(BookTag *)bookTag{
++(instancetype)tagWithName:(NSString *)name inContext:(NSManagedObjectContext *)context{
 
     Tag *tag = [NSEntityDescription insertNewObjectForEntityForName:[Tag entityName]
-                                             inManagedObjectContext:bookTag.managedObjectContext];
+                                             inManagedObjectContext:context];
 
     tag.name = name;
-    [tag addBookTagsObject:bookTag];
     
     return tag;
 }

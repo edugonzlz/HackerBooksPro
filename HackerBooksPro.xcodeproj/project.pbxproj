@@ -35,6 +35,7 @@
 		341A89891D913CFB0025CA33 /* _BookTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89831D913CFB0025CA33 /* _BookTag.m */; };
 		341A898A1D913CFB0025CA33 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89851D913CFB0025CA33 /* Author.m */; };
 		341A898B1D913CFB0025CA33 /* BookTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89871D913CFB0025CA33 /* BookTag.m */; };
+		341A898E1D917AF60025CA33 /* AGTBaseManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A898D1D917AF60025CA33 /* AGTBaseManagedObject.m */; };
 		346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58771D86EF0A00B0F579 /* bookIcon.png */; };
 		346A587C1D86EF0A00B0F579 /* iosStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58781D86EF0A00B0F579 /* iosStar.png */; };
 		346A587D1D86EF0A00B0F579 /* iosStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58791D86EF0A00B0F579 /* iosStar@2x.png */; };
@@ -129,6 +130,8 @@
 		341A89851D913CFB0025CA33 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Author.m; sourceTree = "<group>"; };
 		341A89861D913CFB0025CA33 /* BookTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookTag.h; sourceTree = "<group>"; };
 		341A89871D913CFB0025CA33 /* BookTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookTag.m; sourceTree = "<group>"; };
+		341A898C1D917AF60025CA33 /* AGTBaseManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTBaseManagedObject.h; sourceTree = "<group>"; };
+		341A898D1D917AF60025CA33 /* AGTBaseManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTBaseManagedObject.m; sourceTree = "<group>"; };
 		346A58771D86EF0A00B0F579 /* bookIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookIcon.png; sourceTree = "<group>"; };
 		346A58781D86EF0A00B0F579 /* iosStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosStar.png; sourceTree = "<group>"; };
 		346A58791D86EF0A00B0F579 /* iosStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iosStar@2x.png"; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 		341A49921D8451650039F3CB /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				341A898C1D917AF60025CA33 /* AGTBaseManagedObject.h */,
+				341A898D1D917AF60025CA33 /* AGTBaseManagedObject.m */,
 				341A897D1D9139550025CA33 /* AGTCoreDataStack.h */,
 				341A897E1D9139550025CA33 /* AGTCoreDataStack.m */,
 				341A49881D844F5A0039F3CB /* AGTSimpleCoreDataStack.h */,
@@ -537,6 +542,7 @@
 				346A58891D87FF5C00B0F579 /* LibraryTableViewController.m in Sources */,
 				341A4A171D8490520039F3CB /* PhotoNote.m in Sources */,
 				341A89891D913CFB0025CA33 /* _BookTag.m in Sources */,
+				341A898E1D917AF60025CA33 /* AGTBaseManagedObject.m in Sources */,
 				341A491A1D844D2A0039F3CB /* main.m in Sources */,
 				346A58A31D8984EE00B0F579 /* PdfViewController.m in Sources */,
 			);

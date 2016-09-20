@@ -45,7 +45,7 @@
     if (_storeCoordinator == nil) {
         _storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
 
-        // TODO: - añadir estas opciones al coordinator
+        // TODO: - añadir estas opciones al coordinator para realizar migraciones
         // Cuando se encuentre el nuevo modelo hara una transicion automatica y hara un mapeado automatico al nuevo modelo
 //        NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
 

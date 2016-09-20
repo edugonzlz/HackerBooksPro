@@ -2,6 +2,6 @@
 
 @interface Author : _Author
 
-+(instancetype)authorWithName:(NSString *)name forBook:(Book *)book;
++(instancetype)authorWithName:(NSString *)name inContext:(NSManagedObjectContext *)context;
 
 @end

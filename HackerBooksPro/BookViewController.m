@@ -85,7 +85,7 @@
 
     self.title = self.model.title;
     self.authorsLabel.text = self.model.author;
-    self.tagsLabel.text = self.model.tagsString;
+//    self.tagsLabel.text = self.model.tagsString;
     self.coverImage.image = self.model.photoCover.image;
 
     // Favorito

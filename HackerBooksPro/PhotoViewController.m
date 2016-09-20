@@ -115,7 +115,6 @@
                                                      style:UIAlertActionStyleDestructive
                                                    handler:^(UIAlertAction * _Nonnull action) {
 
-                                                   // TODO: - entrando y saliendo en la nota y borrando se cae la app. Creo que por problemas en el refresco de las notas
                                                        [self.model.managedObjectContext deleteObject:self.model.photo];
                                                        [self.navigationController popViewControllerAnimated:true];
                                                    }];

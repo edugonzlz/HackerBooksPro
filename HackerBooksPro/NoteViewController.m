@@ -33,8 +33,7 @@
 }
 -(id)initNewNoteForBook:(Book *)book{
 
-    Note *newNote = [Note noteWithBook:book
-                             inContext:book.managedObjectContext];
+    Note *newNote = [Note noteForBook:book];
 
     // marcamos la propiedad newNote para añadir un boton de cancelar
     _newNote = YES;
@@ -91,8 +90,26 @@
 }
 
 - (IBAction)deleteNote:(id)sender {
-    self.deleteNote = YES;
-    [self.navigationController popViewControllerAnimated:true];
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:@"Are You Sure"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Note"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+
+                                                       self.deleteNote = YES;
+                                                       [self.navigationController popViewControllerAnimated:true];
+                                                   }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+
+                                                   }];
+    [alert addAction:delete];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:true completion:^{
+    }];
 }
 
 

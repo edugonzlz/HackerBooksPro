@@ -2,6 +2,6 @@
 
 @interface Tag : _Tag
 
-+(instancetype)tagWithName:(NSString *)name andBookTag:(BookTag *)bookTag;
++(instancetype)tagWithName:(NSString *)name inContext:(NSManagedObjectContext *)context;
 
 @end

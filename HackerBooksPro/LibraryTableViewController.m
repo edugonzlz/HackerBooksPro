@@ -25,15 +25,14 @@
 
     NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
                                                                          managedObjectContext:context
-                                                                           sectionNameKeyPath:@"tagsString"
+                                                                           sectionNameKeyPath:nil
                                                                                     cacheName:nil];
 
     if (self = [super initWithFetchedResultsController:fr
                                                  style:UITableViewStylePlain]) {
         self.fetchedResultsController = fr;
-        NSLog(@"Fetch de Library: %lu", [[fr fetchedObjects]count]);
         self.context = context;
-        self.title = @"Books";
+        self.title = @"HackerBooksPro";
     }
 
     return self;
@@ -56,7 +55,7 @@
 
     cell.textLabel.text = book.title;
     cell.imageView.image = book.photoCover.image;
-    cell.detailTextLabel.text = book.tagsString;
+//    cell.detailTextLabel.text = book.tagsString;
 
     return cell;
 }
@@ -75,7 +74,7 @@
 
         [self.navigationController pushViewController:bVC animated:true];
     } else {
-        
+
         [self postNotificationForBook:book];
     }
 }
@@ -117,7 +116,7 @@
     NSManagedObject *bookManaged = [self.context objectWithID:id];
     if (bookManaged.isFault) {
         Book *book = (Book *)bookManaged;
-        // TODO: - recuperamos libro, pero lo suma al resto
+
         return book;
     } else {
         NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
@@ -139,15 +138,10 @@
 
     // Guardamos el primer libro por defecto. Es posible que este vacio
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    // TODO: - no me permite hacer el fetched
-    //    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    Book *book = [Book bookWithTitle:@"titulo"
-                              author:@"autor"
-                                tags:@"tags"
-                            coverURL:nil
-                              pdfURL:nil
-                           inContext:self.context];
-    [self saveLastBookSelected:book];
+
+//    // TODO: - no me permite hacer el fetched
+//    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    [self saveLastBookSelected:book];
 
     // Recuperamos
     NSData *bookData = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
