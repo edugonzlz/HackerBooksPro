@@ -11,6 +11,7 @@
 #import "PhotoCover.h"
 #import "Tag.h"
 #import "BookViewController.h"
+#import "BookTableViewCell.h"
 
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 
@@ -41,6 +42,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+
+    [self registerCell];
     
 }
 // MARK: - DataSource
@@ -51,15 +54,18 @@
     Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     //celda
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
-                                     reuseIdentifier:cellId];
-    }
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
+//                                     reuseIdentifier:cellId];
+//    }
+//    cell.textLabel.text = book.title;
+//    cell.imageView.image = book.photoCover.image;
+//    //    cell.detailTextLabel.text = book.tagsString;
 
-    cell.textLabel.text = book.title;
-    cell.imageView.image = book.photoCover.image;
-//    cell.detailTextLabel.text = book.tagsString;
+    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
+                                                                   forIndexPath:indexPath];
+    [cell observeBook:book];
 
     return cell;
 }
@@ -81,6 +87,10 @@
 
         [self postNotificationForBook:book];
     }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    return [BookTableViewCell cellHeight];
 }
 
 // MARK: - Utils
@@ -151,6 +161,13 @@
     NSData *bookData = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
     
     return bookData;
+}
+
+-(void)registerCell{
+
+    UINib *nib = [UINib nibWithNibName:@"BookTableViewCell" bundle:nil];
+
+    [self.tableView registerNib:nib forCellReuseIdentifier:[BookTableViewCell cellId]];
 }
 
 @end
