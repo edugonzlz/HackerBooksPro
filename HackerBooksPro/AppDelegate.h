@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class AGTSimpleCoreDataStack;
+@class AGTCoreDataStack;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) AGTSimpleCoreDataStack *model;
+@property (nonatomic, strong) AGTCoreDataStack *model;
 
 -(void)JSONSerialization:(NSData *)JSONData;
 

@@ -30,6 +30,7 @@
 		341A4A151D8490520039F3CB /* Pdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A051D8490520039F3CB /* Pdf.m */; };
 		341A4A161D8490520039F3CB /* PhotoCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A071D8490520039F3CB /* PhotoCover.m */; };
 		341A4A171D8490520039F3CB /* PhotoNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A091D8490520039F3CB /* PhotoNote.m */; };
+		341A897F1D9139550025CA33 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A897E1D9139550025CA33 /* AGTCoreDataStack.m */; };
 		346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58771D86EF0A00B0F579 /* bookIcon.png */; };
 		346A587C1D86EF0A00B0F579 /* iosStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58781D86EF0A00B0F579 /* iosStar.png */; };
 		346A587D1D86EF0A00B0F579 /* iosStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58791D86EF0A00B0F579 /* iosStar@2x.png */; };
@@ -114,6 +115,8 @@
 		341A4A071D8490520039F3CB /* PhotoCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCover.m; sourceTree = "<group>"; };
 		341A4A081D8490520039F3CB /* PhotoNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoNote.h; sourceTree = "<group>"; };
 		341A4A091D8490520039F3CB /* PhotoNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoNote.m; sourceTree = "<group>"; };
+		341A897D1D9139550025CA33 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
+		341A897E1D9139550025CA33 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
 		346A58771D86EF0A00B0F579 /* bookIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookIcon.png; sourceTree = "<group>"; };
 		346A58781D86EF0A00B0F579 /* iosStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosStar.png; sourceTree = "<group>"; };
 		346A58791D86EF0A00B0F579 /* iosStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iosStar@2x.png"; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 		341A49921D8451650039F3CB /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				341A897D1D9139550025CA33 /* AGTCoreDataStack.h */,
+				341A897E1D9139550025CA33 /* AGTCoreDataStack.m */,
 				341A49881D844F5A0039F3CB /* AGTSimpleCoreDataStack.h */,
 				341A49891D844F5A0039F3CB /* AGTSimpleCoreDataStack.m */,
 			);
@@ -492,6 +497,7 @@
 				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
 				346A58AC1D89BED800B0F579 /* NotesCollectionViewController.m in Sources */,
+				341A897F1D9139550025CA33 /* AGTCoreDataStack.m in Sources */,
 				346A58A81D89961A00B0F579 /* NoteViewController.m in Sources */,
 				341A4A151D8490520039F3CB /* Pdf.m in Sources */,
 				341A4A121D8490520039F3CB /* _Tag.m in Sources */,

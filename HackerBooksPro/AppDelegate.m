@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AGTSimpleCoreDataStack.h"
+#import "AGTCoreDataStack.h"
 #import "Book.h"
 #import "Tag.h"
 #import "LibraryTableViewController.h"
@@ -25,7 +26,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-    self.model = [AGTSimpleCoreDataStack coreDataStackWithModelName:@"Model"];
+    self.model = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
