@@ -74,7 +74,9 @@
         [self.model.managedObjectContext deleteObject:self.model];
 
     }else{
-        self.model.text = self.textView.text;
+        if (self.model.text) {
+            self.model.text = self.textView.text;
+        }
     }
 }
 
@@ -124,6 +126,7 @@
     [self presentViewController:aVC animated:true completion:nil];
 }
 
+// Metodo para agregar elementos para compartir en redes y otros
 -(NSArray *)arrayOfItems{
 
     NSMutableArray *items = [NSMutableArray array];

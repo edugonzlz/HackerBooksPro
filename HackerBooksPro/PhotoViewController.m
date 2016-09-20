@@ -136,9 +136,8 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
 
     // extraemos la foto del diccionario
     self.model.photo.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self dismissViewControllerAnimated:true completion:^{
 
-    }];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end

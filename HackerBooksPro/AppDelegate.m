@@ -71,18 +71,19 @@
     } else {
 
         // SI esta en local
-        // Esta guardado en disco?
+
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
         if (![def boolForKey:SAVE_IN_COREDATA_COMPLETED]) {
 
+            NSLog(@"Parece que NO estan los datos en disco, Vamos a serializar de nuevo y guardar");
+            // NO esta en disco, pues Serializamos y guardamos
             [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
         } else {
-            
+
+            // SI esta en disco:
             NSLog(@"Los datos estan guardados en CoreData, no hacemos nada");
         }
     }
-
-
 
     // Dependiendo del dispositivo presentamos splitView o no
     UIViewController *rootVC = nil;
@@ -116,6 +117,7 @@
                 for (NSDictionary *dict in JSONObjects) {
 
                     [Book bookWithDict:dict inContext:self.model.context];
+
                 }
             }else{
                 // Se ha producido un error al parsear el JSON
@@ -126,15 +128,16 @@
             // Guardamos en el disco
             [self.model saveWithErrorBlock:^(NSError *error) {
 
-                NSLog(@"Error guardando en CoreData: %@", error.localizedDescription);
+                NSLog(@"Error guardando en CoreData despues de serializacion: %@", error.localizedDescription);
 
                 // Si hay un error es que no hemos conseguido guardar los datos
                 [def setBool:NO forKey:SAVE_IN_COREDATA_COMPLETED];
             }];
 
+            // TODO: - como puedo comprobar que todo ha ido bien para poner el BOOL a YES
             // Cuando finalizamos la carga de ultimo libro marcamos que se ha completado
-            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
-
+            //            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
+//
             NSLog(@"JSONSerial finalizado con exito");
 
         }else{
@@ -203,7 +206,7 @@
 
     [self.model saveWithErrorBlock:^(NSError *error) {
         
-        NSLog(@"Error guardando los datos en CoreData: %@", error.localizedDescription);
+        NSLog(@"Error guardando los datos en CoreData durante el autoSave: %@", error.localizedDescription);
     }];
 }
 -(void)autoSaveData{
