@@ -31,6 +31,10 @@
 		341A4A161D8490520039F3CB /* PhotoCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A071D8490520039F3CB /* PhotoCover.m */; };
 		341A4A171D8490520039F3CB /* PhotoNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A4A091D8490520039F3CB /* PhotoNote.m */; };
 		341A897F1D9139550025CA33 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A897E1D9139550025CA33 /* AGTCoreDataStack.m */; };
+		341A89881D913CFB0025CA33 /* _Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89811D913CFB0025CA33 /* _Author.m */; };
+		341A89891D913CFB0025CA33 /* _BookTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89831D913CFB0025CA33 /* _BookTag.m */; };
+		341A898A1D913CFB0025CA33 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89851D913CFB0025CA33 /* Author.m */; };
+		341A898B1D913CFB0025CA33 /* BookTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 341A89871D913CFB0025CA33 /* BookTag.m */; };
 		346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58771D86EF0A00B0F579 /* bookIcon.png */; };
 		346A587C1D86EF0A00B0F579 /* iosStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58781D86EF0A00B0F579 /* iosStar.png */; };
 		346A587D1D86EF0A00B0F579 /* iosStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58791D86EF0A00B0F579 /* iosStar@2x.png */; };
@@ -117,6 +121,14 @@
 		341A4A091D8490520039F3CB /* PhotoNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoNote.m; sourceTree = "<group>"; };
 		341A897D1D9139550025CA33 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
 		341A897E1D9139550025CA33 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
+		341A89801D913CFB0025CA33 /* _Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Author.h; sourceTree = "<group>"; };
+		341A89811D913CFB0025CA33 /* _Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Author.m; sourceTree = "<group>"; };
+		341A89821D913CFB0025CA33 /* _BookTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _BookTag.h; sourceTree = "<group>"; };
+		341A89831D913CFB0025CA33 /* _BookTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _BookTag.m; sourceTree = "<group>"; };
+		341A89841D913CFB0025CA33 /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Author.h; sourceTree = "<group>"; };
+		341A89851D913CFB0025CA33 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Author.m; sourceTree = "<group>"; };
+		341A89861D913CFB0025CA33 /* BookTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookTag.h; sourceTree = "<group>"; };
+		341A89871D913CFB0025CA33 /* BookTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookTag.m; sourceTree = "<group>"; };
 		346A58771D86EF0A00B0F579 /* bookIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookIcon.png; sourceTree = "<group>"; };
 		346A58781D86EF0A00B0F579 /* iosStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosStar.png; sourceTree = "<group>"; };
 		346A58791D86EF0A00B0F579 /* iosStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iosStar@2x.png"; sourceTree = "<group>"; };
@@ -259,10 +271,14 @@
 				341A4A181D8490570039F3CB /* moGenerator */,
 				341A49EE1D8490520039F3CB /* Book.h */,
 				341A49EF1D8490520039F3CB /* Book.m */,
+				341A89841D913CFB0025CA33 /* Author.h */,
+				341A89851D913CFB0025CA33 /* Author.m */,
 				341A4A041D8490520039F3CB /* Pdf.h */,
 				341A4A051D8490520039F3CB /* Pdf.m */,
 				341A4A061D8490520039F3CB /* PhotoCover.h */,
 				341A4A071D8490520039F3CB /* PhotoCover.m */,
+				341A89861D913CFB0025CA33 /* BookTag.h */,
+				341A89871D913CFB0025CA33 /* BookTag.m */,
 				341A49F01D8490520039F3CB /* Tag.h */,
 				341A49F11D8490520039F3CB /* Tag.m */,
 				341A4A021D8490520039F3CB /* Note.h */,
@@ -313,6 +329,10 @@
 		341A4A181D8490570039F3CB /* moGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				341A89801D913CFB0025CA33 /* _Author.h */,
+				341A89811D913CFB0025CA33 /* _Author.m */,
+				341A89821D913CFB0025CA33 /* _BookTag.h */,
+				341A89831D913CFB0025CA33 /* _BookTag.m */,
 				341A49F21D8490520039F3CB /* _Book.h */,
 				341A49F31D8490520039F3CB /* _Book.m */,
 				341A49F41D8490520039F3CB /* _Location.h */,
@@ -492,10 +512,13 @@
 				341A4A0E1D8490520039F3CB /* _Note.m in Sources */,
 				341A4A161D8490520039F3CB /* PhotoCover.m in Sources */,
 				341A498D1D844F6C0039F3CB /* AGTCoreDataTableViewController.m in Sources */,
+				341A898A1D913CFB0025CA33 /* Author.m in Sources */,
+				341A89881D913CFB0025CA33 /* _Author.m in Sources */,
 				346A58991D89509F00B0F579 /* BookViewController.m in Sources */,
 				347BBE061D8D4B42006D6C08 /* PhotoViewController.m in Sources */,
 				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
+				341A898B1D913CFB0025CA33 /* BookTag.m in Sources */,
 				346A58AC1D89BED800B0F579 /* NotesCollectionViewController.m in Sources */,
 				341A897F1D9139550025CA33 /* AGTCoreDataStack.m in Sources */,
 				346A58A81D89961A00B0F579 /* NoteViewController.m in Sources */,
@@ -513,6 +536,7 @@
 				346A58B01D89BF0900B0F579 /* NoteViewCell.m in Sources */,
 				346A58891D87FF5C00B0F579 /* LibraryTableViewController.m in Sources */,
 				341A4A171D8490520039F3CB /* PhotoNote.m in Sources */,
+				341A89891D913CFB0025CA33 /* _BookTag.m in Sources */,
 				341A491A1D844D2A0039F3CB /* main.m in Sources */,
 				346A58A31D8984EE00B0F579 /* PdfViewController.m in Sources */,
 			);

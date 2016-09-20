@@ -1,4 +1,5 @@
 #import "PhotoCover.h"
+#import "Book.h"
 
 @interface PhotoCover ()
 
@@ -36,21 +37,13 @@
     }
 }
 
-+(instancetype)photoCoverWithURL:(NSString *)photoCoverURL inContext:(NSManagedObjectContext *)context{
++(instancetype)photoCoverWithURL:(NSString *)photoCoverURL forBook:(Book *)book{
 
     PhotoCover *cover = [NSEntityDescription insertNewObjectForEntityForName:[PhotoCover entityName]
-                                                      inManagedObjectContext:context];
+                                                      inManagedObjectContext:book.managedObjectContext];
 
 
     cover.imageURL = photoCoverURL;
-
-    return cover;
-}
-
-+(instancetype)photoCoverWithURL:(NSString *)photoCoverURL forBook:(Book *)book inContext:(NSManagedObjectContext *)context{
-
-    PhotoCover *cover = [PhotoCover photoCoverWithURL:photoCoverURL
-                                            inContext:context];
     cover.book = book;
 
     return cover;
