@@ -1,5 +1,7 @@
 #import "_BookTag.h"
 
 @interface BookTag : _BookTag
-// Custom logic goes here.
+
++(instancetype)bookTagWithBook:(Book *)book andTag:(Tag *)tag;
+
 @end
