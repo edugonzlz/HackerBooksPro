@@ -33,6 +33,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(didSelectedBook:)
                                                 name:@"lastBookSelected"

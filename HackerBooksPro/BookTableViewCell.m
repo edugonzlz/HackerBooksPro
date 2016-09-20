@@ -34,9 +34,7 @@
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
 
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
     }
     return self;
 }
@@ -81,6 +79,8 @@
 }
 
 -(void)syncModelView{
+
+    self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
 
     self.titleLabel.text = self.book.title;
 //    self.subTitleLabel.text = self.book.authorsString; //// TODO: - crear self.book.authorsString
