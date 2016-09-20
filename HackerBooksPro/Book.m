@@ -13,14 +13,34 @@
 
 @implementation Book
 
-//-(NSString *)tagsString{
-//
-//    NSMutableArray *allTags = [[NSMutableArray alloc]init];
-//    for (Tag *tag in self.bookTags) {
-//        [allTags addObject:tag.name];
-//    }
-//    return [[allTags valueForKey:@"description"] componentsJoinedByString:@", "];;
-//}
+//     TODO: - como recuperar los nombres de los autores y tags en una cadena??
+
+@synthesize tagsString = _tagsString;
+@synthesize authorsString = _authorsString;
+
+-(NSString *)tagsString{
+
+    NSMutableArray *allTags = [[NSMutableArray alloc]init];
+    for (Tag *tag in self.bookTags) {
+        [allTags addObject:tag.name];
+    }
+    return [[allTags valueForKey:@"description"] componentsJoinedByString:@", "];;
+}
+
+-(NSString *)authorsString{
+
+    NSString *autores;
+    NSMutableArray *authors = [[NSMutableArray alloc]init];
+    if (self.authors == nil) {
+        autores  = @"...";
+    } else {
+        for (Author *author in self.authors) {
+            [authors addObject:author.name];
+        }
+    }
+    return [[authors valueForKey:@"description"] componentsJoinedByString:@", "];
+}
+
 
 // MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title

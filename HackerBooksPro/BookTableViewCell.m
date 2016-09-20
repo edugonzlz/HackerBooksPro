@@ -25,7 +25,7 @@
 
 +(NSArray *)observableKeys{
 
-    return @[@"photoCover.imageData"];
+    return @[@"photoCover.imageData", @"authors"];
 }
 
 +(CGFloat)cellHeight{
@@ -83,19 +83,8 @@
 -(void)syncModelView{
 
     self.titleLabel.text = self.book.title;
-//    NSMutableArray *authors = [[NSMutableArray alloc]init];
-//    for (Author *author in self.book.authors) {
-//        [authors addObject:author.name];
-//    }
-//    self.subTitleLabel.text = [[authors valueForKey:@"description"] componentsJoinedByString:@", "];;
-
-    UIImage *image;
-    if (self.book.photoCover.image == nil) {
-        image = [UIImage imageNamed:@"bookIcon.png"];
-    }else{
-        image = self.book.photoCover.image;
-    }
-    self.imageView.image = image;
+//    self.subTitleLabel.text = self.book.authorsString; //// TODO: - crear self.book.authorsString
+    self.imageView.image = self.book.photoCover.image;
 }
 
 @end
