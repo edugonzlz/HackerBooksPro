@@ -5,8 +5,8 @@
 @property (nonatomic, strong) NSString *tagsString;
 
 +(instancetype)bookWithTitle:(NSString *)title
-                      author:(NSString *)author
-                        tags:(NSString *)tags
+                      authors:(NSArray *)authors
+                        tags:(NSArray *)tags
                     coverURL:(NSString *)coverURL
                       pdfURL:(NSString *)pdfURL
                      inContext:(NSManagedObjectContext *)context;

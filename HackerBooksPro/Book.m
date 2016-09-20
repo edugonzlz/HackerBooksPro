@@ -29,8 +29,8 @@
 
 // MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title
-                      author:(NSString *)author
-                        tags:(NSString *)tags
+                      authors:(NSArray *)authors
+                        tags:(NSArray *)tags
                     coverURL:(NSString *)coverURL
                       pdfURL:(NSString *)pdfURL
                      inContext:(NSManagedObjectContext *)context{
@@ -38,28 +38,39 @@
     Book *book = [NSEntityDescription insertNewObjectForEntityForName:[Book entityName]
                                                inManagedObjectContext:context];
 
+
     book.title = title;
-    book.author = author;
 
-    NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
-    NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
 
-    for (NSString *tag in arrayOfTags) {
-        Tag *new = [Tag tagWithName:tag inContext:context];
-        [myTags addObject:new];
-    }
-    book.tags = myTags;
-//    book.tagsString = tags;
 
-    // TODO: - usar el inicializador con book? para photoCover y pdf
-    book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
-    book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
+
+
+
+
+
+    //    book.author = author;
+//
+//    NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
+//    NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
+//
+//    for (NSString *tag in arrayOfTags) {
+//        Tag *new = [Tag tagWithName:tag inContext:context];
+//        [myTags addObject:new];
+//    }
+//    book.tags = myTags;
+////    book.tagsString = tags;
+//
+//    // TODO: - usar el inicializador con book? para photoCover y pdf
+//    book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
+//    book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
 
     return book;
 }
 
 +(instancetype)bookWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
 
+// TODO: - pasar tags y authors a un array
+    
     Book *book = [Book bookWithTitle:[dict objectForKey:@"title"]
                               author:[dict objectForKey:@"authors"]
                                 tags:[dict objectForKey:@"tags"]

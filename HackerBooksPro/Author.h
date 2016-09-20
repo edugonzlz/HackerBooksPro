@@ -1,5 +1,7 @@
 #import "_Author.h"
 
 @interface Author : _Author
-// Custom logic goes here.
+
++(instancetype)authorWithName:(NSString *)name forBook:(Book *)book;
+
 @end
