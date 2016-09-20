@@ -251,6 +251,7 @@
 		341A498F1D844FBE0039F3CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				341A49961D8453250039F3CB /* Model.xcdatamodeld */,
 				341A49921D8451650039F3CB /* Custom */,
 				341A4A181D8490570039F3CB /* moGenerator */,
 				341A49EE1D8490520039F3CB /* Book.h */,
@@ -267,7 +268,6 @@
 				341A4A091D8490520039F3CB /* PhotoNote.m */,
 				341A4A001D8490520039F3CB /* Location.h */,
 				341A4A011D8490520039F3CB /* Location.m */,
-				341A49961D8453250039F3CB /* Model.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";

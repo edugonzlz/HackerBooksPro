@@ -51,6 +51,7 @@
     book.tags = myTags;
 //    book.tagsString = tags;
 
+    // TODO: - usar el inicializador con book? para photoCover y pdf
     book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
     book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
 

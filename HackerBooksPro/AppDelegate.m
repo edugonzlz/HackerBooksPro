@@ -99,7 +99,7 @@
             for (NSDictionary *dict in JSONObjects) {
                 [Book bookWithDict:dict inContext:self.model.context];
 
-                // TODO: - es necesario inicializar tags ahora?
+                // TODO: - mirar primero en la bd si lo tenemos
                 NSString *tags = [dict objectForKey:@"tags"];
                 NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
 
