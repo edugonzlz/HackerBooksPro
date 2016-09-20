@@ -31,7 +31,7 @@
 
     PhotoNote *photo = [PhotoNote photoNoteForNote:note];
 
-    photo.imageData = UIImageJPEGRepresentation(image, 0.9);
+    photo.imageData = UIImagePNGRepresentation(image);
 
     return photo;
 }

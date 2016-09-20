@@ -1,4 +1,5 @@
 #import "Location.h"
+#import "Note.h"
 
 @interface Location ()
 
@@ -8,19 +9,29 @@
 
 @implementation Location
 
-+(instancetype)locationWithNote:(Note *)note
-                       latitude:(NSString *)latitude
-                      longitude:(NSString *)longitude
-                      inContext:(NSManagedObjectContext *)context{
++(instancetype)locationForNote:(Note *)note
+                      latitude:(double)latitude
+                     longitude:(double)longitude{
 
-    Location *loc = [NSEntityDescription insertNewObjectForEntityForName:[Location entityName]
-                                                  inManagedObjectContext:context];
+    Location *loc = [Location locationForNote:note];
 
-    loc.note = note;
-    loc.latitude = latitude;
-    loc.longitude = longitude;
+    [loc addNotesObject:note];
+    loc.latitudeValue = latitude;
+    loc.longitudeValue = longitude;
+// TODO: - calcular direccion y asignar
 
     return loc;
 }
+
++(instancetype)locationForNote:(Note *)note{
+
+    Location *loc = [NSEntityDescription insertNewObjectForEntityForName:[Location entityName]
+                                                  inManagedObjectContext:note.managedObjectContext];
+
+    // TODO: - añadir longitud y latitud por defecto o nil si no existen
+    // Calcular aqui nuestra localizacion y asignar
+    return loc;
+}
+
 
 @end

@@ -2,9 +2,10 @@
 
 @interface Location : _Location
 
-+(instancetype)locationWithNote:(Note *)note
-                       latitude:(NSString *)latitude
-                      longitude:(NSString *)longitude
-                      inContext:(NSManagedObjectContext *)context;
++(instancetype)locationForNote:(Note *)note
+                       latitude:(double)latitude
+                      longitude:(double)longitude;
+
++(instancetype)locationForNote:(Note *)note;
 
 @end
