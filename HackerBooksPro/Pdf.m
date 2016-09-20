@@ -1,5 +1,6 @@
 #import "Pdf.h"
 #import <UIKit/UIKit.h>
+#import "Book.h"
 
 @interface Pdf ()
 
@@ -24,9 +25,6 @@
         dispatch_async(download, ^{
 
             self.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.pdfURL]];
-            // TODO: - que pasa cuando ha terminado de descargar?? notificamos??
-            // es mejor hacer la descarga desde el controlador de pdf?? y desde alli guardarlo en coreData??
-
         });
 
         // TODO: - si pdf es nil enviar una imagen por defecto????
@@ -36,20 +34,12 @@
     return self.pdfData;
 }
 
-+(instancetype)pdfWithURL:(NSString *)pdfURL inContext:(NSManagedObjectContext *)context{
++(instancetype)pdfWithURL:(NSString *)pdfURL forBook:(Book *)book{
 
     Pdf *pdf = [NSEntityDescription insertNewObjectForEntityForName:[Pdf entityName]
-                                             inManagedObjectContext:context];
+                                             inManagedObjectContext:book.managedObjectContext];
 
     pdf.pdfURL = pdfURL;
-
-    return pdf;
-}
-
-+(instancetype)pdfWithURL:(NSString *)pdfURL forBook:(Book *)book inContext:(NSManagedObjectContext *)context{
-
-    Pdf *pdf = [Pdf pdfWithURL:pdfURL
-                      inContext:context];
     pdf.book = book;
     
     return pdf;
