@@ -34,14 +34,14 @@
 
 @dynamic name;
 
-@dynamic books;
+@dynamic bookTags;
 
-- (NSMutableSet<Book*>*)booksSet {
-	[self willAccessValueForKey:@"books"];
+- (NSMutableSet<BookTag*>*)bookTagsSet {
+	[self willAccessValueForKey:@"bookTags"];
 
-	NSMutableSet<Book*> *result = (NSMutableSet<Book*>*)[self mutableSetValueForKey:@"books"];
+	NSMutableSet<BookTag*> *result = (NSMutableSet<BookTag*>*)[self mutableSetValueForKey:@"bookTags"];
 
-	[self didAccessValueForKey:@"books"];
+	[self didAccessValueForKey:@"bookTags"];
 	return result;
 }
 
@@ -54,8 +54,8 @@
 @end
 
 @implementation TagRelationships 
-+ (NSString *)books {
-	return @"books";
++ (NSString *)bookTags {
+	return @"bookTags";
 }
 @end
 

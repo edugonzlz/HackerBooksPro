@@ -112,6 +112,28 @@
 
 @dynamic title;
 
+@dynamic authors;
+
+- (NSMutableSet<Author*>*)authorsSet {
+	[self willAccessValueForKey:@"authors"];
+
+	NSMutableSet<Author*> *result = (NSMutableSet<Author*>*)[self mutableSetValueForKey:@"authors"];
+
+	[self didAccessValueForKey:@"authors"];
+	return result;
+}
+
+@dynamic bookTags;
+
+- (NSMutableSet<BookTag*>*)bookTagsSet {
+	[self willAccessValueForKey:@"bookTags"];
+
+	NSMutableSet<BookTag*> *result = (NSMutableSet<BookTag*>*)[self mutableSetValueForKey:@"bookTags"];
+
+	[self didAccessValueForKey:@"bookTags"];
+	return result;
+}
+
 @dynamic notes;
 
 - (NSMutableSet<Note*>*)notesSet {
@@ -126,17 +148,6 @@
 @dynamic pdf;
 
 @dynamic photoCover;
-
-@dynamic tags;
-
-- (NSMutableSet<Tag*>*)tagsSet {
-	[self willAccessValueForKey:@"tags"];
-
-	NSMutableSet<Tag*> *result = (NSMutableSet<Tag*>*)[self mutableSetValueForKey:@"tags"];
-
-	[self didAccessValueForKey:@"tags"];
-	return result;
-}
 
 @end
 
@@ -159,6 +170,12 @@
 @end
 
 @implementation BookRelationships 
++ (NSString *)authors {
+	return @"authors";
+}
++ (NSString *)bookTags {
+	return @"bookTags";
+}
 + (NSString *)notes {
 	return @"notes";
 }
@@ -167,9 +184,6 @@
 }
 + (NSString *)photoCover {
 	return @"photoCover";
-}
-+ (NSString *)tags {
-	return @"tags";
 }
 @end
 

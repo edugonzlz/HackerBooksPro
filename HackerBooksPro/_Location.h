@@ -22,34 +22,63 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) LocationID *objectID;
 
-@property (nonatomic, strong) NSString* latitude;
+@property (nonatomic, strong, nullable) NSString* adress;
 
-@property (nonatomic, strong) NSString* longitude;
+@property (nonatomic, strong) NSNumber* latitude;
 
-@property (nonatomic, strong) Note *note;
+@property (atomic) double latitudeValue;
+- (double)latitudeValue;
+- (void)setLatitudeValue:(double)value_;
+
+@property (nonatomic, strong) NSNumber* longitude;
+
+@property (atomic) double longitudeValue;
+- (double)longitudeValue;
+- (void)setLongitudeValue:(double)value_;
+
+@property (nonatomic, strong) NSSet<Note*> *notes;
+- (NSMutableSet<Note*>*)notesSet;
+
+@end
+
+@interface _Location (NotesCoreDataGeneratedAccessors)
+- (void)addNotes:(NSSet<Note*>*)value_;
+- (void)removeNotes:(NSSet<Note*>*)value_;
+- (void)addNotesObject:(Note*)value_;
+- (void)removeNotesObject:(Note*)value_;
 
 @end
 
 @interface _Location (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSString*)primitiveLatitude;
-- (void)setPrimitiveLatitude:(NSString*)value;
+- (NSString*)primitiveAdress;
+- (void)setPrimitiveAdress:(NSString*)value;
 
-- (NSString*)primitiveLongitude;
-- (void)setPrimitiveLongitude:(NSString*)value;
+- (NSNumber*)primitiveLatitude;
+- (void)setPrimitiveLatitude:(NSNumber*)value;
 
-- (Note*)primitiveNote;
-- (void)setPrimitiveNote:(Note*)value;
+- (double)primitiveLatitudeValue;
+- (void)setPrimitiveLatitudeValue:(double)value_;
+
+- (NSNumber*)primitiveLongitude;
+- (void)setPrimitiveLongitude:(NSNumber*)value;
+
+- (double)primitiveLongitudeValue;
+- (void)setPrimitiveLongitudeValue:(double)value_;
+
+- (NSMutableSet<Note*>*)primitiveNotes;
+- (void)setPrimitiveNotes:(NSMutableSet<Note*>*)value;
 
 @end
 
 @interface LocationAttributes: NSObject 
++ (NSString *)adress;
 + (NSString *)latitude;
 + (NSString *)longitude;
 @end
 
 @interface LocationRelationships: NSObject
-+ (NSString *)note;
++ (NSString *)notes;
 @end
 
 NS_ASSUME_NONNULL_END

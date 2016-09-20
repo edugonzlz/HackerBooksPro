@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Book;
+@class BookTag;
 
 @interface TagID : NSManagedObjectID {}
 @end
@@ -24,16 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString* name;
 
-@property (nonatomic, strong) NSSet<Book*> *books;
-- (NSMutableSet<Book*>*)booksSet;
+@property (nonatomic, strong, nullable) NSSet<BookTag*> *bookTags;
+- (nullable NSMutableSet<BookTag*>*)bookTagsSet;
 
 @end
 
-@interface _Tag (BooksCoreDataGeneratedAccessors)
-- (void)addBooks:(NSSet<Book*>*)value_;
-- (void)removeBooks:(NSSet<Book*>*)value_;
-- (void)addBooksObject:(Book*)value_;
-- (void)removeBooksObject:(Book*)value_;
+@interface _Tag (BookTagsCoreDataGeneratedAccessors)
+- (void)addBookTags:(NSSet<BookTag*>*)value_;
+- (void)removeBookTags:(NSSet<BookTag*>*)value_;
+- (void)addBookTagsObject:(BookTag*)value_;
+- (void)removeBookTagsObject:(BookTag*)value_;
 
 @end
 
@@ -42,8 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
 
-- (NSMutableSet<Book*>*)primitiveBooks;
-- (void)setPrimitiveBooks:(NSMutableSet<Book*>*)value;
+- (NSMutableSet<BookTag*>*)primitiveBookTags;
+- (void)setPrimitiveBookTags:(NSMutableSet<BookTag*>*)value;
 
 @end
 
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface TagRelationships: NSObject
-+ (NSString *)books;
++ (NSString *)bookTags;
 @end
 
 NS_ASSUME_NONNULL_END

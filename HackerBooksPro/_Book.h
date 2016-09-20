@@ -11,10 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Author;
+@class BookTag;
 @class Note;
 @class Pdf;
 @class PhotoCover;
-@class Tag;
 
 @interface BookID : NSManagedObjectID {}
 @end
@@ -47,6 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString* title;
 
+@property (nonatomic, strong) NSSet<Author*> *authors;
+- (NSMutableSet<Author*>*)authorsSet;
+
+@property (nonatomic, strong) NSSet<BookTag*> *bookTags;
+- (NSMutableSet<BookTag*>*)bookTagsSet;
+
 @property (nonatomic, strong, nullable) NSSet<Note*> *notes;
 - (nullable NSMutableSet<Note*>*)notesSet;
 
@@ -54,8 +61,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) PhotoCover *photoCover;
 
-@property (nonatomic, strong) NSSet<Tag*> *tags;
-- (NSMutableSet<Tag*>*)tagsSet;
+@end
+
+@interface _Book (AuthorsCoreDataGeneratedAccessors)
+- (void)addAuthors:(NSSet<Author*>*)value_;
+- (void)removeAuthors:(NSSet<Author*>*)value_;
+- (void)addAuthorsObject:(Author*)value_;
+- (void)removeAuthorsObject:(Author*)value_;
+
+@end
+
+@interface _Book (BookTagsCoreDataGeneratedAccessors)
+- (void)addBookTags:(NSSet<BookTag*>*)value_;
+- (void)removeBookTags:(NSSet<BookTag*>*)value_;
+- (void)addBookTagsObject:(BookTag*)value_;
+- (void)removeBookTagsObject:(BookTag*)value_;
 
 @end
 
@@ -64,14 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeNotes:(NSSet<Note*>*)value_;
 - (void)addNotesObject:(Note*)value_;
 - (void)removeNotesObject:(Note*)value_;
-
-@end
-
-@interface _Book (TagsCoreDataGeneratedAccessors)
-- (void)addTags:(NSSet<Tag*>*)value_;
-- (void)removeTags:(NSSet<Tag*>*)value_;
-- (void)addTagsObject:(Tag*)value_;
-- (void)removeTagsObject:(Tag*)value_;
 
 @end
 
@@ -101,6 +113,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
 
+- (NSMutableSet<Author*>*)primitiveAuthors;
+- (void)setPrimitiveAuthors:(NSMutableSet<Author*>*)value;
+
+- (NSMutableSet<BookTag*>*)primitiveBookTags;
+- (void)setPrimitiveBookTags:(NSMutableSet<BookTag*>*)value;
+
 - (NSMutableSet<Note*>*)primitiveNotes;
 - (void)setPrimitiveNotes:(NSMutableSet<Note*>*)value;
 
@@ -109,9 +127,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (PhotoCover*)primitivePhotoCover;
 - (void)setPrimitivePhotoCover:(PhotoCover*)value;
-
-- (NSMutableSet<Tag*>*)primitiveTags;
-- (void)setPrimitiveTags:(NSMutableSet<Tag*>*)value;
 
 @end
 
@@ -124,10 +139,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface BookRelationships: NSObject
++ (NSString *)authors;
++ (NSString *)bookTags;
 + (NSString *)notes;
 + (NSString *)pdf;
 + (NSString *)photoCover;
-+ (NSString *)tags;
 @end
 
 NS_ASSUME_NONNULL_END
