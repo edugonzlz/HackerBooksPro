@@ -1,4 +1,5 @@
 #import "Tag.h"
+#import "BookTag.h"
 
 @interface Tag ()
 
@@ -8,12 +9,13 @@
 
 @implementation Tag
 
-+(instancetype)tagWithName:(NSString *)name inContext:(NSManagedObjectContext *)context{
++(instancetype)tagWithName:(NSString *)name andBookTag:(BookTag *)bookTag{
 
     Tag *tag = [NSEntityDescription insertNewObjectForEntityForName:[Tag entityName]
-                                             inManagedObjectContext:context];
+                                             inManagedObjectContext:bookTag.managedObjectContext];
 
     tag.name = name;
+    [tag addBookTagsObject:bookTag];
     
     return tag;
 }

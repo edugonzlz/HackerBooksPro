@@ -2,7 +2,6 @@
 
 @interface Tag : _Tag
 
-// TODO: - crear inicializador para relacionar con books?
-+(instancetype)tagWithName:(NSString *)name inContext:(NSManagedObjectContext *)context;
++(instancetype)tagWithName:(NSString *)name andBookTag:(BookTag *)bookTag;
 
 @end
