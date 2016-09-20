@@ -3,6 +3,6 @@
 
 @interface Note : _Note
 
-+(instancetype)noteWithBook:(Book *)book inContext:(NSManagedObjectContext *)context;
++(instancetype)noteForBook:(Book *)book;
 
 @end

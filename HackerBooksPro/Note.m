@@ -1,6 +1,7 @@
 #import "Note.h"
 #import "PhotoNote.h"
 #import "Location.h"
+#import "Book.h"
 
 @interface Note ()
 
@@ -14,24 +15,18 @@
     return @[@"text", @"creationDate", @"photo.imageData"];
 }
 
-+(instancetype)noteWithBook:(Book *)book inContext:(NSManagedObjectContext *)context{
++(instancetype)noteForBook:(Book *)book{
 
     Note *note = [NSEntityDescription insertNewObjectForEntityForName:[Note entityName]
-                                               inManagedObjectContext:context];
+                                               inManagedObjectContext:book.managedObjectContext];
 
-// TODO: - sumar a la fecha [NSTimeZone systemTimeZone]
+    // TODO: - sumar a la fecha [NSTimeZone systemTimeZone]
     note.book = book;
     note.creationDate = [NSDate date];
     note.modificationDate = [NSDate date];
-// TODO: - Conseguir localizacion en segundo plano
-    // enviar un bloque de finalizacion en el que se guardan las coordenadas en location
-    // la vista del mapa debera observar por KVO el cambio
-    note.location = [Location locationWithNote:note
-                                      latitude:@"lat"
-                                     longitude:@"long"
-                                     inContext:context];
-    note.photo = [PhotoNote photoNoteWithNote:note
-                                    inContext:context];
+
+    // TODO: -
+    //location y photo
 
     return note;
 }
