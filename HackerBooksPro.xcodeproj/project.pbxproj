@@ -208,10 +208,10 @@
 			children = (
 				341A491B1D844D2A0039F3CB /* AppDelegate.h */,
 				341A491C1D844D2A0039F3CB /* AppDelegate.m */,
-				346A587F1D86EF1000B0F579 /* Resources */,
-				341A49901D844FCC0039F3CB /* Views */,
 				341A498E1D844FB20039F3CB /* Controllers */,
 				341A498F1D844FBE0039F3CB /* Models */,
+				341A49901D844FCC0039F3CB /* Views */,
+				346A587F1D86EF1000B0F579 /* Resources */,
 				341A49181D844D2A0039F3CB /* Supporting Files */,
 			);
 			path = HackerBooksPro;

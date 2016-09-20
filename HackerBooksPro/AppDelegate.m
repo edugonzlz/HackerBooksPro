@@ -15,6 +15,7 @@
 #import "BookViewController.h"
 
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
+#define SAVE_IN_COREDATA_COMPLETED @"Save in CoreData completed"
 
 @interface AppDelegate ()
 
@@ -30,7 +31,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    [self.model zapAllData];
+//    [self.model zapAllData];
 
     [self autoSaveData];
 
@@ -41,29 +42,47 @@
     NSURL *lastUrl = [[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
 
+    __block NSData *data = nil;
+
     // Mirar si tenemos JSON en local
     if (![fm fileExistsAtPath:fileUrl.path]) {
 
-        // Si no lo tenemos descargar JSON
+        // NO esta en local -  descargamos JSON
         dispatch_queue_t download = dispatch_queue_create("json", 0);
 
         dispatch_async(download, ^{
 
             NSLog(@"Descargando JSON");
-            NSData *data = [NSData dataWithContentsOfURL:JSONUrl];
+            data = [NSData dataWithContentsOfURL:JSONUrl];
 
             // Guardamos en la ruta
             [data writeToFile:fileUrl.path atomically:YES];
-
             NSLog(@"JSON guardado en: %@", fileUrl);
-            [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
+
 
             dispatch_async(dispatch_get_main_queue(), ^{
 
+                // TODO: - lo paso a primer plano, pero el metodo se ejecuta en un contexto de background, esta bien??
+                // Serializamos y guardamos en disco
+                [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
             });
         });
 
+    } else {
+
+        // SI esta en local
+        // Esta guardado en disco?
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        if (![def boolForKey:SAVE_IN_COREDATA_COMPLETED]) {
+
+            [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
+        } else {
+            
+            NSLog(@"Los datos estan guardados en CoreData, no hacemos nada");
+        }
     }
+
+
 
     // Dependiendo del dispositivo presentamos splitView o no
     UIViewController *rootVC = nil;
@@ -82,28 +101,48 @@
 
 -(void)JSONSerialization:(NSData *)JSONData{
 
-    NSError *error;
-    if (JSONData != nil) {
-        // Si todo esta bien serializamos
-        NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:JSONData
-                                                               options:kNilOptions
-                                                                 error:&error];
+    [self.model performBackgroundTask:^(NSManagedObjectContext *worker) {
+        NSError *error;
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 
-        // Si todo va bien convertimos sacamos cada diccionario/book y lo inicializamos
-        if (JSONObjects != nil) {
-            for (NSDictionary *dict in JSONObjects) {
+        if (JSONData != nil) {
+            // Si todo esta bien serializamos
+            NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:JSONData
+                                                                   options:kNilOptions
+                                                                     error:&error];
 
-                [Book bookWithDict:dict inContext:self.model.context];
+            // Si todo va bien convertimos sacamos cada diccionario/book y lo inicializamos
+            if (JSONObjects != nil) {
+                for (NSDictionary *dict in JSONObjects) {
+
+                    [Book bookWithDict:dict inContext:self.model.context];
+                }
+            }else{
+                // Se ha producido un error al parsear el JSON
+                NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
             }
+
+
+            // Guardamos en el disco
+            [self.model saveWithErrorBlock:^(NSError *error) {
+
+                NSLog(@"Error guardando en CoreData: %@", error.localizedDescription);
+
+                // Si hay un error es que no hemos conseguido guardar los datos
+                [def setBool:NO forKey:SAVE_IN_COREDATA_COMPLETED];
+            }];
+
+            // Cuando finalizamos la carga de ultimo libro marcamos que se ha completado
+            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
+
+            NSLog(@"JSONSerial finalizado con exito");
+
         }else{
-            // Se ha producido un error al parsear el JSON
-            NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
+            // Error al descargar los datos del servidor
+            NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
         }
-    }else{
-        // Error al descargar los datos del servidor
-        NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
-    }
-    NSLog(@"JSONSerial finalizado con exito");
+    }];
+
 }
 
 -(UIViewController *)rootViewControllerForPhoneWithContext:(NSManagedObjectContext *)context{

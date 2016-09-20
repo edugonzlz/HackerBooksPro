@@ -70,8 +70,8 @@
                 BookTag *bookTag = [BookTag bookTagWithBook:book andTag:tag];
 
                 // TODO: - es necesario esto?
-//                [book addBookTagsObject:bookTag];
-//                [tag addBookTagsObject:bookTag];
+                [book addBookTagsObject:bookTag];
+                [tag addBookTagsObject:bookTag];
 
             } else {
 
@@ -82,8 +82,8 @@
                 BookTag *bookTag = [BookTag bookTagWithBook:book andTag:existingTag];
 
                 // Relacionamos
-//                [book addBookTagsObject:bookTag];
-//                [existingTag addBookTagsObject:bookTag];
+                [book addBookTagsObject:bookTag];
+                [existingTag addBookTagsObject:bookTag];
             }
         }
         

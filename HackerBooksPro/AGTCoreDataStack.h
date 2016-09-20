@@ -35,5 +35,6 @@
 -(NSArray *) executeFetchRequest:(NSFetchRequest *)req
                       errorBlock:(void(^)(NSError *error)) errorBlock;
 
+-(void) performBackgroundTask:(void(^)(NSManagedObjectContext *worker))task;
 
 @end
