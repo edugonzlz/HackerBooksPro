@@ -2,6 +2,8 @@
 #import "PhotoCover.h"
 #import "Pdf.h"
 #import "Tag.h"
+#import "Author.h"
+#import "BookTag.h"
 
 @interface Book ()
 
@@ -13,18 +15,13 @@
 
 -(NSString *)tagsString{
 
-// TODO: - corregir que no nos entreguen una coma al final
-    NSString *allTags = @"";
-    for (Tag *tag in self.tags) {
-        allTags = [[allTags stringByAppendingString:tag.name]stringByAppendingString:@", "];
-    }
-
-    return allTags;
+    return self.tagsString;
 }
-//-(void)setTagsString:(NSString *)tags{
-//
-//    self.tagsString = tags;
-//}
+
+-(void)setTagsString:(NSString *)tags{
+
+    self.tagsString = tags;
+}
 
 
 // MARK: - inicializador de clase
@@ -42,38 +39,39 @@
     book.title = title;
 
 
+    for (NSString *name in authors) {
+        Author *author = [Author authorWithName:name forBook:book];
 
-
-
-
-
-
-    //    book.author = author;
+        [book addAuthorsObject:author];
+    }
+// TODO: - bucle tag bookTag... que necesito para crear cada uno??
+//    for (NSString *name in tags) {
+//        BookTag *bookTag = [BookTag bookTagWithBook:book andTag:<#(Tag *)#>];
+//        Tag *tag = [Tag tagWithName:name andBookTag:<#(BookTag *)#>];
 //
-//    NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
-//    NSMutableSet<Tag *> *myTags = [[NSMutableSet alloc]init];
-//
-//    for (NSString *tag in arrayOfTags) {
-//        Tag *new = [Tag tagWithName:tag inContext:context];
-//        [myTags addObject:new];
+//        [book addBookTagsObject:bookTag];
 //    }
-//    book.tags = myTags;
-////    book.tagsString = tags;
-//
-//    // TODO: - usar el inicializador con book? para photoCover y pdf
-//    book.photoCover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
-//    book.pdf = [Pdf pdfWithURL:pdfURL inContext:context];
+
+
+    [book addBookTags:[NSSet setWithArray:tags]];
+
+    book.tagsString = [[tags valueForKey:@"description"] componentsJoinedByString:@", "];
+
+    book.photoCover = [PhotoCover photoCoverWithURL:coverURL forBook:book];
+
+    book.pdf = [Pdf pdfWithURL:pdfURL forBook:book];
 
     return book;
 }
 
 +(instancetype)bookWithDict:(NSDictionary *)dict inContext:(NSManagedObjectContext *)context{
 
-// TODO: - pasar tags y authors a un array
+    NSArray *tagsArray = [[dict objectForKey:@"tags"] componentsSeparatedByString:@", "];
+    NSArray *authorsArray = [[dict objectForKey:@"authors"] componentsSeparatedByString:@", "];
     
     Book *book = [Book bookWithTitle:[dict objectForKey:@"title"]
-                              author:[dict objectForKey:@"authors"]
-                                tags:[dict objectForKey:@"tags"]
+                              authors:authorsArray
+                                tags:tagsArray
                             coverURL:[dict objectForKey:@"image_url"]
                               pdfURL:[dict objectForKey:@"pdf_url"]
                            inContext:context];

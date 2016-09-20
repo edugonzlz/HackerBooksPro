@@ -101,12 +101,12 @@
                 [Book bookWithDict:dict inContext:self.model.context];
 
                 // TODO: - mirar primero en la bd si lo tenemos
+
                 NSString *tags = [dict objectForKey:@"tags"];
                 NSArray *arrayOfTags = [tags componentsSeparatedByString:@", "];
 
                 for (NSString *tagName in arrayOfTags) {
 
-                    [Tag tagWithName:tagName inContext:self.model.context];
                 }
             }
         }else{
