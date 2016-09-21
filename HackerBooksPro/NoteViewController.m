@@ -48,6 +48,8 @@
     [super viewWillAppear:animated];
 // TODO: - añadir un boton OK en la navigation o en una toolbar en el teclado para cerrar el teclado
 
+
+
     // Si es una nota nueva damos la posibilidad de cancelarla con un boton
     if (self.newNote){
 
@@ -63,10 +65,27 @@
         self.title = self.model.text;
         self.textView.text = self.model.text;
 
-        UIBarButtonItem *share = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                               target:self action:@selector(shareNote:)];
-        self.navigationItem.rightBarButtonItem = share;
+        self.navigationItem.rightBarButtonItem = shareButton;
     }
+
+    UIToolbar *helpBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,0, self.textView.frame.size.width, 44)];
+
+
+    UIBarButtonItem *hideKeyboardButton = [[UIBarButtonItem alloc]initWithTitle:@"OK"
+                                                                          style:UIBarButtonItemStylePlain
+                                                                         target:self
+                                                                         action:@selector(hideKeyboard:)];
+    UIBarButtonItem *space = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                          target:self
+                                                                          action:nil];
+    [helpBar setItems:@[space, hideKeyboardButton]];
+
+    self.textView.inputAccessoryView = helpBar;
+
+
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -148,5 +167,7 @@
     self.deleteNote = YES;
     [self.navigationController popViewControllerAnimated:true];
 }
-
+-(void)hideKeyboard:(id) sender{
+    [self.view endEditing:YES];
+}
 @end
