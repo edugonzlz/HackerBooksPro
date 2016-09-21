@@ -50,7 +50,9 @@
     Book *book = [NSEntityDescription insertNewObjectForEntityForName:[Book entityName]
                                                inManagedObjectContext:context];
     book.title = title;
-    
+
+// TODO: - en las busquedas de autor y tag a veces se cae la app,
+    // sobre todo si es la primera vez que arracanca, porque cambia el NSSet sobre la marcha
     for (NSString *name in authors) {
 
         NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Author entityName]];

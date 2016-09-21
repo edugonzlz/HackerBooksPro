@@ -27,8 +27,9 @@
 
     PhotoNote *photo = [PhotoNote photoNoteForNote:note];
     note.photo = photo;
-    // TODO: -
-    //location
+
+    Location *loc = [Location locationForNote:note];
+    note.location = loc;
 
     return note;
 }
