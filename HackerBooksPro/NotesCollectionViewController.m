@@ -99,9 +99,9 @@ static NSString *cellId = @"noteCell";
 // MARK: - Utils
 -(void)didSelectedBook:(NSNotification *)notification{
 
-//    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
-//    self.book = book;
-//
+    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
+    self.book = book;
+
 //    [self.collectionView reloadData];
 }
 

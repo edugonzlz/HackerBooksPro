@@ -15,13 +15,13 @@
     return @[@"text", @"creationDate", @"photo.imageData"];
 }
 
-+(instancetype)noteForBook:(Book *)book{
++(instancetype)noteForBook:(Book *)book inContext:(NSManagedObjectContext *)context{
 
     Note *note = [NSEntityDescription insertNewObjectForEntityForName:[Note entityName]
-                                               inManagedObjectContext:book.managedObjectContext];
+                                               inManagedObjectContext:context];
 
     // TODO: - sumar a la fecha [NSTimeZone systemTimeZone]
-//    note.book = book;
+    note.book = book;
     note.creationDate = [NSDate date];
     note.modificationDate = [NSDate date];
 

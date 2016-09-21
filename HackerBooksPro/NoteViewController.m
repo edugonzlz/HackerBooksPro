@@ -14,6 +14,7 @@
 
 @interface NoteViewController ()
 
+@property (nonatomic, strong) Note *model;
 @property (nonatomic)BOOL newNote;
 @property (nonatomic)BOOL deleteNote;
 
@@ -34,8 +35,7 @@
 }
 -(id)initNewNoteForBook:(Book *)book{
 
-    Note *newNote = [Note noteForBook:book];
-    newNote.book = book;
+    Note *newNote = [Note noteForBook:book inContext:book.managedObjectContext];
 
     // marcamos la propiedad newNote para añadir un boton de cancelar
     _newNote = YES;

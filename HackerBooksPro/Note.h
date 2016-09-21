@@ -2,6 +2,6 @@
 
 @interface Note : _Note
 
-+(instancetype)noteForBook:(Book *)book;
++(instancetype)noteForBook:(Book *)book inContext:(NSManagedObjectContext *)context;
 
 @end

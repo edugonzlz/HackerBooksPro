@@ -59,7 +59,7 @@
     self.titleLabel.text = self.note.text;
 
     NSDateFormatter *formater = [[NSDateFormatter alloc]init];
-    formater.dateFormat = @"HH:mm"; // - dd/MM/yyyy
+    formater.dateFormat = @"HH:mm - dd/MM/yyyy";
     self.subtitleLabel.text = [formater stringFromDate: self.note.modificationDate];
 
     // si no tenemos foto devolvemos una por defecto

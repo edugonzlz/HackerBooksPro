@@ -13,7 +13,6 @@
 @interface NoteViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (nonatomic, strong) Note *model;
 
 - (IBAction)displayPhoto:(id)sender;
 - (IBAction)displayMap:(id)sender;
