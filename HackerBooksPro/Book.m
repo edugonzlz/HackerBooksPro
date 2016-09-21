@@ -21,20 +21,21 @@
 -(NSString *)tagsString{
 
     NSMutableArray *allTags = [[NSMutableArray alloc]init];
-    for (Tag *tag in self.bookTags) {
-        [allTags addObject:tag.name];
+
+    for (BookTag *bookTag in self.bookTags) {
+        [allTags addObject:bookTag.tag.name];
     }
     return [[allTags valueForKey:@"description"] componentsJoinedByString:@", "];;
 }
 
 -(NSString *)authorsString{
 
-    NSString *autores;
     NSMutableArray *authors = [[NSMutableArray alloc]init];
     if (self.authors == nil) {
-        autores  = @"...";
+        return @"...";
     } else {
         for (Author *author in self.authors) {
+            NSLog(@"nombre de autor:%@", author.description);
             [authors addObject:author.name];
         }
     }
@@ -53,7 +54,7 @@
     Book *book = [NSEntityDescription insertNewObjectForEntityForName:[Book entityName]
                                                inManagedObjectContext:context];
     book.title = title;
-
+    
 // TODO: - comprobar si el autor esta creado ya
     for (NSString *name in authors) {
         Author *author = [Author authorWithName:name inContext:context];

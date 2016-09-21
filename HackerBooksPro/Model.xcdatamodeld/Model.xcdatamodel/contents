@@ -5,7 +5,6 @@
         <relationship name="books" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="authors" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Book" representedClassName="Book" syncable="YES">
-        <attribute name="author" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isRecent" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -53,7 +52,7 @@
         <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="36" positionY="-333" width="128" height="195"/>
+        <element name="Book" positionX="36" positionY="-333" width="128" height="180"/>
         <element name="Location" positionX="-342" positionY="63" width="128" height="105"/>
         <element name="Note" positionX="-155" positionY="-147" width="128" height="133"/>
         <element name="Pdf" positionX="232" positionY="-108" width="128" height="88"/>

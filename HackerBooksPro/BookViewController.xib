@@ -21,17 +21,18 @@
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5TC-eO-LGi">
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WQn-nK-dIE">
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YmM-vq-ui7" userLabel="Stack Authors">
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Authors:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="413-Fo-J7a">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authors:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FD-0l-FLD">
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="3Ac-ea-Elg"/>
+                                        <constraint firstAttribute="width" constant="60" id="OPz-pI-ljh"/>
+                                        <constraint firstAttribute="height" constant="40" id="UAo-ba-g91"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="autores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1a-FO-lKq">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="autores" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s1a-FO-lKq">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="HOQ-Zq-joR"/>
                                     </constraints>
@@ -41,13 +42,13 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YVy-aQ-mDu">
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N7U-Ah-3Cx" userLabel="Stack Tags">
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWa-za-h9v">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="mi2-28-owv"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -94,12 +95,6 @@
                         </toolbar>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="WQn-nK-dIE" firstAttribute="leading" secondItem="5TC-eO-LGi" secondAttribute="leading" id="KPD-aZ-xzZ"/>
-                        <constraint firstAttribute="trailing" secondItem="WQn-nK-dIE" secondAttribute="trailing" id="Ktj-xS-0uv"/>
-                        <constraint firstItem="YVy-aQ-mDu" firstAttribute="top" secondItem="WQn-nK-dIE" secondAttribute="bottom" id="Rad-SY-Zxm"/>
-                        <constraint firstAttribute="trailing" secondItem="YVy-aQ-mDu" secondAttribute="trailing" id="RzT-Oz-eoQ"/>
-                        <constraint firstItem="WQn-nK-dIE" firstAttribute="top" secondItem="5TC-eO-LGi" secondAttribute="top" id="YSY-dO-19P"/>
-                        <constraint firstItem="YVy-aQ-mDu" firstAttribute="leading" secondItem="5TC-eO-LGi" secondAttribute="leading" id="fdI-rI-oTM"/>
                         <constraint firstAttribute="trailing" secondItem="S9F-PA-dzx" secondAttribute="trailing" id="sse-XG-B67"/>
                         <constraint firstItem="S9F-PA-dzx" firstAttribute="leading" secondItem="5TC-eO-LGi" secondAttribute="leading" id="vQW-Er-ReO"/>
                     </constraints>

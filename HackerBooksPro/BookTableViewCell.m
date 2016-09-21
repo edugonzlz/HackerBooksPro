@@ -83,7 +83,7 @@
     self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
 
     self.titleLabel.text = self.book.title;
-//    self.subTitleLabel.text = self.book.authorsString; //// TODO: - crear self.book.authorsString
+    self.subTitleLabel.text = self.book.authorsString;
     self.imageView.image = self.book.photoCover.image;
 }
 

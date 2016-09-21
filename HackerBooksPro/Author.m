@@ -13,6 +13,7 @@
 
     Author *author = [NSEntityDescription insertNewObjectForEntityForName:[Author entityName]
                                                    inManagedObjectContext:context];
+    author.name = name;
 
     return author;
 }

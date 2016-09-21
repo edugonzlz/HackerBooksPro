@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class Book;
-@class AGTBaseManagedObject;
 
 @interface AuthorID : NSManagedObjectID {}
 @end

@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) BookID *objectID;
 
-@property (nonatomic, strong) NSString* author;
-
 @property (nonatomic, strong, nullable) NSNumber* isFavorite;
 
 @property (atomic) BOOL isFavoriteValue;
@@ -89,9 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface _Book (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSString*)primitiveAuthor;
-- (void)setPrimitiveAuthor:(NSString*)value;
-
 - (NSNumber*)primitiveIsFavorite;
 - (void)setPrimitiveIsFavorite:(NSNumber*)value;
 
@@ -131,7 +126,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface BookAttributes: NSObject 
-+ (NSString *)author;
 + (NSString *)isFavorite;
 + (NSString *)isFinished;
 + (NSString *)isRecent;

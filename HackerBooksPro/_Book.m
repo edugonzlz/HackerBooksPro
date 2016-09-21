@@ -48,8 +48,6 @@
 	return keyPaths;
 }
 
-@dynamic author;
-
 @dynamic isFavorite;
 
 - (BOOL)isFavoriteValue {
@@ -152,9 +150,6 @@
 @end
 
 @implementation BookAttributes 
-+ (NSString *)author {
-	return @"author";
-}
 + (NSString *)isFavorite {
 	return @"isFavorite";
 }
