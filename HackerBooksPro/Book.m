@@ -23,7 +23,7 @@
     for (BookTag *bookTag in self.bookTags) {
         [allTags addObject:bookTag.tag.name];
     }
-    return [[allTags valueForKey:@"description"] componentsJoinedByString:@", "];;
+    return [[allTags valueForKey:@"description"] componentsJoinedByString:@", "];
 }
 
 -(NSString *)authorsString{
@@ -38,7 +38,6 @@
     }
     return [[authors valueForKey:@"description"] componentsJoinedByString:@", "];
 }
-
 
 // MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title

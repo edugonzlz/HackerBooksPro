@@ -22,7 +22,6 @@
 
     PhotoNote *photo = [NSEntityDescription insertNewObjectForEntityForName:[PhotoNote entityName]
                                                      inManagedObjectContext:note.managedObjectContext];
-//    [photo addNotesObject:note];
 
     return photo;
 }

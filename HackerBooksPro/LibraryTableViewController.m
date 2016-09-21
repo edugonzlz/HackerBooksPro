@@ -49,11 +49,11 @@
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSString *cellId = @"bookCell";
     //book
     Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     //celda
+//    NSString *cellId = @"bookCell";
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
 //    if (cell == nil) {
 //        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle

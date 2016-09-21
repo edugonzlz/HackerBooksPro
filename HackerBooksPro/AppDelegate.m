@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "AGTSimpleCoreDataStack.h"
 #import "AGTCoreDataStack.h"
 #import "Book.h"
 #import "Tag.h"
@@ -31,20 +30,41 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-//    [self.model zapAllData];
-    //            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
-
+    //    [self.model zapAllData];
 
     [self autoSaveData];
 
-    // MARK: - Download
     NSURL *JSONUrl = [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"];
 
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *lastUrl = [[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
-
     __block NSData *data = nil;
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSError *error = nil;
+
+
+
+
+    // Miramos si estan los libros en el disco
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+    NSArray *res = [self.model.context executeFetchRequest:req error:&error];
+
+    if (res == nil) {
+        NSLog(@"no hay resultados: %@ - error: %@", res, error.localizedDescription);
+    } else {
+        if (res.count > 0) {
+
+            NSLog(@"Parece que hay datos en la DB: %@", res);
+            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
+
+        } else {
+            NSLog(@"No hay books en la DB: %@", res);
+            [def setBool:NO forKey:SAVE_IN_COREDATA_COMPLETED];
+        }
+    }
+
+
 
     // Mirar si tenemos JSON en local
     if (![fm fileExistsAtPath:fileUrl.path]) {
@@ -57,38 +77,34 @@
             NSLog(@"Descargando JSON");
             data = [NSData dataWithContentsOfURL:JSONUrl];
 
-            // Guardamos en la ruta
             [data writeToFile:fileUrl.path atomically:YES];
             NSLog(@"JSON guardado en: %@", fileUrl);
-
 
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 // TODO: - lo paso a primer plano, pero el metodo se ejecuta en un contexto de background, esta bien??
-                // Serializamos y guardamos en disco
+
                 [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
             });
         });
 
     } else {
 
-        // SI esta en local
+        // SI esta el JSON en local
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
         if (![def boolForKey:SAVE_IN_COREDATA_COMPLETED]) {
-            // NO esta en disco, Serializamos y guardamos
             NSLog(@"Parece que NO estan los datos en disco, Vamos a serializar de nuevo y guardar");
 
             [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
 
-        // TODO: - habria que comprobar si hay datos para marcar como que estan en coreData
-//            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
-
         } else {
 
-            // SI esta en disco:
             NSLog(@"Los datos estan guardados en CoreData, no hacemos nada");
         }
     }
+
+
+
 
     // Dependiendo del dispositivo presentamos splitView o no
     UIViewController *rootVC = nil;
@@ -124,6 +140,7 @@
                     [Book bookWithDict:dict inContext:self.model.context];
 
                 }
+
             }else{
                 // Se ha producido un error al parsear el JSON
                 NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
@@ -145,9 +162,7 @@
             // Error al descargar los datos del servidor
             NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
         }
-        // TODO: - como puedo comprobar que todo ha ido bien para poner el BOOL a YES
-        // Cuando finalizamos la carga de ultimo libro marcamos que se ha completado
-//        [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
+
     }];
 
 
