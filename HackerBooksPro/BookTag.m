@@ -15,8 +15,8 @@
     BookTag *bookTag = [NSEntityDescription insertNewObjectForEntityForName:[BookTag entityName]
                                                      inManagedObjectContext:book.managedObjectContext];
 
-//    bookTag.book = book;
-//    bookTag.tag = tag;
+    bookTag.book = book;
+    bookTag.tag = tag;
 
     return bookTag;
 }

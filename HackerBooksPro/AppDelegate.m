@@ -32,6 +32,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
 //    [self.model zapAllData];
+    //            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
+
 
     [self autoSaveData];
 
@@ -71,13 +73,16 @@
     } else {
 
         // SI esta en local
-
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
         if (![def boolForKey:SAVE_IN_COREDATA_COMPLETED]) {
-
+            // NO esta en disco, Serializamos y guardamos
             NSLog(@"Parece que NO estan los datos en disco, Vamos a serializar de nuevo y guardar");
-            // NO esta en disco, pues Serializamos y guardamos
+
             [self JSONSerialization:[NSData dataWithContentsOfURL:fileUrl]];
+
+        // TODO: - habria que comprobar si hay datos para marcar como que estan en coreData
+//            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
+
         } else {
 
             // SI esta en disco:
@@ -134,17 +139,17 @@
                 [def setBool:NO forKey:SAVE_IN_COREDATA_COMPLETED];
             }];
 
-            // TODO: - como puedo comprobar que todo ha ido bien para poner el BOOL a YES
-            // Cuando finalizamos la carga de ultimo libro marcamos que se ha completado
-            //            [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
-//
             NSLog(@"JSONSerial finalizado con exito");
 
         }else{
             // Error al descargar los datos del servidor
             NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
         }
+        // TODO: - como puedo comprobar que todo ha ido bien para poner el BOOL a YES
+        // Cuando finalizamos la carga de ultimo libro marcamos que se ha completado
+//        [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
     }];
+
 
 }
 

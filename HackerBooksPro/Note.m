@@ -21,12 +21,14 @@
                                                inManagedObjectContext:book.managedObjectContext];
 
     // TODO: - sumar a la fecha [NSTimeZone systemTimeZone]
-    note.book = book;
+//    note.book = book;
     note.creationDate = [NSDate date];
     note.modificationDate = [NSDate date];
 
+    PhotoNote *photo = [PhotoNote photoNoteForNote:note];
+    note.photo = photo;
     // TODO: -
-    //location y photo
+    //location
 
     return note;
 }

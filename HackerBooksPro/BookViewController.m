@@ -47,7 +47,7 @@
 -(void)viewDidDisappear:(BOOL)animated{
 
 // TODO: - no voy a dar de baja para no implementar delegado
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -74,8 +74,8 @@
 
 - (IBAction)readNotes:(UIBarButtonItem *)sender{
 
-    NotesCollectionViewController *notesVC = [[NotesCollectionViewController alloc]initWithBook:self.model];
-
+    NotesCollectionViewController *notesVC = [[NotesCollectionViewController alloc]initWithBook:self.model
+                                                                                      inContext:self.model.managedObjectContext];
     [self.navigationController pushViewController:notesVC animated:true];
 }
 

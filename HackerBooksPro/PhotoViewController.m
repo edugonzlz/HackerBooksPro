@@ -50,58 +50,47 @@
 
     if (IS_IPHONE) {
 
-    // Presentar un alert con dos opciones
-    // hacer foto UIImagePickerControllerSourceTypeCamera
-    // escoger del carrete UIImagePickerControllerSourceTypePhotoLibrary
-    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+        UIImagePickerController *picker = [[UIImagePickerController alloc]init];
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+        picker.delegate = self;
 
-    UIAlertAction *photoFromCamera = [UIAlertAction actionWithTitle:@"Take photo from Camera"
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
 
-                                                                // Comprobar si esta disponible
-                                                                if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-                                                                    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                                                                } else {
-                                                                    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                                                                }
-                                                                [self presentViewController:picker animated:true completion:^{
+        UIAlertAction *photoFromCamera = [UIAlertAction actionWithTitle:@"Take photo from Camera"
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action) {
+
+                                                                    // Comprobar si esta disponible
+                                                                    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+                                                                        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                                    } else {
+                                                                        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                                    }
+
+                                                                    [self presentViewController:picker animated:true completion:nil];
+
                                                                 }];
 
-                                                            }];
+        UIAlertAction *photoFromLibrary = [UIAlertAction actionWithTitle:@"Take photo from Library"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * _Nonnull action) {
 
-    UIAlertAction *photoFromLibrary = [UIAlertAction actionWithTitle:@"Take photo from Library"
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 
-                                                                 picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                                                                 [self presentViewController:picker animated:true completion:^{
+                                                                     [self presentViewController:picker animated:true completion:nil];
+
                                                                  }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction * _Nonnull action) {
 
-                                                             }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:^(UIAlertAction * _Nonnull action) {
-
-                                                   }];
-    [alert addAction:photoFromCamera];
-    [alert addAction:photoFromLibrary];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:true completion:^{
-
-    }];
-
-
-
-    picker.delegate = self;
-
-    [self presentViewController:picker animated:true completion:^{
-    }];
-
+                                                       }];
+        [alert addAction:photoFromCamera];
+        [alert addAction:photoFromLibrary];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:true completion:nil];
     }
 
 }
@@ -109,8 +98,8 @@
 - (IBAction)deletePhoto:(id)sender {
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
-                                                                         message:@"Are You Sure"
-                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+                                                                   message:@"Are You Sure"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Photo"
                                                      style:UIAlertActionStyleDestructive
                                                    handler:^(UIAlertAction * _Nonnull action) {
@@ -121,7 +110,7 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                      style:UIAlertActionStyleCancel
                                                    handler:^(UIAlertAction * _Nonnull action) {
-
+                                                       
                                                    }];
     [alert addAction:delete];
     [alert addAction:cancel];
@@ -133,10 +122,11 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-
+    
     // extraemos la foto del diccionario
+    NSLog(@"me pasan foto: %@", [info objectForKey:UIImagePickerControllerOriginalImage.description]);
     self.model.photo.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-
+    
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

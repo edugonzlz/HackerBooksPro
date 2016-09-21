@@ -21,7 +21,7 @@ static NSString *cellId = @"noteCell";
 @implementation NotesCollectionViewController
 
 // MARK: - Inits
--(id)initWithBook:(Book *)book{
+-(id)initWithBook:(Book *)book inContext:(NSManagedObjectContext *)context{
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
@@ -29,7 +29,7 @@ static NSString *cellId = @"noteCell";
     req.predicate = [NSPredicate predicateWithFormat:@"book == %@", book];
 
     NSFetchedResultsController *frC = [[NSFetchedResultsController alloc]initWithFetchRequest:req
-                                                                         managedObjectContext:book.managedObjectContext
+                                                                         managedObjectContext:context
                                                                            sectionNameKeyPath:nil
                                                                                     cacheName:nil];
 
@@ -99,10 +99,10 @@ static NSString *cellId = @"noteCell";
 // MARK: - Utils
 -(void)didSelectedBook:(NSNotification *)notification{
 
-    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
-    self.book = book;
-
-    [self.collectionView reloadData];
+//    Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
+//    self.book = book;
+//
+//    [self.collectionView reloadData];
 }
 
 -(void)registerCell{

@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) Book *book;
 
--(id)initWithBook:(Book *)book;
+-(id)initWithBook:(Book *)book inContext:(NSManagedObjectContext *)context;
 
 @end

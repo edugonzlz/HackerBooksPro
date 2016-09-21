@@ -13,8 +13,6 @@
 
 @implementation Book
 
-//     TODO: - como recuperar los nombres de los autores y tags en una cadena??
-
 @synthesize tagsString = _tagsString;
 @synthesize authorsString = _authorsString;
 
@@ -35,7 +33,6 @@
         return @"...";
     } else {
         for (Author *author in self.authors) {
-            NSLog(@"nombre de autor:%@", author.description);
             [authors addObject:author.name];
         }
     }
@@ -55,11 +52,35 @@
                                                inManagedObjectContext:context];
     book.title = title;
     
-// TODO: - comprobar si el autor esta creado ya
     for (NSString *name in authors) {
-        Author *author = [Author authorWithName:name inContext:context];
 
-        [book addAuthorsObject:author];
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Author entityName]];
+        req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+
+        NSError *error = nil;
+        NSArray *results = [context executeFetchRequest:req
+                                                  error:&error];
+
+        if (results == nil) {
+
+            NSLog(@"Error en la busqueda del Autor: %@", name);
+        }else{
+
+            NSManagedObject *object = [results lastObject];
+
+            if (object == nil) {
+
+                //Si hay resultados pero no hay Autor lo creamos
+                Author *author = [Author authorWithName:name inContext:context];
+                [book addAuthorsObject:author];
+
+            } else {
+                // Existe el autor, pero tenemos que relacionarlo
+                Author *existingAuthor = (Author *)object;
+                [book addAuthorsObject:existingAuthor];
+            }
+        }
+
     }
 
     for (NSString *name in tags) {
@@ -79,29 +100,17 @@
 
             NSManagedObject *object = [results lastObject];
 
-            //Si hay resultados pero no hay tag la creamos
             if (object == nil) {
 
-//                NSLog(@"Tag %@ no encontrada. La creamos", name);
+                //Si hay resultados pero no hay tag la creamos
                 Tag *tag = [Tag tagWithName:name inContext:context];
-                BookTag *bookTag = [BookTag bookTagWithBook:book andTag:tag];
-
-                // TODO: - es necesario esto?
-                [book addBookTagsObject:bookTag];
-                [tag addBookTagsObject:bookTag];
+                [BookTag bookTagWithBook:book andTag:tag];
 
             } else {
 
-
                 Tag *existingTag = (Tag *)object;
                 // El bookTag no existe, lo creamos
-                BookTag *bookTag = [BookTag bookTagWithBook:book andTag:existingTag];
-
-                //                NSLog(@"La Tag %@ ya existe",existingTag.name);
-
-                // Relacionamos
-                [book addBookTagsObject:bookTag];
-                [existingTag addBookTagsObject:bookTag];
+                [BookTag bookTagWithBook:book andTag:existingTag];
             }
         }
         

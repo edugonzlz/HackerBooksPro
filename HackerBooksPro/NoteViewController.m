@@ -27,6 +27,7 @@
     if (self = [super initWithNibName:nil bundle:nil]) {
 
         _model = model;
+        NSLog(@"Nota con modelo: %@", model);
     }
     
     return self;
@@ -34,6 +35,7 @@
 -(id)initNewNoteForBook:(Book *)book{
 
     Note *newNote = [Note noteForBook:book];
+    newNote.book = book;
 
     // marcamos la propiedad newNote para añadir un boton de cancelar
     _newNote = YES;
@@ -74,9 +76,7 @@
         [self.model.managedObjectContext deleteObject:self.model];
 
     }else{
-        if (self.model.text) {
-            self.model.text = self.textView.text;
-        }
+        self.model.text = self.textView.text;
     }
 }
 
@@ -96,6 +96,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                    message:@"Are You Sure"
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
+
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Note"
                                                      style:UIAlertActionStyleDestructive
                                                    handler:^(UIAlertAction * _Nonnull action) {
@@ -103,6 +104,7 @@
                                                        self.deleteNote = YES;
                                                        [self.navigationController popViewControllerAnimated:true];
                                                    }];
+
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                      style:UIAlertActionStyleCancel
                                                    handler:^(UIAlertAction * _Nonnull action) {
