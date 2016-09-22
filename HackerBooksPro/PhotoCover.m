@@ -22,8 +22,6 @@
 
         dispatch_async(download, ^{
 
-            // TODO: -  que nos observen por KVO para ver cuando hemos cambiado y refresquen??
-            //Creo que tendria que crear una celda personalizada
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]];
             UIImage *image = [UIImage imageWithData:data];
             self.imageData = UIImageJPEGRepresentation(image, 0.9);

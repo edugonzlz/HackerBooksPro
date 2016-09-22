@@ -52,73 +52,85 @@
                                                inManagedObjectContext:context];
     book.title = title;
 
-// TODO: - en las busquedas de autor y tag a veces se cae la app,
-    // sobre todo si es la primera vez que arracanca, porque cambia el NSSet sobre la marcha
+    // Para crear autor y tag primero buscamos si existen ya
+    // TODO: - en las busquedas de autor y tag a veces se cae la app,
+    // sobre todo si es la primera vez que arranca, porque cambia el NSSet sobre la marcha
     for (NSString *name in authors) {
 
-//        [Book uniqueObjectWithValue:name forKey:@"name" inManagedObjectContext:context];
-        
-        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Author entityName]];
-        req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+        Author *author = [Author uniqueObjectWithValue:name forKey:@"name" inManagedObjectContext:context];
 
-        NSError *error = nil;
-        NSArray *results = [context executeFetchRequest:req
-                                                  error:&error];
-
-        if (results == nil) {
-
-            NSLog(@"Error en la busqueda del Autor: %@", name);
-        }else{
-
-            NSManagedObject *object = [results lastObject];
-
-            if (object == nil) {
-
-                //Si hay resultados pero no hay Autor lo creamos
-                Author *author = [Author authorWithName:name inContext:context];
-                [book addAuthorsObject:author];
-
-            } else {
-                // Existe el autor, pero tenemos que relacionarlo
-                Author *existingAuthor = (Author *)object;
-                [book addAuthorsObject:existingAuthor];
-            }
-        }
-
+        [book addAuthorsObject:author];
     }
 
     for (NSString *name in tags) {
 
-        //Buscamos un tag con ese nombre
-        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Tag entityName]];
-        req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
-
-        NSError *error = nil;
-        NSArray *results = [context executeFetchRequest:req
-                                                  error:&error];
-
-        if (results == nil) {
-
-            NSLog(@"Error en la busqueda del Tag: %@", name);
-        }else{
-
-            NSManagedObject *object = [results lastObject];
-
-            if (object == nil) {
-
-                //Si hay resultados pero no hay tag la creamos
-                Tag *tag = [Tag tagWithName:name inContext:context];
-                [BookTag bookTagWithBook:book andTag:tag];
-
-            } else {
-
-                Tag *existingTag = (Tag *)object;
-                // El bookTag no existe, lo creamos
-                [BookTag bookTagWithBook:book andTag:existingTag];
-            }
-        }
-        
+        Tag *tag = [Tag uniqueObjectWithValue:name forKey:@"name" inManagedObjectContext:context];
+        [BookTag bookTagWithBook:book andTag:tag];
     }
+
+
+
+//    for (NSString *name in authors) {
+//        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Author entityName]];
+//        req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+//
+//        NSError *error = nil;
+//        NSArray *results = [context executeFetchRequest:req
+//                                                  error:&error];
+//
+//        if (results == nil) {
+//
+//            NSLog(@"Error en la busqueda del Autor: %@", name);
+//        }else{
+//
+//            NSManagedObject *object = [results lastObject];
+//
+//            if (object == nil) {
+//
+//                //Si hay resultados pero no hay Autor lo creamos
+//                Author *author = [Author authorWithName:name inContext:context];
+//                [book addAuthorsObject:author];
+//
+//            } else {
+//                // Existe el autor, pero tenemos que relacionarlo
+//                Author *existingAuthor = (Author *)object;
+//                [book addAuthorsObject:existingAuthor];
+//            }
+//        }
+//}
+
+
+//    for (NSString *name in tags) {
+//        //Buscamos un tag con ese nombre
+//        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Tag entityName]];
+//        req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+//
+//        NSError *error = nil;
+//        NSArray *results = [context executeFetchRequest:req
+//                                                  error:&error];
+//
+//        if (results == nil) {
+//
+//            NSLog(@"Error en la busqueda del Tag: %@", name);
+//        }else{
+//
+//            NSManagedObject *object = [results lastObject];
+//
+//            if (object == nil) {
+//
+//                //Si hay resultados pero no hay tag la creamos
+//                Tag *tag = [Tag tagWithName:name inContext:context];
+//                [BookTag bookTagWithBook:book andTag:tag];
+//
+//            } else {
+//
+//                Tag *existingTag = (Tag *)object;
+//                // El bookTag no existe, lo creamos
+//                [BookTag bookTagWithBook:book andTag:existingTag];
+//            }
+//        }
+//        
+//    }
 
     PhotoCover *cover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
     book.photoCover = cover;
