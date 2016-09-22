@@ -52,20 +52,20 @@
     //book
     Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    //celda
-//    NSString *cellId = @"bookCell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
-//                                     reuseIdentifier:cellId];
-//    }
-//    cell.textLabel.text = book.title;
-//    cell.imageView.image = book.photoCover.image;
-//    //    cell.detailTextLabel.text = book.tagsString;
+//    celda
+    NSString *cellId = @"bookCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
+                                     reuseIdentifier:cellId];
+    }
+    cell.textLabel.text = book.title;
+    cell.imageView.image = book.photoCover.image;
+    //    cell.detailTextLabel.text = book.tagsString;
 
-    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
-                                                                   forIndexPath:indexPath];
-    [cell observeBook:book];
+//    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
+//                                                                   forIndexPath:indexPath];
+//    [cell observeBook:book];
 
     return cell;
 }

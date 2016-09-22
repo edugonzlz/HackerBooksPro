@@ -4,18 +4,22 @@
 @import AddressBookUI;
 //@import Contacts; Usar si uso CNPostalAddressFormatter
 
-@interface Location ()
+@interface Location () 
 
 //@property (nonatomic,strong) CLLocationManager *locationManager;
+@property (strong, nonatomic)Note *note;
 
 @end
 
 @implementation Location
 
+@synthesize  note = _note;
+
 //@synthesize locationManager = _locationManager;
 
 // MARK: - Inits
 +(instancetype)locationForNote:(Note *)note withCLLocation:(CLLocation *)location{
+
 
     // Comprobamos la existencia de la localizacion con un margen del 0.001 de error
     // Usamos lf (long float) para compara con double
@@ -37,6 +41,8 @@
             Location *existingLoc = [res lastObject];
             [existingLoc addNotesObject:note];
 
+            existingLoc.note = note;
+
             return existingLoc;
 
         } else {
@@ -51,6 +57,8 @@
             [loc addressFromCLLocation:location];
 
             NSLog(@"lat: %f, long: %f , direccion: %@", loc.latitudeValue, loc.longitudeValue, loc.adress);
+
+            loc.note = note;
 
             return loc;
         }
@@ -74,7 +82,24 @@
 }
 
 
+// MARK: - MKAnnotation
 
+-(NSString *)title{
+
+    return self.note.text;
+}
+-(NSString *)subtitle{
+    NSArray *lines = [self.adress componentsSeparatedByString:@"\n"];
+    NSMutableString *address = [NSMutableString stringWithFormat:@""];
+    for (NSString *line in lines) {
+        [address appendFormat:@"%@", line];
+    }
+    return address;
+}
+-(CLLocationCoordinate2D)coordinate{
+
+    return CLLocationCoordinate2DMake(self.latitudeValue, self.longitudeValue);
+}
 
 
 

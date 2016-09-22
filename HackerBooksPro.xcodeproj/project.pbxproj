@@ -53,6 +53,9 @@
 		346A58B01D89BF0900B0F579 /* NoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A58AE1D89BF0900B0F579 /* NoteViewCell.m */; };
 		346A58B31D89C84500B0F579 /* NoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346A58B21D89C84500B0F579 /* NoteViewCell.xib */; };
 		346A58B51D89C86A00B0F579 /* noImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 346A58B41D89C86A00B0F579 /* noImage.png */; };
+		3475F6C51D94859500D04A45 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3475F6C31D94859500D04A45 /* MapViewController.m */; };
+		3475F6C61D94859500D04A45 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3475F6C41D94859500D04A45 /* MapViewController.xib */; };
+		3475F6C91D9495DD00D04A45 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475F6C81D9495DD00D04A45 /* MapKit.framework */; };
 		347BBE061D8D4B42006D6C08 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347BBE041D8D4B42006D6C08 /* PhotoViewController.m */; };
 		347BBE071D8D4B42006D6C08 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */; };
 /* End PBXBuildFile section */
@@ -158,6 +161,10 @@
 		346A58AE1D89BF0900B0F579 /* NoteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewCell.m; sourceTree = "<group>"; };
 		346A58B21D89C84500B0F579 /* NoteViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteViewCell.xib; sourceTree = "<group>"; };
 		346A58B41D89C86A00B0F579 /* noImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noImage.png; sourceTree = "<group>"; };
+		3475F6C21D94859500D04A45 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		3475F6C31D94859500D04A45 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		3475F6C41D94859500D04A45 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		3475F6C81D9495DD00D04A45 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		347BBE031D8D4B42006D6C08 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		347BBE041D8D4B42006D6C08 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
@@ -168,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3475F6C91D9495DD00D04A45 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +203,7 @@
 				341A49311D844D2A0039F3CB /* HackerBooksProTests */,
 				341A493C1D844D2A0039F3CB /* HackerBooksProUITests */,
 				341A49161D844D2A0039F3CB /* Products */,
+				3475F6C71D9495DC00D04A45 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,6 +274,8 @@
 				346A58A61D89961A00B0F579 /* NoteViewController.m */,
 				347BBE031D8D4B42006D6C08 /* PhotoViewController.h */,
 				347BBE041D8D4B42006D6C08 /* PhotoViewController.m */,
+				3475F6C21D94859500D04A45 /* MapViewController.h */,
+				3475F6C31D94859500D04A45 /* MapViewController.m */,
 				341A898F1D91B2C50025CA33 /* BookTableViewCell.h */,
 				341A89901D91B2C50025CA33 /* BookTableViewCell.m */,
 				346A58AD1D89BF0900B0F579 /* NoteViewCell.h */,
@@ -309,6 +320,7 @@
 				346A58A21D8984EE00B0F579 /* PdfViewController.xib */,
 				346A58A71D89961A00B0F579 /* NoteViewController.xib */,
 				347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */,
+				3475F6C41D94859500D04A45 /* MapViewController.xib */,
 				341A89911D91B2C50025CA33 /* BookTableViewCell.xib */,
 				346A58B21D89C84500B0F579 /* NoteViewCell.xib */,
 			);
@@ -374,6 +386,14 @@
 				346A587A1D86EF0A00B0F579 /* iosStar@3x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		3475F6C71D9495DC00D04A45 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3475F6C81D9495DD00D04A45 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				346A587D1D86EF0A00B0F579 /* iosStar@2x.png in Resources */,
+				3475F6C61D94859500D04A45 /* MapViewController.xib in Resources */,
 				341A49251D844D2A0039F3CB /* Assets.xcassets in Resources */,
 				346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */,
 				346A58A41D8984EE00B0F579 /* PdfViewController.xib in Resources */,
@@ -548,6 +569,7 @@
 				341A4A111D8490520039F3CB /* _PhotoNote.m in Sources */,
 				341A4A131D8490520039F3CB /* Location.m in Sources */,
 				346A58B01D89BF0900B0F579 /* NoteViewCell.m in Sources */,
+				3475F6C51D94859500D04A45 /* MapViewController.m in Sources */,
 				346A58891D87FF5C00B0F579 /* LibraryTableViewController.m in Sources */,
 				341A4A171D8490520039F3CB /* PhotoNote.m in Sources */,
 				341A89891D913CFB0025CA33 /* _BookTag.m in Sources */,

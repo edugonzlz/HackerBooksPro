@@ -11,6 +11,7 @@
 #import "Note.h"
 #import "PhotoNote.h"
 #import "PhotoViewController.h"
+#import "MapViewController.h"
 
 @interface NoteViewController ()
 
@@ -107,6 +108,10 @@
 }
 
 - (IBAction)displayMap:(id)sender {
+
+    MapViewController *mapVC = [[MapViewController alloc]initWithLocation:self.model.location];
+
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 - (IBAction)deleteNote:(id)sender {

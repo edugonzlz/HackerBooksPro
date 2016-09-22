@@ -42,7 +42,6 @@
     NSManagedObject * obj = [objs lastObject];
     
     if (!obj) {
-        NSLog(@"creando %@", [self class]);
         // No habia nada y hay que crear
         obj = [NSEntityDescription insertNewObjectForEntityForName:[self entityName]
                                             inManagedObjectContext:context];
