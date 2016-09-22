@@ -28,7 +28,6 @@
     if (self = [super initWithNibName:nil bundle:nil]) {
 
         _model = model;
-        NSLog(@"Nota con modelo: %@", model);
     }
     
     return self;

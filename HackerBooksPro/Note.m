@@ -34,6 +34,20 @@
     return note;
 }
 
+// MARK: - Lifecycle
+-(void)awakeFromInsert{
+    [super awakeFromInsert];
+    [self setupKVO];
+}
+-(void)awakeFromFetch{
+    [super awakeFromFetch];
+    [self setupKVO];
+}
+-(void)willTurnIntoFault{
+    [super willTurnIntoFault];
+    [self tearDownKVO];
+}
+
 // MARK: - KVO
 -(void)setupKVO{
     for (NSString *key in [Note observableKeyNames]) {
@@ -60,18 +74,6 @@
     self.modificationDate = [NSDate date];
 }
 
-// MARK: - Lifecycle
--(void)awakeFromInsert{
-    [super awakeFromInsert];
-    [self setupKVO];
-}
--(void)awakeFromFetch{
-    [super awakeFromFetch];
-    [self setupKVO];
-}
--(void)willTurnIntoFault{
-    [super willTurnIntoFault];
-    [self tearDownKVO];
-}
+
 
 @end

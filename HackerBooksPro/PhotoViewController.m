@@ -51,6 +51,7 @@
     if (IS_IPHONE) {
 
         UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+        picker.allowsEditing = YES;
 
         picker.delegate = self;
 
