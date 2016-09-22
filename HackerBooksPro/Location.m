@@ -68,7 +68,7 @@
                     }else{
                         // usar CNPostalAddressFormatter ??
                         self.adress = ABCreateStringWithAddressDictionary([[placemarks lastObject] addressDictionary], YES);
-                        NSLog(@"Address is %@", self.adress);
+                        NSLog(@"La direccion humana es %@", self.adress);
                     }
                 }];
 }

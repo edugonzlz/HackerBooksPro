@@ -89,8 +89,6 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
 
-    NSLog(@"Configurado el Location Manager");
-
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
 
     // hasta que no demos permisos el manager no envia nada el delegado
@@ -112,9 +110,9 @@
 }
 
 // MARK: -  CLLocationManagerDelegate
+
 -(void)locationManager:(CLLocationManager *)manager
     didUpdateLocations:(NSArray *)locations{
-
 
     // Queremos los datos ahora.
     // Asi que paramos el proceso despues de un tiempo si no hemos conseguido resultados
@@ -123,17 +121,16 @@
         [self tearDownLocationManager];
     });
 
+    // Cogemos la última localizacion, que debe de ser la mas precisa
+    CLLocation *location = [locations lastObject];
+
     // solo creamos una location si la nota no la tiene
     if (self.location == nil) {
 
-        // Cogemos la última localizacion, que debe de ser la mas precisa
-        CLLocation *location = [locations lastObject];
-
-        // Creamos una location
         self.location = [Location locationForNote:self withCLLocation:location];
 
     } else {
-
+        
         NSLog(@"Si hemos llegado aqui Fernando me corta las bolas");
     }
     

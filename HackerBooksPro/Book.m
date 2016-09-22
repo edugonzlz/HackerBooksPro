@@ -4,6 +4,7 @@
 #import "Tag.h"
 #import "Author.h"
 #import "BookTag.h"
+#import "AGTBaseManagedObject.h"
 
 @interface Book ()
 
@@ -55,6 +56,8 @@
     // sobre todo si es la primera vez que arracanca, porque cambia el NSSet sobre la marcha
     for (NSString *name in authors) {
 
+//        [Book uniqueObjectWithValue:name forKey:@"name" inManagedObjectContext:context];
+        
         NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Author entityName]];
         req.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
 

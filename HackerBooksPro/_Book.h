@@ -9,6 +9,8 @@
     #import <CoreData/CoreData.h>
 #endif
 
+#import "AGTBaseManagedObject.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class Author;
@@ -20,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BookID : NSManagedObjectID {}
 @end
 
-@interface _Book : NSManagedObject
+@interface _Book : AGTBaseManagedObject
 + (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
