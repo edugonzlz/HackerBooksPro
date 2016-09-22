@@ -17,10 +17,11 @@
 // MARK: - Inits
 +(instancetype)locationForNote:(Note *)note withCLLocation:(CLLocation *)location{
 
-    // Comprobamos la existencia de la localizacion
+    // Comprobamos la existencia de la localizacion con un margen del 0,001 de error
+    // Usamos lf (long float) para compara con double
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Location entityName]];
-    NSPredicate *latitude = [NSPredicate predicateWithFormat:@"latitude == %f", location.coordinate.latitude];
-    NSPredicate *longitude = [NSPredicate predicateWithFormat:@"longitude == %f", location.coordinate.longitude];
+    NSPredicate *latitude = [NSPredicate predicateWithFormat:@"abs(latitude) - abs(%lf) < 0,001", location.coordinate.latitude];
+    NSPredicate *longitude = [NSPredicate predicateWithFormat:@"abs(longitude) - abs(%lf) < 0,001", location.coordinate.longitude];
     req.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[latitude, longitude]];
 
     NSError *error;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Author" representedClassName="Author" syncable="YES">
-        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="books" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="authors" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Book" representedClassName="Book" syncable="YES">
@@ -21,8 +21,8 @@
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="adress" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
         <relationship name="notes" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="location" inverseEntity="Note" syncable="YES"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
@@ -52,14 +52,14 @@
         <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Author" positionX="-90" positionY="-135" width="128" height="75"/>
         <element name="Book" positionX="36" positionY="-333" width="128" height="180"/>
+        <element name="BookTag" positionX="-99" positionY="-144" width="128" height="75"/>
         <element name="Location" positionX="-342" positionY="63" width="128" height="105"/>
         <element name="Note" positionX="-155" positionY="-147" width="128" height="133"/>
         <element name="Pdf" positionX="232" positionY="-108" width="128" height="88"/>
         <element name="PhotoCover" positionX="-54" positionY="-153" width="128" height="90"/>
         <element name="PhotoNote" positionX="16" positionY="69" width="128" height="73"/>
         <element name="Tag" positionX="43" positionY="-108" width="128" height="75"/>
-        <element name="BookTag" positionX="-99" positionY="-144" width="128" height="75"/>
-        <element name="Author" positionX="-90" positionY="-135" width="128" height="75"/>
     </elements>
 </model>
