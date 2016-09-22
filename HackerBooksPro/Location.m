@@ -17,17 +17,42 @@
 // MARK: - Inits
 +(instancetype)locationForNote:(Note *)note withCLLocation:(CLLocation *)location{
 
-    Location *loc = [NSEntityDescription insertNewObjectForEntityForName:[Location entityName]
-                                                  inManagedObjectContext:note.managedObjectContext];
-    loc.latitudeValue = location.coordinate.latitude;
-    loc.longitudeValue = location.coordinate.longitude;
-    [loc addNotesObject:note];
+    // Comprobamos la existencia de la localizacion
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Location entityName]];
+    NSPredicate *latitude = [NSPredicate predicateWithFormat:@"latitude == %f", location.coordinate.latitude];
+    NSPredicate *longitude = [NSPredicate predicateWithFormat:@"longitude == %f", location.coordinate.longitude];
+    req.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[latitude, longitude]];
 
-    [loc addressFromCLLocation:location];
+    NSError *error;
+    NSArray *res = [note.managedObjectContext executeFetchRequest:req
+                                                            error:&error];
 
-    NSLog(@"lat: %f, long: %f , direccion: %@", loc.latitudeValue, loc.longitudeValue, loc.adress);
+    // Si no hay un error continuamos
+    NSAssert(res, @"Error buscando Localizaciones existentes");
 
-    return loc;
+        if ([res count]) {
+
+            // Ya existe una localizacion, la relacionamos
+            Location *existingLoc = [res lastObject];
+            [existingLoc addNotesObject:note];
+
+            return existingLoc;
+
+        } else {
+
+            //No existe, la creamos
+            Location *loc = [NSEntityDescription insertNewObjectForEntityForName:[Location entityName]
+                                                          inManagedObjectContext:note.managedObjectContext];
+            loc.latitudeValue = location.coordinate.latitude;
+            loc.longitudeValue = location.coordinate.longitude;
+            [loc addNotesObject:note];
+
+            [loc addressFromCLLocation:location];
+
+            NSLog(@"lat: %f, long: %f , direccion: %@", loc.latitudeValue, loc.longitudeValue, loc.adress);
+
+            return loc;
+        }
 }
 
 -(void)addressFromCLLocation:(CLLocation *)location{
