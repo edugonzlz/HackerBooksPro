@@ -11,7 +11,8 @@
 
 @interface MapViewController () <MKMapViewDelegate>
 
-@property (strong, nonatomic)Location *model;
+//@property (strong, nonatomic)Location *model;
+@property (strong, nonatomic)NSArray<id<MKAnnotation>> *model;
 
 @end
 
@@ -21,7 +22,15 @@
 
     if (self = [super initWithNibName:nil bundle:nil]) {
 
-        _model = location;
+        NSArray *model = [NSArray arrayWithObject:location];
+        _model = model;
+    }
+    return self;
+}
+-(id)initWithNotes:(NSArray<id<MKAnnotation>>*)notes{
+
+    if (self = [super init]) {
+        _model = notes;
     }
     return self;
 }
@@ -29,7 +38,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
-    [self.mapView addAnnotation:self.model];
+    [self.mapView addAnnotations:self.model];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -15,7 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
-
 -(id)initWithLocation:(Location *)location;
+
+// Crear un inicializador
+-(id)initWithNotes:(NSArray<id<MKAnnotation>>*)notes;
 
 @end

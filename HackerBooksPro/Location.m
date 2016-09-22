@@ -83,16 +83,16 @@
 
 
 // MARK: - MKAnnotation
-
+// TODO: - parece que si la nota no tiene texto, la chincheta no presenta el callout
 -(NSString *)title{
 
     return self.note.text;
 }
 -(NSString *)subtitle{
-    NSArray *lines = [self.adress componentsSeparatedByString:@"\n"];
+    NSArray *addressArr = [self.adress componentsSeparatedByString:@"\n"];
     NSMutableString *address = [NSMutableString stringWithFormat:@""];
-    for (NSString *line in lines) {
-        [address appendFormat:@"%@", line];
+    for (NSString *comp in addressArr) {
+        [address appendFormat:@" %@", comp];
     }
     return address;
 }
