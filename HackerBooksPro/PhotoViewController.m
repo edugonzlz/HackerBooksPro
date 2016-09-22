@@ -125,8 +125,7 @@
 didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     // extraemos la foto del diccionario
-    NSLog(@"me pasan foto: %@", [info objectForKey:UIImagePickerControllerOriginalImage.description]);
-    self.model.photo.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.model.photo.image = [info objectForKey:UIImagePickerControllerEditedImage];
     
     [self dismissViewControllerAnimated:true completion:nil];
 }

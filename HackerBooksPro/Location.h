@@ -5,6 +5,6 @@
 
 +(instancetype)locationForNote:(Note *)note withCLLocation:(CLLocation *)location;
 
--(instancetype)initLocationForNote:(Note *)note;
+//-(instancetype)initLocationForNote:(Note *)note;
 
 @end
