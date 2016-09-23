@@ -12,7 +12,6 @@
 
 @interface MapViewController () <MKMapViewDelegate>
 
-//@property (strong, nonatomic)Location *model;
 @property (strong, nonatomic)NSArray<Location *> *model;
 
 @end
@@ -39,6 +38,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    self.mapView.delegate = self;
     [self.mapView addAnnotations:self.model];
 
     // Lo que se ve al cargar el mapa
@@ -46,6 +46,7 @@
     Location *loc = [self.model lastObject];
     MKCoordinateRegion initialRegion = MKCoordinateRegionMakeWithDistance(loc.coordinate, 10000000, 10000000);
     [self.mapView setRegion:initialRegion];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -62,10 +63,44 @@
 
 // MARK: - MKMapViewDelegate
 
-//-(MKAnnotationView *)mapView:(MKMapView *)mapView
-//           viewForAnnotation:(id<MKAnnotation>)annotation{
-//
-//
-//}
+-(MKAnnotationView *)mapView:(MKMapView *)mapView
+           viewForAnnotation:(id<MKAnnotation>)annotation{
+
+    static NSString *annotationId = @"annotationId";
+
+    MKPinAnnotationView *annotationView;
+    annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationId];
+
+    if (annotationView == nil) {
+        annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationId];
+    }
+
+    annotationView.canShowCallout = YES;
+
+    Location *loc = (Location *)annotation;
+    UIImageView *image = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mazinger.png"]];
+
+    annotationView.leftCalloutAccessoryView = image;
+
+    UIButton *goToMapsButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [goToMapsButton setImage:[UIImage imageNamed:@"car"] forState:UIControlStateNormal];
+    [goToMapsButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+
+    annotationView.rightCalloutAccessoryView = goToMapsButton;
+
+    return annotationView;
+}
+
+-(void)mapView:(MKMapView *)mapView
+annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control{
+
+// TODO: - molaria crear un addressDictionary para presentrar en AppleMaps
+    MKPlacemark *placemark = [[MKPlacemark alloc]initWithCoordinate:[view.annotation coordinate] addressDictionary:nil];
+    MKMapItem *mapItem = [[MKMapItem alloc]initWithPlacemark:placemark];
+
+    NSDictionary *options = @{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault};
+    [MKMapItem openMapsWithItems:@[mapItem] launchOptions:options];
+}
 
 @end

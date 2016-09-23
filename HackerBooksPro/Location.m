@@ -6,7 +6,6 @@
 
 @interface Location () 
 
-//@property (nonatomic,strong) CLLocationManager *locationManager;
 @property (strong, nonatomic)Note *note;
 
 @end
@@ -14,8 +13,6 @@
 @implementation Location
 
 @synthesize  note = _note;
-
-//@synthesize locationManager = _locationManager;
 
 // MARK: - Inits
 +(instancetype)locationForNote:(Note *)note withCLLocation:(CLLocation *)location{
@@ -82,11 +79,15 @@
 }
 
 
-// MARK: - MKAnnotation
+// MARK: - MKAnnotationDelegate
 // TODO: - parece que si la nota no tiene texto, la chincheta no presenta el callout
 -(NSString *)title{
 
-    return self.note.text;
+    NSString *text = self.note.text;
+    if ([self.note.text isEqualToString:@""] ) {
+        text = @"Note";
+    }
+    return text;
 }
 -(NSString *)subtitle{
     NSArray *addressArr = [self.adress componentsSeparatedByString:@"\n"];
@@ -100,71 +101,5 @@
 
     return CLLocationCoordinate2DMake(self.latitudeValue, self.longitudeValue);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// TODO: - Limpiar todo esto si decido no pasar la responsabilidad a Location de localizarse
-
-//-(instancetype)initLocationForNote:(Note *)note;{
-//
-//
-//    // Configurar locationManager
-//    [self setupLocationManager];
-//
-//    // Esperar a que el delegado obtenga la localizacion
-//
-//    // Cuando tengamos localizacion inicializar
-//
-//    Location *loc = [NSEntityDescription insertNewObjectForEntityForName:[Location entityName]
-//                                                  inManagedObjectContext:note.managedObjectContext];
-//
-//    return loc;
-//}
-//
-//
-//
-//
-//// MARK: -  CLLocationManagerDelegate
-//-(void) locationManager:(CLLocationManager *)manager
-//     didUpdateLocations:(NSArray *)locations{
-//
-//    // paramos el location manager, porque consume mucha bateria
-//    [self.locationManager stopUpdatingLocation];
-//    self.locationManager = nil;
-//
-//    // Cogemos la última localizacion, que debe de ser la mas precisa
-//    CLLocation *location = [locations lastObject];
-//}
-//
-//// MARK: - Utils
-//-(void)setupLocationManager{
-//
-//    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-//    if ( ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusNotDetermined))
-//        && [CLLocationManager locationServicesEnabled]) {
-//
-//        // Tenemos acceso a localización
-//        self.locationManager = [[CLLocationManager alloc] init];
-//        self.locationManager.delegate = self;
-//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//        [self.locationManager startUpdatingLocation];
-//    }
-//    
-//}
-
-
 
 @end

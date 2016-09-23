@@ -58,6 +58,11 @@
 		3475F6C91D9495DD00D04A45 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475F6C81D9495DD00D04A45 /* MapKit.framework */; };
 		347BBE061D8D4B42006D6C08 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347BBE041D8D4B42006D6C08 /* PhotoViewController.m */; };
 		347BBE071D8D4B42006D6C08 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */; };
+		34A96F211D951FD500C20813 /* mazinger.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F201D951FD500C20813 /* mazinger.png */; };
+		34A96F2B1D952E8F00C20813 /* carro.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2A1D952E8F00C20813 /* carro.png */; };
+		34A96F2F1D95339000C20813 /* car-automobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2C1D95339000C20813 /* car-automobile.png */; };
+		34A96F301D95339000C20813 /* car-automobile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2D1D95339000C20813 /* car-automobile@2x.png */; };
+		34A96F311D95339000C20813 /* car-automobile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2E1D95339000C20813 /* car-automobile@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +173,11 @@
 		347BBE031D8D4B42006D6C08 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		347BBE041D8D4B42006D6C08 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		347BBE051D8D4B42006D6C08 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
+		34A96F201D951FD500C20813 /* mazinger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mazinger.png; sourceTree = "<group>"; };
+		34A96F2A1D952E8F00C20813 /* carro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carro.png; sourceTree = "<group>"; };
+		34A96F2C1D95339000C20813 /* car-automobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-automobile.png"; sourceTree = "<group>"; };
+		34A96F2D1D95339000C20813 /* car-automobile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-automobile@2x.png"; sourceTree = "<group>"; };
+		34A96F2E1D95339000C20813 /* car-automobile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-automobile@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,7 +325,6 @@
 		341A49901D844FCC0039F3CB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				341A49241D844D2A0039F3CB /* Assets.xcassets */,
 				346A58981D89509F00B0F579 /* BookViewController.xib */,
 				346A58A21D8984EE00B0F579 /* PdfViewController.xib */,
 				346A58A71D89961A00B0F579 /* NoteViewController.xib */,
@@ -379,6 +388,12 @@
 		346A587F1D86EF1000B0F579 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				341A49241D844D2A0039F3CB /* Assets.xcassets */,
+				34A96F2C1D95339000C20813 /* car-automobile.png */,
+				34A96F2D1D95339000C20813 /* car-automobile@2x.png */,
+				34A96F2E1D95339000C20813 /* car-automobile@3x.png */,
+				34A96F2A1D952E8F00C20813 /* carro.png */,
+				34A96F201D951FD500C20813 /* mazinger.png */,
 				346A58B41D89C86A00B0F579 /* noImage.png */,
 				346A58771D86EF0A00B0F579 /* bookIcon.png */,
 				346A58781D86EF0A00B0F579 /* iosStar.png */,
@@ -510,9 +525,14 @@
 				341A49251D844D2A0039F3CB /* Assets.xcassets in Resources */,
 				346A587E1D86EF0A00B0F579 /* iosStar@3x.png in Resources */,
 				346A58A41D8984EE00B0F579 /* PdfViewController.xib in Resources */,
+				34A96F2B1D952E8F00C20813 /* carro.png in Resources */,
 				347BBE071D8D4B42006D6C08 /* PhotoViewController.xib in Resources */,
+				34A96F311D95339000C20813 /* car-automobile@3x.png in Resources */,
+				34A96F301D95339000C20813 /* car-automobile@2x.png in Resources */,
 				346A58B51D89C86A00B0F579 /* noImage.png in Resources */,
 				346A58A91D89961A00B0F579 /* NoteViewController.xib in Resources */,
+				34A96F2F1D95339000C20813 /* car-automobile.png in Resources */,
+				34A96F211D951FD500C20813 /* mazinger.png in Resources */,
 				346A587B1D86EF0A00B0F579 /* bookIcon.png in Resources */,
 				341A89931D91B2C50025CA33 /* BookTableViewCell.xib in Resources */,
 				346A58B31D89C84500B0F579 /* NoteViewCell.xib in Resources */,
