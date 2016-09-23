@@ -82,7 +82,7 @@
 
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender {
 
-// TODO: - 
+// TODO: - estamos mostrando todas?
     // hacer un req con las notas de este libro
     // enviar un array de las locations de las notas
 

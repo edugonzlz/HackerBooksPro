@@ -85,7 +85,7 @@
 
     NSString *text = self.note.text;
     if ([self.note.text isEqualToString:@""] ) {
-        text = @"Note";
+        text = @" ";
     }
     return text;
 }

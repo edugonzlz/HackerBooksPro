@@ -19,6 +19,7 @@
 
 @implementation MapViewController
 
+// MARK: - Inits
 -(id)initWithLocation:(Location *)location{
 
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -36,6 +37,7 @@
     return self;
 }
 
+// MARK: - LifeCycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
@@ -63,7 +65,6 @@
 }
 
 // MARK: - MKMapViewDelegate
-
 -(MKAnnotationView *)mapView:(MKMapView *)mapView
            viewForAnnotation:(id<MKAnnotation>)annotation{
 
@@ -75,14 +76,13 @@
     if (annotationView == nil) {
         annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationId];
     }
-
     annotationView.canShowCallout = YES;
 
 
     // Accesorio izquierdo - Buscamos la nota, vemos si tiene foto y la asignamos
     Location *loc = (Location *)annotation;
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
-    req.predicate = [NSPredicate predicateWithFormat:@"text CONTAINS %@", loc.title];
+    req.predicate = [NSPredicate predicateWithFormat:@"text == %@", loc.title];
     req.fetchLimit = 1;
 
     NSError *error;
@@ -98,12 +98,13 @@
                 noteImageView.bounds = CGRectMake(0, 0, 40, 40);
                 noteImageView.contentMode = UIViewContentModeScaleAspectFit;
                 noteImageView.clipsToBounds = YES;
+
+                annotationView.leftCalloutAccessoryView = noteImageView;
             }
         }
     }
-    annotationView.leftCalloutAccessoryView = noteImageView;
 
-
+    // Boton derecho del callout lleva a la app de Mapas
     UIButton *goToMapsButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [goToMapsButton setImage:[UIImage imageNamed:@"car"] forState:UIControlStateNormal];
     [goToMapsButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
@@ -117,7 +118,7 @@
 annotationView:(MKAnnotationView *)view
 calloutAccessoryControlTapped:(UIControl *)control{
 
-// TODO: - molaria crear un addressDictionary para presentrar en AppleMaps
+    // TODO: - molaria crear un addressDictionary para presentrar en AppleMaps
     MKPlacemark *placemark = [[MKPlacemark alloc]initWithCoordinate:[view.annotation coordinate] addressDictionary:nil];
     MKMapItem *mapItem = [[MKMapItem alloc]initWithPlacemark:placemark];
 
