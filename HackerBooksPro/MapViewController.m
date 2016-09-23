@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "Location.h"
 #import "Note.h"
+#import "PhotoNote.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
@@ -77,10 +78,31 @@
 
     annotationView.canShowCallout = YES;
 
-    Location *loc = (Location *)annotation;
-    UIImageView *image = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mazinger.png"]];
 
-    annotationView.leftCalloutAccessoryView = image;
+    // Accesorio izquierdo - Buscamos la nota, vemos si tiene foto y la asignamos
+    Location *loc = (Location *)annotation;
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
+    req.predicate = [NSPredicate predicateWithFormat:@"text CONTAINS %@", loc.title];
+    req.fetchLimit = 1;
+
+    NSError *error;
+    NSArray *res = [loc.managedObjectContext executeFetchRequest:req error:&error];
+    UIImageView *noteImageView = [[UIImageView alloc]init];
+
+    if (res != nil) {
+        if ([res count] >0) {
+            Note *note = [res lastObject];
+            if (note.photo.image != nil) {
+
+                noteImageView = [[UIImageView alloc]initWithImage:note.photo.image];
+                noteImageView.bounds = CGRectMake(0, 0, 40, 40);
+                noteImageView.contentMode = UIViewContentModeScaleAspectFit;
+                noteImageView.clipsToBounds = YES;
+            }
+        }
+    }
+    annotationView.leftCalloutAccessoryView = noteImageView;
+
 
     UIButton *goToMapsButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [goToMapsButton setImage:[UIImage imageNamed:@"car"] forState:UIControlStateNormal];
