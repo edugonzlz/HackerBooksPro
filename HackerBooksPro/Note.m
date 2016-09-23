@@ -40,8 +40,11 @@
     [super awakeFromInsert];
 
     [self setupKVO];
-
-    [self setupLocationManager];
+    
+    // Montamos el chiringo solo si no tenemos ya una localizacion
+    if (!self.location) {
+        [self setupLocationManager];
+    }
 }
 -(void)awakeFromFetch{
     [super awakeFromFetch];
@@ -83,23 +86,23 @@
 // MARK: - Utils
 -(void)setupLocationManager{
 
-    // Arrancamos localizacion
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager startUpdatingLocation];
+        // Arrancamos localizacion
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [self.locationManager startUpdatingLocation];
 
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+        CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
 
-    // hasta que no demos permisos el manager no envia nada el delegado
-    // Si estuviera denied or restricted, habria que invitar al usuario
-    // con un alert a ir a Settings y activar la localizacion
+        // hasta que no demos permisos el manager no envia nada el delegado
+        // Si estuviera denied or restricted, habria que invitar al usuario
+        // con un alert a ir a Settings y activar la localizacion
 
-    if ((status == kCLAuthorizationStatusNotDetermined)
-        && [CLLocationManager locationServicesEnabled]) {
+        if ((status == kCLAuthorizationStatusNotDetermined)
+            && [CLLocationManager locationServicesEnabled]) {
 
-        [self.locationManager requestWhenInUseAuthorization];
-    }
+            [self.locationManager requestWhenInUseAuthorization];
+        }
 }
 
 -(void)tearDownLocationManager{
@@ -130,8 +133,9 @@
         self.location = [Location locationForNote:self withCLLocation:location];
 
     } else {
-        
-        NSLog(@"Si hemos llegado aqui Fernando me corta las bolas");
+
+    // TODO: - ya tenemos una localizacion, pero parece que nos mandan otras 4 actualizaciones
+        NSLog(@"ya esta localizada la nota");
     }
     
 }

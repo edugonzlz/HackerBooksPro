@@ -18,6 +18,6 @@
 -(id)initWithLocation:(Location *)location;
 
 // Crear un inicializador
--(id)initWithNotes:(NSArray<id<MKAnnotation>>*)notes;
+-(id)initWithLocations:(NSArray<Location *>*)locations;
 
 @end

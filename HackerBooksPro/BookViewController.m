@@ -12,6 +12,7 @@
 #import "Book.h"
 #import "Note.h"
 #import "NotesCollectionViewController.h"
+#import "MapViewController.h"
 
 @interface BookViewController ()
 
@@ -80,6 +81,30 @@
 }
 
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender {
+
+// TODO: - 
+    // hacer un req con las notas de este libro
+    // enviar un array de las locations de las notas
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
+    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", self.model];
+
+    NSError *error;
+    NSArray *res = [self.model.managedObjectContext executeFetchRequest:req
+                                                                  error:&error];
+    NSAssert(res, @"Error buscando notas");
+
+    NSMutableArray *locArray = [[NSMutableArray alloc]init];
+    for (Note *note in res) {
+        if (note.location) {
+
+            [locArray addObject:note.location];
+        }
+    }
+
+    MapViewController *mapVC = [[MapViewController alloc]initWithLocations:locArray];
+
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 // MARK: - Utils

@@ -8,11 +8,12 @@
 
 #import "MapViewController.h"
 #import "Location.h"
+#import "Note.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
 //@property (strong, nonatomic)Location *model;
-@property (strong, nonatomic)NSArray<id<MKAnnotation>> *model;
+@property (strong, nonatomic)NSArray<Location *> *model;
 
 @end
 
@@ -27,10 +28,10 @@
     }
     return self;
 }
--(id)initWithNotes:(NSArray<id<MKAnnotation>>*)notes{
+-(id)initWithLocations:(NSArray<Location *>*)locations{
 
     if (self = [super init]) {
-        _model = notes;
+        _model = locations;
     }
     return self;
 }
@@ -39,12 +40,24 @@
     [super viewWillAppear:animated];
 
     [self.mapView addAnnotations:self.model];
+
+    // Lo que se ve al cargar el mapa
+    // Centramos el mapa en el ultimo elemento por si solo es uno
+    Location *loc = [self.model lastObject];
+    MKCoordinateRegion initialRegion = MKCoordinateRegionMakeWithDistance(loc.coordinate, 10000000, 10000000);
+    [self.mapView setRegion:initialRegion];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
-    // Asignar rgion y animar
+    Location *loc = [self.model lastObject];
+    MKCoordinateRegion finalRegion = MKCoordinateRegionMakeWithDistance(loc.coordinate, 1000, 1000);
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        [self.mapView setRegion:finalRegion animated:YES];
+    });
 }
 
 // MARK: - MKMapViewDelegate

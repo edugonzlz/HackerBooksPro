@@ -109,9 +109,12 @@
 
 - (IBAction)displayMap:(id)sender {
 
-    MapViewController *mapVC = [[MapViewController alloc]initWithLocation:self.model.location];
+    if (self.model.location) {
 
-    [self.navigationController pushViewController:mapVC animated:YES];
+        MapViewController *mapVC = [[MapViewController alloc]initWithLocation:self.model.location];
+        [self.navigationController pushViewController:mapVC animated:YES];
+    }
+
 }
 
 - (IBAction)deleteNote:(id)sender {
