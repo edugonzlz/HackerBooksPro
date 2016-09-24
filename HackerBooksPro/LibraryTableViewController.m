@@ -20,7 +20,6 @@
 @interface LibraryTableViewController ()
 
 @property (strong, nonatomic)UISearchBar *searchBar;
-//@property (strong, nonatomic)NSString *searchText;
 
 @end
 
@@ -46,8 +45,13 @@
         self.searchBar = [[UISearchBar alloc]init];
     }
 
-    return self;
+    if (self = [super initWithStyle:UITableViewStylePlain]){
+        self.context = context;
+        self.title = @"HackerBooksPro";
+        self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    }
 
+    return self;
 }
 
 // MARK: - Lifecycle
@@ -56,14 +60,13 @@
 
     [self registerCell];
 
-    [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
-
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search a book...";
-    
-    self.navigationItem.titleView = self.searchBar;
 
+    self.tableView.tableHeaderView = self.searchBar;
+    [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
 }
+
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -190,12 +193,9 @@
 // MARK: - UISearchBarDelegate
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 
-    self.searchBar.showsCancelButton = YES;
+    [self.searchBar setShowsCancelButton:YES animated:YES];
 }
--(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
 
-    self.searchBar.showsCancelButton = YES;
-}
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
 
     self.searchBar.showsCancelButton = YES;
@@ -223,9 +223,9 @@
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
 
-    self.searchBar.showsCancelButton = NO;
-    [self.searchBar endEditing:YES];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
 
+    [self.searchBar endEditing:YES];
     self.searchBar.text = nil;
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
