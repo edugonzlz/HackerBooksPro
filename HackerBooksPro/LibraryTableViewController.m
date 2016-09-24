@@ -37,15 +37,10 @@
                                                                            sectionNameKeyPath:nil
                                                                                     cacheName:nil];
 
+
     if (self = [super initWithFetchedResultsController:fr
                                                  style:UITableViewStylePlain]) {
         self.fetchedResultsController = fr;
-        self.context = context;
-        self.title = @"HackerBooksPro";
-        self.searchBar = [[UISearchBar alloc]init];
-    }
-
-    if (self = [super initWithStyle:UITableViewStylePlain]){
         self.context = context;
         self.title = @"HackerBooksPro";
         self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
@@ -220,10 +215,7 @@
 
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
 
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
-                                                                        managedObjectContext:self.context
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+    [self setResultsControllerWithRequest:req];
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
@@ -236,10 +228,29 @@
 
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
 
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+
+    [self setDefaultResultsController];
+}
+
+-(void)setResultsControllerWithRequest:(NSFetchRequest *)request{
+
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.context
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+
 }
+-(void)setDefaultResultsController{
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+                                               managedObjectContext:self.context
+                                                 sectionNameKeyPath:nil
+                                                          cacheName:nil];
+}
+
 
 @end

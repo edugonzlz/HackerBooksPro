@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookViewController">
             <connections>
-                <outlet property="authorsLabel" destination="s1a-FO-lKq" id="Au8-HB-n77"/>
+                <outlet property="authorsLabel" destination="aV3-1M-jcO" id="Rh4-Nt-PkC"/>
                 <outlet property="coverImage" destination="llw-RT-gDN" id="7Ai-r0-b0H"/>
                 <outlet property="favButton" destination="tBC-Ip-59D" id="KtE-W4-ZAm"/>
                 <outlet property="tagsLabel" destination="le3-74-aVw" id="det-H8-mMI"/>
@@ -21,20 +21,19 @@
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5TC-eO-LGi">
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YmM-vq-ui7" userLabel="Stack Authors">
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="FIC-za-BGm" userLabel="Stack Tags">
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authors:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FD-0l-FLD">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authors:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aC-n1-vBc">
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="60" id="OPz-pI-ljh"/>
-                                        <constraint firstAttribute="height" constant="40" id="UAo-ba-g91"/>
+                                        <constraint firstAttribute="height" constant="40" id="hST-LF-wMR"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="autores" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s1a-FO-lKq">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="autores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV3-1M-jcO">
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="HOQ-Zq-joR"/>
+                                        <constraint firstAttribute="height" constant="40" id="WsZ-Z1-N3a"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -42,7 +41,7 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N7U-Ah-3Cx" userLabel="Stack Tags">
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="N7U-Ah-3Cx" userLabel="Stack Tags">
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWa-za-h9v">
                                     <constraints>
