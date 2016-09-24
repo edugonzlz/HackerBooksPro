@@ -12,8 +12,17 @@
 #import "Tag.h"
 #import "BookViewController.h"
 #import "BookTableViewCell.h"
+#import "Author.h"
+#import "BookTag.h"
 
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
+
+@interface LibraryTableViewController ()
+
+@property (strong, nonatomic)UISearchBar *searchBar;
+//@property (strong, nonatomic)NSString *searchText;
+
+@end
 
 @implementation LibraryTableViewController
 
@@ -34,17 +43,25 @@
         self.fetchedResultsController = fr;
         self.context = context;
         self.title = @"HackerBooksPro";
+        self.searchBar = [[UISearchBar alloc]init];
     }
 
     return self;
 
 }
 
+// MARK: - Lifecycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
     [self registerCell];
+
+    self.searchBar.delegate = self;
+//    self.searchBar.showsCancelButton = YES;
+    self.searchBar.placeholder = @"Search a book...";
     
+    self.navigationItem.titleView = self.searchBar;
+
 }
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -168,6 +185,52 @@
     UINib *nib = [UINib nibWithNibName:@"BookTableViewCell" bundle:nil];
 
     [self.tableView registerNib:nib forCellReuseIdentifier:[BookTableViewCell cellId]];
+}
+// MARK: - UISearchBarDelegate
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+
+    self.searchBar.showsCancelButton = YES;
+}
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+
+    self.searchBar.showsCancelButton = YES;
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+
+    NSMutableArray *predicates = [[NSMutableArray alloc]init];
+
+    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchText];
+    [predicates addObject:titlePred];
+    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY authors.name CONTAINS[cd] %@", searchText];
+    [predicates addObject:authorPred];
+    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"ANY bookTags.tag.name CONTAINS[cd] %@", searchText];
+    [predicates addObject:tagPred];
+
+    req.predicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+                                                                        managedObjectContext:self.context
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+
+    self.searchBar.showsCancelButton = NO;
+
+    self.searchBar.text = nil;
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
+                                                                        managedObjectContext:self.context
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+
 }
 
 @end
