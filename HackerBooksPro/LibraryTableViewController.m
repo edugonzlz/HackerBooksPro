@@ -56,8 +56,9 @@
 
     [self registerCell];
 
+    [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+
     self.searchBar.delegate = self;
-//    self.searchBar.showsCancelButton = YES;
     self.searchBar.placeholder = @"Search a book...";
     
     self.navigationItem.titleView = self.searchBar;
@@ -69,7 +70,7 @@
     //book
     Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-//    celda
+    //    celda
     NSString *cellId = @"bookCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
@@ -78,7 +79,7 @@
     }
     cell.textLabel.text = book.title;
     cell.imageView.image = book.photoCover.image;
-    //    cell.detailTextLabel.text = book.tagsString;
+    cell.detailTextLabel.text = book.tagsString;
 
 //    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
 //                                                                   forIndexPath:indexPath];
@@ -109,7 +110,6 @@
 
     return [BookTableViewCell cellHeight];
 }
-
 // MARK: - Utils
 -(void)postNotificationForBook:(Book *)book{
 
@@ -186,9 +186,13 @@
 
     [self.tableView registerNib:nib forCellReuseIdentifier:[BookTableViewCell cellId]];
 }
-// MARK: - UISearchBarDelegate
 
+// MARK: - UISearchBarDelegate
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+
+    self.searchBar.showsCancelButton = YES;
+}
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
 
     self.searchBar.showsCancelButton = YES;
 }
@@ -216,9 +220,11 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
+
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
 
     self.searchBar.showsCancelButton = NO;
+    [self.searchBar endEditing:YES];
 
     self.searchBar.text = nil;
 
@@ -230,7 +236,6 @@
                                                                         managedObjectContext:self.context
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
-
 }
 
 @end

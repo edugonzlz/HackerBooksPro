@@ -10,7 +10,7 @@
 #import "AGTCoreDataTableViewController.h"
 @class Book;
 
-@interface LibraryTableViewController : AGTCoreDataTableViewController <UISearchBarDelegate>
+@interface LibraryTableViewController : AGTCoreDataTableViewController <UISearchBarDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
