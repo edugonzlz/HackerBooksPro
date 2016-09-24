@@ -63,8 +63,13 @@
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search a book...";
 
+    CGRect newBounds = self.tableView.bounds;
+    newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
+    self.tableView.bounds = newBounds;
+
     self.tableView.tableHeaderView = self.searchBar;
     [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+
 }
 
 // MARK: - DataSource
@@ -224,7 +229,6 @@
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
 
     [self.searchBar setShowsCancelButton:NO animated:YES];
-
     [self.searchBar endEditing:YES];
     self.searchBar.text = nil;
 
