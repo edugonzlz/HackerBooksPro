@@ -7,6 +7,7 @@
 //
 
 #import "AGTBaseManagedObject.h"
+#import "Tag.h"
 
 @implementation AGTBaseManagedObject
 
@@ -40,7 +41,6 @@
     }
     
     NSManagedObject * obj = [objs lastObject];
-    
     if (!obj) {
         // No habia nada y hay que crear
         obj = [NSEntityDescription insertNewObjectForEntityForName:[self entityName]
@@ -48,7 +48,7 @@
         [obj setValue:value
                forKey:key];
     }
-    
+
     return obj;
 }
 

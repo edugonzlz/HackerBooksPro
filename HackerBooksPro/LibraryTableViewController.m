@@ -28,15 +28,17 @@
 // MARK: - Inits
 -(id)initWithContext:(NSManagedObjectContext *)context{
 
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
 
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+    req.fetchBatchSize = 40;
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tag.name" ascending:YES],
+                            [NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
 
     NSFetchedResultsController *fr = [[NSFetchedResultsController alloc] initWithFetchRequest:req
                                                                          managedObjectContext:context
-                                                                           sectionNameKeyPath:nil
+                                                                           sectionNameKeyPath:@"tag.name"
                                                                                     cacheName:nil];
-
 
     if (self = [super initWithFetchedResultsController:fr
                                                  style:UITableViewStylePlain]) {
@@ -53,25 +55,28 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    self.tableView.tableHeaderView = self.searchBar;
     [self registerCell];
 
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"Search a book...";
 
-    CGRect newBounds = self.tableView.bounds;
-    newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
-    self.tableView.bounds = newBounds;
+    // Ocultamos la barra de busqueda debajo de la navigationBar
+//    CGRect newBounds = self.tableView.bounds;
+//    newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
+//    self.tableView.bounds = newBounds;
 
-    self.tableView.tableHeaderView = self.searchBar;
     [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
-
 }
 
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+
+    // Buscamos bookTag y de ahi el libro
+    BookTag *bookTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     //book
-    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Book *book = bookTag.book;
 
     //    celda
     NSString *cellId = @"bookCell";
@@ -94,7 +99,10 @@
 // MARK: - TableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    // Buscamos bookTag y de ahi el libro
+    BookTag *bookTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //book
+    Book *book = bookTag.book;
 
     BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
 
@@ -113,6 +121,7 @@
 
     return [BookTableViewCell cellHeight];
 }
+
 // MARK: - Utils
 -(void)postNotificationForBook:(Book *)book{
 
@@ -200,22 +209,24 @@
 
     self.searchBar.showsCancelButton = YES;
 
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
 
     NSMutableArray *predicates = [[NSMutableArray alloc]init];
 
-    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchText];
+    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"book.title CONTAINS[cd] %@", searchText];
     [predicates addObject:titlePred];
-    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY authors.name CONTAINS[cd] %@", searchText];
+
+    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY book.authors.name CONTAINS[cd] %@", searchText];
     [predicates addObject:authorPred];
-    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"ANY bookTags.tag.name CONTAINS[cd] %@", searchText];
+
+    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"tag.name CONTAINS[cd] %@", searchText];
     [predicates addObject:tagPred];
 
     req.predicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
 
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
 
-    [self setResultsControllerWithRequest:req];
+    [self setFetchedResultsControllerWithRequest:req];
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
@@ -224,15 +235,10 @@
     [self.searchBar endEditing:YES];
     self.searchBar.text = nil;
 
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
-
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
-
-
-    [self setDefaultResultsController];
+    [self setDefaultFetchedResultsController];
 }
 
--(void)setResultsControllerWithRequest:(NSFetchRequest *)request{
+-(void)setFetchedResultsControllerWithRequest:(NSFetchRequest *)request{
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.context
@@ -240,16 +246,19 @@
                                                                                    cacheName:nil];
 
 }
--(void)setDefaultResultsController{
+-(void)setDefaultFetchedResultsController{
 
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
 
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:BookAttributes.title ascending:YES]];
+    req.fetchBatchSize = 40;
+
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tag.name" ascending:YES],
+                            [NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
-                                               managedObjectContext:self.context
-                                                 sectionNameKeyPath:nil
-                                                          cacheName:nil];
+                                                                         managedObjectContext:self.context
+                                                                           sectionNameKeyPath:@"tag.name"
+                                                                                    cacheName:nil];
 }
 
 
