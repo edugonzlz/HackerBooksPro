@@ -19,15 +19,15 @@
     return tag;
 }
 
-//- (NSComparisonResult)compare:(Tag *)otherObject{
-//
-//  enum {
-//        NSOrderedAscending = -1,
-//        NSOrderedSame,
-//        NSOrderedDescending
-//    };
-//    typedef NSInteger NSComparisonResult;
-//
-//}
+- (NSComparisonResult)compare:(Tag *)otherObject{
+
+
+    if ([otherObject.name isEqualToString:@"favorites"]) {
+        return NSOrderedDescending;
+    }
+
+    return [self.name compare:otherObject.name];
+
+}
 
 @end
