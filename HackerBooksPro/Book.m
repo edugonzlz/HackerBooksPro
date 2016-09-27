@@ -163,6 +163,7 @@
             NSLog(@"Ahora no es fav, borralo!");
 
             NSSet *favsSet = [self.bookTags filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"tag.name == 'favorites'"]];
+            [self removeBookTags:favsSet];
             [self.managedObjectContext deleteObject:[favsSet anyObject]];
         }
     }
