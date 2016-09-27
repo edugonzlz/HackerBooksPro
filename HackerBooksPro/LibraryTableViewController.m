@@ -72,22 +72,35 @@
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-
-    // Buscamos bookTag y de ahi el libro
-    BookTag *bookTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    //book
-    Book *book = bookTag.book;
-
-    //    celda
     NSString *cellId = @"bookCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
                                      reuseIdentifier:cellId];
     }
-    cell.textLabel.text = book.title;
-    cell.imageView.image = book.photoCover.image;
-    cell.detailTextLabel.text = book.tagsString;
+
+    //book
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    // Buscamos bookTag y de ahi el libro
+    if ([object isKindOfClass:[BookTag class]]) {
+
+        BookTag *bookTag = (BookTag *)object;
+        Book *book = bookTag.book;
+
+        cell.textLabel.text = book.title;
+        cell.imageView.image = book.photoCover.image;
+        cell.detailTextLabel.text = book.tagsString;
+
+    } else if ([object isKindOfClass:[Book class]]){
+
+        Book *book = (Book *)object;
+
+        cell.textLabel.text = book.title;
+        cell.imageView.image = book.photoCover.image;
+        cell.detailTextLabel.text = book.tagsString;
+    }
+
 
 //    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
 //                                                                   forIndexPath:indexPath];
@@ -209,22 +222,36 @@
 
     self.searchBar.showsCancelButton = YES;
 
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
+//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
+//    req.resultType = NSDictionaryResultType;
+//    req.propertiesToFetch = @[@"book", @"tag"];
+//    req.returnsDistinctResults = YES;
+//
+//    NSMutableArray *predicates = [[NSMutableArray alloc]init];
+//
+//    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"book.title CONTAINS[cd] %@", searchText];
+//    [predicates addObject:titlePred];
+//
+//    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY book.authors.name CONTAINS[cd] %@", searchText];
+//    [predicates addObject:authorPred];
+//
+//    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"tag.name CONTAINS[cd] %@", searchText];
+//    [predicates addObject:tagPred];
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
 
     NSMutableArray *predicates = [[NSMutableArray alloc]init];
 
-    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"book.title CONTAINS[cd] %@", searchText];
+    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchText];
     [predicates addObject:titlePred];
-
-    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY book.authors.name CONTAINS[cd] %@", searchText];
+    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY authors.name CONTAINS[cd] %@", searchText];
     [predicates addObject:authorPred];
-
-    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"tag.name CONTAINS[cd] %@", searchText];
+    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"ANY booktags CONTAINS[cd] %@", searchText];
     [predicates addObject:tagPred];
 
     req.predicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
 
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
 
     [self setFetchedResultsControllerWithRequest:req];
 }
