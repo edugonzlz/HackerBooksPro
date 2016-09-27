@@ -112,22 +112,41 @@
 // MARK: - TableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    // Buscamos bookTag y de ahi el libro
-    BookTag *bookTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    //book
-    Book *book = bookTag.book;
+    //    // Buscamos bookTag y de ahi el libro
+    //    BookTag *bookTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //    //book
+    //    Book *book = bookTag.book;
 
-    BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    [self saveLastBookSelected: book];
+    if ([object isKindOfClass:[BookTag class]]) {
 
+        BookTag *bookTag = (BookTag *)object;
+        Book *book = bookTag.book;
 
-    if (IS_IPHONE) {
+        BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
+        [self saveLastBookSelected: book];
+        if (IS_IPHONE) {
 
-        [self.navigationController pushViewController:bVC animated:true];
-    } else {
+            [self.navigationController pushViewController:bVC animated:true];
+        } else {
 
-        [self postNotificationForBook:book];
+            [self postNotificationForBook:book];
+        }
+
+    } else if ([object isKindOfClass:[Book class]]){
+
+        Book *book = (Book *)object;
+
+        BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
+        [self saveLastBookSelected: book];
+        if (IS_IPHONE) {
+
+            [self.navigationController pushViewController:bVC animated:true];
+        } else {
+            
+            [self postNotificationForBook:book];
+        }
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -246,7 +265,7 @@
     [predicates addObject:titlePred];
     NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY authors.name CONTAINS[cd] %@", searchText];
     [predicates addObject:authorPred];
-    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"ANY booktags CONTAINS[cd] %@", searchText];
+    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"ANY bookTags.tag.name CONTAINS[cd] %@", searchText];
     [predicates addObject:tagPred];
 
     req.predicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
