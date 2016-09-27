@@ -62,7 +62,7 @@
     for (NSString *key in [Note observableKeyNames]) {
         [self addObserver:self
                forKeyPath:key
-                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionOld
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
                   context:NULL];
     }
 }

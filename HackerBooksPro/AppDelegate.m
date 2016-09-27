@@ -41,12 +41,12 @@
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
     __block NSData *data = nil;
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSError *error = nil;
 
 
 
 
     // Miramos si estan los libros en el disco
+    NSError *error = nil;
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
     NSArray *res = [self.model.context executeFetchRequest:req error:&error];
 
@@ -138,8 +138,11 @@
                 for (NSDictionary *dict in JSONObjects) {
 
                     [Book bookWithDict:dict inContext:self.model.context];
-
                 }
+
+                // Creamos la tag Favorite
+                Tag *tag = [Tag uniqueObjectWithValue:@"favorites" forKey:@"name" inManagedObjectContext:self.model.context];
+                NSLog(@"Creada tag fav: %@", tag.name);
 
             }else{
                 // Se ha producido un error al parsear el JSON

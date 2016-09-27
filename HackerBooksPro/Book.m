@@ -8,7 +8,7 @@
 
 @interface Book ()
 
-// Private interface goes here.
++(NSArray *)observableKeyNames;
 
 @end
 
@@ -16,6 +16,10 @@
 
 @synthesize tagsString = _tagsString;
 @synthesize authorsString = _authorsString;
+
++(NSArray *)observableKeyNames{
+    return @[@"isFavorite"];
+}
 
 -(NSString *)tagsString{
 
@@ -42,11 +46,11 @@
 
 // MARK: - inicializador de clase
 +(instancetype)bookWithTitle:(NSString *)title
-                      authors:(NSArray *)authors
+                     authors:(NSArray *)authors
                         tags:(NSArray *)tags
                     coverURL:(NSString *)coverURL
                       pdfURL:(NSString *)pdfURL
-                     inContext:(NSManagedObjectContext *)context{
+                   inContext:(NSManagedObjectContext *)context{
 
     Book *book = [NSEntityDescription insertNewObjectForEntityForName:[Book entityName]
                                                inManagedObjectContext:context];
@@ -81,14 +85,87 @@
 
     NSArray *tagsArray = [[dict objectForKey:@"tags"] componentsSeparatedByString:@", "];
     NSArray *authorsArray = [[dict objectForKey:@"authors"] componentsSeparatedByString:@", "];
-    
+
     Book *book = [Book bookWithTitle:[dict objectForKey:@"title"]
-                              authors:authorsArray
+                             authors:authorsArray
                                 tags:tagsArray
                             coverURL:[dict objectForKey:@"image_url"]
                               pdfURL:[dict objectForKey:@"pdf_url"]
                            inContext:context];
 
     return book;
+}
+
+// MARK: - Lifecycle
+-(void)awakeFromInsert{
+    [super awakeFromInsert];
+
+    [self setupKVO];
+}
+-(void)awakeFromFetch{
+    [super awakeFromFetch];
+
+    [self setupKVO];
+}
+-(void)willTurnIntoFault{
+    [super willTurnIntoFault];
+
+    [self tearDownKVO];
+}
+
+// MARK: - KVO
+-(void)setupKVO{
+    for (NSString *key in [Book observableKeyNames]) {
+        [self addObserver:self
+               forKeyPath:key
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                  context:NULL];
+    }
+}
+
+-(void)tearDownKVO{
+    for (NSString *key in [Book observableKeyNames]) {
+        [self removeObserver:self
+                  forKeyPath:key];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context{
+
+    // Cuando vemos el cambio en la propiedad favorito añadimos o borramos la relacion con la tag
+
+    // Recupero la tag favorites
+
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Tag entityName]];
+    req.predicate = [NSPredicate predicateWithFormat:@"name == 'favorites'"];
+    req.fetchLimit = 1;
+
+    NSError *error;
+    NSArray *res = [self.managedObjectContext executeFetchRequest:req error:&error];
+
+    if ([res count] > 0 && res != nil) {
+
+        Tag *favTag = [res lastObject];
+        BOOL fav = self.isFavoriteValue;
+
+        if (fav) {
+
+            NSLog(@"Ahora es fav, AÑADE!");
+
+            BookTag *bookTag =  [BookTag bookTagWithBook:self andTag:favTag];
+            [self addBookTagsObject:bookTag];
+
+        } else if (!fav) {
+
+            NSLog(@"Ahora no es fav, borralo!");
+
+            NSSet *favsSet = [self.bookTags filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"tag.name == 'favorites'"]];
+            [self.managedObjectContext deleteObject:[favsSet anyObject]];
+        }
+    }
+    
 }
 @end
