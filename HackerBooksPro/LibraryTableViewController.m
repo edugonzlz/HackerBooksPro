@@ -73,35 +73,20 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     NSString *cellId = @"bookCell";
+
+    Book *book = [self getBook:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
                                      reuseIdentifier:cellId];
     }
 
-    //book
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = book.title;
+    cell.imageView.image = book.photoCover.image;
+    cell.detailTextLabel.text = book.tagsString;
 
-    // Buscamos bookTag y de ahi el libro
-    if ([object isKindOfClass:[BookTag class]]) {
-
-        BookTag *bookTag = (BookTag *)object;
-        Book *book = bookTag.book;
-
-        cell.textLabel.text = book.title;
-        cell.imageView.image = book.photoCover.image;
-        cell.detailTextLabel.text = book.tagsString;
-
-    } else if ([object isKindOfClass:[Book class]]){
-
-        Book *book = (Book *)object;
-
-        cell.textLabel.text = book.title;
-        cell.imageView.image = book.photoCover.image;
-        cell.detailTextLabel.text = book.tagsString;
-    }
-
-
+// TODO: - celda personalizada
 //    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
 //                                                                   forIndexPath:indexPath];
 //    [cell observeBook:book];
@@ -112,49 +97,40 @@
 // MARK: - TableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    //    // Buscamos bookTag y de ahi el libro
-    //    BookTag *bookTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    //    //book
-    //    Book *book = bookTag.book;
+    Book *book = [self getBook:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
+    [self saveLastBookSelected: book];
+    if (IS_IPHONE) {
 
-    if ([object isKindOfClass:[BookTag class]]) {
+        [self.navigationController pushViewController:bVC animated:true];
+    } else {
 
-        BookTag *bookTag = (BookTag *)object;
-        Book *book = bookTag.book;
-
-        BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
-        [self saveLastBookSelected: book];
-        if (IS_IPHONE) {
-
-            [self.navigationController pushViewController:bVC animated:true];
-        } else {
-
-            [self postNotificationForBook:book];
-        }
-
-    } else if ([object isKindOfClass:[Book class]]){
-
-        Book *book = (Book *)object;
-
-        BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
-        [self saveLastBookSelected: book];
-        if (IS_IPHONE) {
-
-            [self.navigationController pushViewController:bVC animated:true];
-        } else {
-            
-            [self postNotificationForBook:book];
-        }
+        [self postNotificationForBook:book];
     }
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return [BookTableViewCell cellHeight];
 }
 
+
 // MARK: - Utils
+-(Book *)getBook:(NSManagedObject *)object{
+
+    if ([object isKindOfClass:[BookTag class]]) {
+
+        BookTag *bookTag = (BookTag *)object;
+        return bookTag.book;
+
+    }
+    if ([object isKindOfClass:[Book class]]){
+
+        return (Book *)object;
+    }
+    return nil;
+}
 -(void)postNotificationForBook:(Book *)book{
 
 

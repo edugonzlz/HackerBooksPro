@@ -19,4 +19,15 @@
     return tag;
 }
 
+//- (NSComparisonResult)compare:(Tag *)otherObject{
+//
+//  enum {
+//        NSOrderedAscending = -1,
+//        NSOrderedSame,
+//        NSOrderedDescending
+//    };
+//    typedef NSInteger NSComparisonResult;
+//
+//}
+
 @end
