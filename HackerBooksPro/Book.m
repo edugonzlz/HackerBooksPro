@@ -153,14 +153,10 @@
 
         if (fav) {
 
-            NSLog(@"Ahora es fav, AÑADE!");
-
             BookTag *bookTag =  [BookTag bookTagWithBook:self andTag:favTag];
             [self addBookTagsObject:bookTag];
 
         } else if (!fav) {
-
-            NSLog(@"Ahora no es fav, borralo!");
 
             NSSet *favsSet = [self.bookTags filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"tag.name == 'favorites'"]];
             [self removeBookTags:favsSet];

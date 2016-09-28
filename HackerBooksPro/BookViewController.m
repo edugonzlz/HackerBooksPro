@@ -47,8 +47,8 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
 
-// TODO: - no voy a dar de baja para no implementar delegado
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // TODO: - no voy a dar de baja para no implementar delegado
+    //    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -82,7 +82,7 @@
 
 - (IBAction)viewNotesMap:(UIBarButtonItem *)sender {
 
-// TODO: - estamos mostrando todas?
+    // TODO: - estamos mostrando todas las localizaciones?
     // hacer un req con las notas de este libro
     // enviar un array de las locations de las notas
 
@@ -94,17 +94,20 @@
                                                                   error:&error];
     NSAssert(res, @"Error buscando notas");
 
-    NSMutableArray *locArray = [[NSMutableArray alloc]init];
-    for (Note *note in res) {
-        if (note.location) {
+    if (res != nil && [res count] >0) {
 
-            [locArray addObject:note.location];
+        NSMutableArray *locArray = [[NSMutableArray alloc]init];
+        for (Note *note in res) {
+            if (note.location) {
+
+                [locArray addObject:note.location];
+            }
         }
+
+        MapViewController *mapVC = [[MapViewController alloc]initWithLocations:locArray];
+
+        [self.navigationController pushViewController:mapVC animated:YES];
     }
-
-    MapViewController *mapVC = [[MapViewController alloc]initWithLocations:locArray];
-
-    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 // MARK: - Utils
@@ -126,8 +129,9 @@
     }
 }
 
+// MARK: - lastBookSelectedNotification
 -(void)didSelectedBook:(NSNotification *)notification{
-
+    
     Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
     self.model = book;
     [self syncModelWithView];

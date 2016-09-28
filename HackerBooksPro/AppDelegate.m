@@ -24,13 +24,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
 
     self.model = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-//        [self.model zapAllData];
+//    [self.model zapAllData];
 
     [self autoSaveData];
 
@@ -39,13 +38,12 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *lastUrl = [[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *fileUrl = [lastUrl URLByAppendingPathComponent:JSONUrl.lastPathComponent];
+
     __block NSData *data = nil;
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 
 
-
-
-    // Miramos si estan los libros en el disco
+    // Miramos si estan los libros en el disco para marcarlo
     NSError *error = nil;
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
     NSArray *res = [self.model.context executeFetchRequest:req error:&error];
@@ -69,7 +67,7 @@
     // Mirar si tenemos JSON en local
     if (![fm fileExistsAtPath:fileUrl.path]) {
 
-        // NO esta en local -  descargamos JSON
+        // NO esta en local -  descargamos JSON en segundo plano
         dispatch_queue_t download = dispatch_queue_create("json", 0);
 
         dispatch_async(download, ^{
@@ -90,7 +88,7 @@
 
     } else {
 
-        // SI esta el JSON en local
+        // El JSON SI esta en local
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
         if (![def boolForKey:SAVE_IN_COREDATA_COMPLETED]) {
             NSLog(@"Parece que NO estan los datos en disco, Vamos a serializar de nuevo y guardar");
@@ -140,9 +138,8 @@
                     [Book bookWithDict:dict inContext:self.model.context];
                 }
 
-                // Creamos la tag Favorite
+                // Creamos la tag Favorite si no existe
                 Tag *tag = [Tag uniqueObjectWithValue:@"favorites" forKey:@"name" inManagedObjectContext:self.model.context];
-                NSLog(@"Creada tag fav: %@", tag.name);
 
             }else{
                 // Se ha producido un error al parsear el JSON
@@ -226,7 +223,7 @@
 
 // MARK: - Utils
 -(void)saveData{
-
+    
     [self.model saveWithErrorBlock:^(NSError *error) {
         
         NSLog(@"Error guardando los datos en CoreData durante el autoSave: %@", error.localizedDescription);
@@ -235,7 +232,7 @@
 -(void)autoSaveData{
     
     [self saveData];
-    [self performSelector:@selector(saveData)
+    [self performSelector:@selector(autoSaveData)
                withObject:nil
                afterDelay:5];
     

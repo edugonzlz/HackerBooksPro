@@ -143,11 +143,11 @@
 
 
 -(void) saveWithErrorBlock: (void(^)(NSError *error))errorBlock{
-    
+
     __block NSError *err = nil;
     [_context performBlockAndWait:^{
-        
-        
+
+
         // If a context is nil, saving it should also be considered an
         // error, as being nil might be the result of a previous error
         // while creating the db.
@@ -157,7 +157,8 @@
                                   userInfo:@{NSLocalizedDescriptionKey :
                                                  @"Attempted to save a nil NSManagedObjectContext. This AGTCoreDataStack has no context - probably there was an earlier error trying to access the CoreData database file."}];
             errorBlock(err);
-            
+
+
         }else if (self.context.hasChanges) {
             if (![self.context save:&err]) {
                 if (errorBlock != nil) {

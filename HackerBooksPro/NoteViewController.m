@@ -46,9 +46,6 @@
 // MARK: - Lifecycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-// TODO: - añadir un boton OK en la navigation o en una toolbar en el teclado para cerrar el teclado
-
-
 
     // Si es una nota nueva damos la posibilidad de cancelarla con un boton
     if (self.newNote){

@@ -62,9 +62,9 @@
     self.searchBar.placeholder = @"Search a book...";
 
     // Ocultamos la barra de busqueda debajo de la navigationBar
-//    CGRect newBounds = self.tableView.bounds;
-//    newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
-//    self.tableView.bounds = newBounds;
+    //    CGRect newBounds = self.tableView.bounds;
+    //    newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
+    //    self.tableView.bounds = newBounds;
 
     [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
 }
@@ -72,24 +72,24 @@
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSString *cellId = @"bookCell";
 
     Book *book = [self getBook:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
-                                     reuseIdentifier:cellId];
-    }
+    //    NSString *cellId = @"bookCell";
+    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    //    if (cell == nil) {
+    //        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle
+    //                                     reuseIdentifier:cellId];
+    //    }
+    //
+    //    cell.textLabel.text = book.title;
+    //    cell.imageView.image = book.photoCover.image;
+    //    cell.detailTextLabel.text = book.tagsString;
 
-    cell.textLabel.text = book.title;
-    cell.imageView.image = book.photoCover.image;
-    cell.detailTextLabel.text = book.tagsString;
-
-// TODO: - celda personalizada
-//    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
-//                                                                   forIndexPath:indexPath];
-//    [cell observeBook:book];
+    // TODO: - celda personalizada da un error que dice que actualizamos autolayout desde background
+    BookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[BookTableViewCell cellId]
+                                                                   forIndexPath:indexPath];
+    [cell observeBook:book];
 
     return cell;
 }
@@ -99,8 +99,11 @@
 
     Book *book = [self getBook:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 
-    BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
     [self saveLastBookSelected: book];
+
+    BookViewController *bVC = [[BookViewController alloc]initWithModel:book];
+
+
     if (IS_IPHONE) {
 
         [self.navigationController pushViewController:bVC animated:true];
@@ -141,6 +144,12 @@
                                                         userInfo:@{@"lastBookSelected": book}];
     [nc postNotification:notif];
 }
+-(void)registerCell{
+
+    UINib *nib = [UINib nibWithNibName:@"BookTableViewCell" bundle:nil];
+
+    [self.tableView registerNib:nib forCellReuseIdentifier:[BookTableViewCell cellId]];
+}
 
 // MARK: - LastBookSelected
 -(void)saveLastBookSelected:(Book *)book{
@@ -164,11 +173,13 @@
     NSURL *bookUri = [NSKeyedUnarchiver unarchiveObjectWithData:bookData];
     NSManagedObjectID *id = [self.context.persistentStoreCoordinator managedObjectIDForURIRepresentation:bookUri];
 
+    NSLog(@"bookData: %@, bookUri: %@, id: %@", bookData, bookUri, id);
+
     NSManagedObject *bookManaged = [self.context objectWithID:id];
     if (bookManaged.isFault) {
         Book *book = (Book *)bookManaged;
-
         return book;
+
     } else {
         NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
         req.predicate = [NSPredicate predicateWithFormat:@"SELF = %@", bookManaged];
@@ -187,24 +198,22 @@
 
 -(NSData *)setDefaultSelectedBook{
 
-    // Guardamos el primer libro por defecto. Es posible que este vacio
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
 
-//    // TODO: - no me permite hacer el fetched
-//    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    [self saveLastBookSelected:book];
+    // TODO: - por alguna razon no estoy recuperando ningun libro. Se supone que ya se han guardado...
+    NSError *error;
+    NSArray *res = [self.context executeFetchRequest:req
+                                               error:&error];
+    NSData *bookData = nil;
+    if (!error && res != nil && [res count] > 0) {
+        Book *book = [res firstObject];
+        [self saveLastBookSelected:book];
+    }
 
     // Recuperamos
-    NSData *bookData = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
-    
+    bookData = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastSelectedBook"];
+
     return bookData;
-}
-
--(void)registerCell{
-
-    UINib *nib = [UINib nibWithNibName:@"BookTableViewCell" bundle:nil];
-
-    [self.tableView registerNib:nib forCellReuseIdentifier:[BookTableViewCell cellId]];
 }
 
 // MARK: - UISearchBarDelegate
@@ -217,21 +226,21 @@
 
     self.searchBar.showsCancelButton = YES;
 
-//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
-//    req.resultType = NSDictionaryResultType;
-//    req.propertiesToFetch = @[@"book", @"tag"];
-//    req.returnsDistinctResults = YES;
-//
-//    NSMutableArray *predicates = [[NSMutableArray alloc]init];
-//
-//    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"book.title CONTAINS[cd] %@", searchText];
-//    [predicates addObject:titlePred];
-//
-//    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY book.authors.name CONTAINS[cd] %@", searchText];
-//    [predicates addObject:authorPred];
-//
-//    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"tag.name CONTAINS[cd] %@", searchText];
-//    [predicates addObject:tagPred];
+    //    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
+    //    req.resultType = NSDictionaryResultType;
+    //    req.propertiesToFetch = @[@"book", @"tag"];
+    //    req.returnsDistinctResults = YES;
+    //
+    //    NSMutableArray *predicates = [[NSMutableArray alloc]init];
+    //
+    //    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"book.title CONTAINS[cd] %@", searchText];
+    //    [predicates addObject:titlePred];
+    //
+    //    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY book.authors.name CONTAINS[cd] %@", searchText];
+    //    [predicates addObject:authorPred];
+    //
+    //    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"tag.name CONTAINS[cd] %@", searchText];
+    //    [predicates addObject:tagPred];
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
 
@@ -278,9 +287,9 @@
                             [NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
-                                                                         managedObjectContext:self.context
-                                                                           sectionNameKeyPath:@"tag.name"
-                                                                                    cacheName:nil];
+                                                                        managedObjectContext:self.context
+                                                                          sectionNameKeyPath:@"tag.name"
+                                                                                   cacheName:nil];
 }
 
 
