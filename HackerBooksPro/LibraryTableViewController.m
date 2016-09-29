@@ -17,10 +17,13 @@
 
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 
-@interface LibraryTableViewController () <UISearchResultsUpdating>
+@interface LibraryTableViewController () <UISearchResultsUpdating, UISearchBarDelegate>
 
-//@property (strong, nonatomic)UISearchBar *searchBar;
 @property (strong, nonatomic)UISearchController *searchController;
+
+// Para la restuaracion del estado
+@property BOOL searchControllerWasActive;
+@property BOOL searchControllerSearchFieldWasFirstResponder;
 
 @end
 
@@ -46,39 +49,73 @@
         self.fetchedResultsController = fr;
         self.context = context;
         self.title = @"HackerBooksPro";
-        self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-//        self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
-
     }
 
     return self;
 }
 
 // MARK: - Lifecycle
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
     [self registerCell];
 
-//        self.searchBar.delegate = self;
-//        self.searchBar.placeholder = @"Search a book...";
-//        self.tableView.tableHeaderView = self.searchBar;
-//     Ocultamos la barra de busqueda debajo de la navigationBar
-//        CGRect newBounds = self.tableView.bounds;
-//        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
-//        self.tableView.bounds = newBounds;
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 
-    self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"Search a book...";
     self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.definesPresentationContext = YES;
-
+    [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    self.searchController.hidesNavigationBarDuringPresentation = NO;
 
-    [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+    self.searchController.delegate = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+
+    self.definesPresentationContext = YES;
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    // Restaurar el estado activo del searchController
+    if (self.searchControllerWasActive) {
+        self.searchController.active = self.searchControllerWasActive;
+        _searchControllerWasActive = NO;
+
+        if (self.searchControllerSearchFieldWasFirstResponder) {
+            [self.searchController.searchBar becomeFirstResponder];
+            _searchControllerSearchFieldWasFirstResponder = NO;
+        }
+    }
+}
+
+
+
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+
+    //     Ocultamos la barra de busqueda debajo de la navigationBar
+    // no funciona bien, porque cada vez que volvemos a la tabla, la "sube" el tamaño de la barra
+//    CGRect newBounds = self.tableView.bounds;
+//    newBounds.origin.y = newBounds.origin.y + self.searchController.searchBar.bounds.size.height;
+//    self.tableView.bounds = newBounds;
+
+//    self.searchController.searchBar.frame = CGRectMake(0.0f, 0.0f, 320.0f, 44.0f);
+//    self.searchController.searchBar.delegate = self;
+//    self.searchController.searchBar.placeholder = @"Search a book...";
+//    self.searchController.searchResultsUpdater = self;
+//    self.searchController.dimsBackgroundDuringPresentation = NO;
+//    self.definesPresentationContext = YES;
+//
+//    self.tableView.tableHeaderView = self.searchController.searchBar;
+//    self.searchController.hidesNavigationBarDuringPresentation = NO;
+//
+//    [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+
+   }
 
 // MARK: - DataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -298,7 +335,66 @@
                                                                                    cacheName:nil];
 }
 
+// TODO: - UIStateRestoration lo he sacado de un ejemplo de codigo de Apple
+// si no lo uso, cuando busco, voy a la vista de detalle de un libro y vuelvo, la barra desaparece
+// No entiendo muy bien el codigo
 
 
+// MARK: -  UIStateRestoration
+
+// Restauramos lo siguiente
+//  1) Estado activo del Search controller
+//  2) texto de busqueda
+//  3) first responder
+
+NSString *const ViewControllerTitleKey = @"ViewControllerTitleKey";
+NSString *const SearchControllerIsActiveKey = @"SearchControllerIsActiveKey";
+NSString *const SearchBarTextKey = @"SearchBarTextKey";
+NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+
+    // encode the view state so it can be restored later
+
+    // encode the title
+    [coder encodeObject:self.title forKey:ViewControllerTitleKey];
+
+    UISearchController *searchController = self.searchController;
+
+    // encode the search controller's active state
+    BOOL searchDisplayControllerIsActive = searchController.isActive;
+    [coder encodeBool:searchDisplayControllerIsActive forKey:SearchControllerIsActiveKey];
+
+    // encode the first responser status
+    if (searchDisplayControllerIsActive) {
+        [coder encodeBool:[searchController.searchBar isFirstResponder] forKey:SearchBarIsFirstResponderKey];
+    }
+
+    // encode the search bar text
+    [coder encodeObject:searchController.searchBar.text forKey:SearchBarTextKey];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+
+    // restore the title
+    self.title = [coder decodeObjectForKey:ViewControllerTitleKey];
+
+    // restore the active state:
+    // we can't make the searchController active here since it's not part of the view
+    // hierarchy yet, instead we do it in viewWillAppear
+    //
+    _searchControllerWasActive = [coder decodeBoolForKey:SearchControllerIsActiveKey];
+
+    // restore the first responder status:
+    // we can't make the searchController first responder here since it's not part of the view
+    // hierarchy yet, instead we do it in viewWillAppear
+    //
+    _searchControllerSearchFieldWasFirstResponder = [coder decodeBoolForKey:SearchBarIsFirstResponderKey];
+
+    // restore the text in the search field
+    self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
+}
 
 @end
