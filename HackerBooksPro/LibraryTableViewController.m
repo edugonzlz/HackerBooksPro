@@ -17,9 +17,10 @@
 
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 
-@interface LibraryTableViewController ()
+@interface LibraryTableViewController () <UISearchResultsUpdating>
 
-@property (strong, nonatomic)UISearchBar *searchBar;
+//@property (strong, nonatomic)UISearchBar *searchBar;
+@property (strong, nonatomic)UISearchController *searchController;
 
 @end
 
@@ -45,7 +46,9 @@
         self.fetchedResultsController = fr;
         self.context = context;
         self.title = @"HackerBooksPro";
-        self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+        self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+//        self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+
     }
 
     return self;
@@ -55,16 +58,24 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
-    self.tableView.tableHeaderView = self.searchBar;
     [self registerCell];
 
-    self.searchBar.delegate = self;
-    self.searchBar.placeholder = @"Search a book...";
+//        self.searchBar.delegate = self;
+//        self.searchBar.placeholder = @"Search a book...";
+//        self.tableView.tableHeaderView = self.searchBar;
+//     Ocultamos la barra de busqueda debajo de la navigationBar
+//        CGRect newBounds = self.tableView.bounds;
+//        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
+//        self.tableView.bounds = newBounds;
 
-    // Ocultamos la barra de busqueda debajo de la navigationBar
-    //    CGRect newBounds = self.tableView.bounds;
-    //    newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height;
-    //    self.tableView.bounds = newBounds;
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.placeholder = @"Search a book...";
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.definesPresentationContext = YES;
+
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
 
     [self.tableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
 }
@@ -217,30 +228,32 @@
 }
 
 // MARK: - UISearchBarDelegate
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-
-    [self.searchBar setShowsCancelButton:YES animated:YES];
-}
-
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
 
-    self.searchBar.showsCancelButton = YES;
+    [self searchBooksWithText:searchText];
 
-    //    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
-    //    req.resultType = NSDictionaryResultType;
-    //    req.propertiesToFetch = @[@"book", @"tag"];
-    //    req.returnsDistinctResults = YES;
-    //
-    //    NSMutableArray *predicates = [[NSMutableArray alloc]init];
-    //
-    //    NSPredicate *titlePred = [NSPredicate predicateWithFormat:@"book.title CONTAINS[cd] %@", searchText];
-    //    [predicates addObject:titlePred];
-    //
-    //    NSPredicate *authorPred = [NSPredicate predicateWithFormat:@"ANY book.authors.name CONTAINS[cd] %@", searchText];
-    //    [predicates addObject:authorPred];
-    //
-    //    NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"tag.name CONTAINS[cd] %@", searchText];
-    //    [predicates addObject:tagPred];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+
+    [self.searchController.searchBar setShowsCancelButton:NO animated:YES];
+    [self setDefaultFetchedResultsController];
+
+}
+
+// MARK: - UISearchResultsUpdating
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
+
+//    NSString *searchText = searchController.searchBar.text;
+//    
+//    if ([searchText isEqualToString:@""] || !searchController.active) {
+//        [self setDefaultFetchedResultsController];
+//    } else {
+//        [self searchBooksWithText:searchText];
+//    }
+}
+
+-(void)searchBooksWithText:(NSString *)searchText{
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Book entityName]];
 
@@ -252,23 +265,15 @@
     [predicates addObject:authorPred];
     NSPredicate *tagPred = [NSPredicate predicateWithFormat:@"ANY bookTags.tag.name CONTAINS[cd] %@", searchText];
     [predicates addObject:tagPred];
-
+    
     req.predicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
-
+    
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-
+    
     [self setFetchedResultsControllerWithRequest:req];
 }
 
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-
-    [self.searchBar setShowsCancelButton:NO animated:YES];
-    [self.searchBar endEditing:YES];
-    self.searchBar.text = nil;
-
-    [self setDefaultFetchedResultsController];
-}
-
+// MARK: - utils
 -(void)setFetchedResultsControllerWithRequest:(NSFetchRequest *)request{
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -277,13 +282,14 @@
                                                                                    cacheName:nil];
 
 }
+
 -(void)setDefaultFetchedResultsController{
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[BookTag entityName]];
 
     req.fetchBatchSize = 40;
 
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tag.name" ascending:YES],
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tag" ascending:YES],
                             [NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req
@@ -291,6 +297,8 @@
                                                                           sectionNameKeyPath:@"tag.name"
                                                                                    cacheName:nil];
 }
+
+
 
 
 @end

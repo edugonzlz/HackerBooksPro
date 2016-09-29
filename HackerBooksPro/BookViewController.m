@@ -57,10 +57,10 @@
 
     BOOL fav = self.model.isFavoriteValue;
     if (!fav) {
-        self.model.isFavorite = [NSNumber numberWithBool:YES];
+        self.model.isFavoriteValue = YES;
 
     } else if (fav){
-        self.model.isFavorite = [NSNumber numberWithBool:NO];
+        self.model.isFavoriteValue = NO;
     }
 
     [self syncModelWithView];
