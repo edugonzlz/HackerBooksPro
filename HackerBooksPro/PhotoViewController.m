@@ -8,6 +8,9 @@
 
 #import "PhotoViewController.h"
 #import "PhotoNote.h"
+#import "Note.h"
+#import "UIImage+Resize.h"
+@import CoreImage;
 
 #define IS_IPHONE UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 
@@ -41,7 +44,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 
-    self.model.photo.image = self.photoView.image;
+// TODO: - ya la he pasado al modelo en el metodo del delegado,,, la vuelvo a pasar al modelo?
+//    self.model.photo.image = self.photoView.image;
 }
 
 - (IBAction)takePhoto:(id)sender {
@@ -50,7 +54,7 @@
     if (IS_IPHONE) {
 
         UIImagePickerController *picker = [[UIImagePickerController alloc]init];
-        picker.allowsEditing = YES;
+//        picker.allowsEditing = YES;
 
         picker.delegate = self;
 
@@ -122,13 +126,38 @@
 }
 
 // MARK: - UIImagePickerControllerDelegate
-
 -(void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    
+
+
+    // Aunque en este caso y con mi telefono (iphone 6S) no tengo mucho consumo de memoria
+    // implementamos el cambio de tamaño de la imagen para practicar y usar la libreria de Trevorrrr
+
     // extraemos la foto del diccionario
-    self.model.photo.image = [info objectForKey:UIImagePickerControllerEditedImage];
-    
+    __block UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+    // calculamos el tamaño de la pantalla
+    CGRect screenBounds = [[UIScreen mainScreen]bounds];
+    CGFloat screenScale = [[UIScreen mainScreen]scale];
+    CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+
+    // Redimensionamos proporcionalmente con respecto al ancho de la pantalla
+    CGSize imageSize = image.size;
+    CGSize newImageSize = CGSizeMake(screenSize.width, ((imageSize.height * screenSize.width) / imageSize.width));
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        // Redimensinamos la imagen
+        image = [image resizedImage:newImageSize interpolationQuality:kCGInterpolationMedium];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            self.photoView.image = image;
+            self.model.photo.image = image;
+
+        });
+    });
+
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

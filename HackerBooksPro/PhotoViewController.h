@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Note.h"
+@class Note;
 
 @interface PhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
