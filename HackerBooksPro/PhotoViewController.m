@@ -54,7 +54,7 @@
     if (IS_IPHONE) {
 
         UIImagePickerController *picker = [[UIImagePickerController alloc]init];
-//        picker.allowsEditing = YES;
+        picker.allowsEditing = YES;
 
         picker.delegate = self;
 
@@ -134,7 +134,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     // implementamos el cambio de tamaño de la imagen para practicar y usar la libreria de Trevorrrr
 
     // extraemos la foto del diccionario
-    __block UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    __block UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
 
     // calculamos el tamaño de la pantalla
     CGRect screenBounds = [[UIScreen mainScreen]bounds];

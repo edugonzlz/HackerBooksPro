@@ -11,7 +11,13 @@
 
 -(void)setImage:(UIImage *)image{
 
-    self.imageData = UIImagePNGRepresentation(image);
+    // lo pasamos a segundo plano porque tarda bastante tiempo
+    // aunque hemos redimensionado la imagen en el PickerVC y viene con menos resolucion
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        self.imageData = UIImagePNGRepresentation(image);
+    });
+
 }
 -(UIImage *)image{
 
