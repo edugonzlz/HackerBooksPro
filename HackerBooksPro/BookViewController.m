@@ -87,7 +87,7 @@
     // enviar un array de las locations de las notas
 
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
-    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", self.model];
+    req.predicate = [NSPredicate predicateWithFormat:@"book.title == %@", self.model.title];
 
     NSError *error;
     NSArray *res = [self.model.managedObjectContext executeFetchRequest:req
@@ -96,10 +96,12 @@
 
     if (res != nil && [res count] >0) {
 
+        NSLog(@"Numero de notas encontradas con el titulo %@: -  (%lu)", self.model.title, (unsigned long)[res count]);
+
         NSMutableArray *locArray = [[NSMutableArray alloc]init];
         for (Note *note in res) {
             if (note.location) {
-
+                NSLog(@"nota:%@ del libro: %@", note.text, note.book.title);
                 [locArray addObject:note.location];
             }
         }

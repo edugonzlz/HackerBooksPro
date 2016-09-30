@@ -71,7 +71,7 @@
     static NSString *annotationId = @"annotationId";
 
     MKPinAnnotationView *annotationView;
-    annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationId];
+    annotationView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotationId];
 
     if (annotationView == nil) {
         annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationId];
@@ -80,6 +80,11 @@
 
 
     // Accesorio izquierdo - Buscamos la nota, vemos si tiene foto y la asignamos
+    // TODO: - parece que la annotacion que me da el mapa es la ultima y no es la correcta, porque puede ser de otra nota
+
+    // La localizacion puede estar asociada a varias notas
+    // Estoy buscando una nota con el texto igual al titulo de la localizacion
+    NSLog(@"esta annotation tien el titulo %@:", [annotation title]);
     Location *loc = (Location *)annotation;
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
     req.predicate = [NSPredicate predicateWithFormat:@"text == %@", loc.title];
