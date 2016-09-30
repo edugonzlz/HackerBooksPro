@@ -46,7 +46,6 @@
 
 - (IBAction)takePhoto:(id)sender {
 
-    // TODO: - Si estamos en un ipad tenemos que meter todo esto en un popover
 
     if (IS_IPHONE) {
 
@@ -64,7 +63,8 @@
                                                                 handler:^(UIAlertAction * _Nonnull action) {
 
                                                                     // Comprobar si esta disponible
-                                                                    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+                                                                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+
                                                                         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
                                                                     } else {
                                                                         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -77,6 +77,8 @@
         UIAlertAction *photoFromLibrary = [UIAlertAction actionWithTitle:@"Take photo from Library"
                                                                    style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * _Nonnull action) {
+
+                                                                     // TODO: - Si estamos en un ipad tenemos que presentarlo en un popover
 
                                                                      picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 

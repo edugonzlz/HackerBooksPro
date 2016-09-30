@@ -63,6 +63,9 @@
 		34A96F2F1D95339000C20813 /* car-automobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2C1D95339000C20813 /* car-automobile.png */; };
 		34A96F301D95339000C20813 /* car-automobile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2D1D95339000C20813 /* car-automobile@2x.png */; };
 		34A96F311D95339000C20813 /* car-automobile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34A96F2E1D95339000C20813 /* car-automobile@3x.png */; };
+		34BAEBF71D9D425F001424B3 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEBF21D9D425F001424B3 /* UIImage+Alpha.m */; };
+		34BAEBF81D9D425F001424B3 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEBF41D9D425F001424B3 /* UIImage+Resize.m */; };
+		34BAEBF91D9D425F001424B3 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEBF61D9D425F001424B3 /* UIImage+RoundedCorner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +181,14 @@
 		34A96F2C1D95339000C20813 /* car-automobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-automobile.png"; sourceTree = "<group>"; };
 		34A96F2D1D95339000C20813 /* car-automobile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-automobile@2x.png"; sourceTree = "<group>"; };
 		34A96F2E1D95339000C20813 /* car-automobile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-automobile@3x.png"; sourceTree = "<group>"; };
+		34BAEBF11D9D425F001424B3 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Alpha.h"; path = "Trevor Harmon's UIImage categories/UIImage+Alpha.h"; sourceTree = "<group>"; };
+		34BAEBF21D9D425F001424B3 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Alpha.m"; path = "Trevor Harmon's UIImage categories/UIImage+Alpha.m"; sourceTree = "<group>"; };
+		34BAEBF31D9D425F001424B3 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "Trevor Harmon's UIImage categories/UIImage+Resize.h"; sourceTree = "<group>"; };
+		34BAEBF41D9D425F001424B3 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "Trevor Harmon's UIImage categories/UIImage+Resize.m"; sourceTree = "<group>"; };
+		34BAEBF51D9D425F001424B3 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCorner.h"; path = "Trevor Harmon's UIImage categories/UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		34BAEBF61D9D425F001424B3 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "Trevor Harmon's UIImage categories/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		34BAEBFA1D9D42F6001424B3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		34BAEBFC1D9D4397001424B3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +241,7 @@
 		341A49171D844D2A0039F3CB /* HackerBooksPro */ = {
 			isa = PBXGroup;
 			children = (
+				34BAEBEE1D9D4240001424B3 /* UIImage Categories */,
 				341A491B1D844D2A0039F3CB /* AppDelegate.h */,
 				341A491C1D844D2A0039F3CB /* AppDelegate.m */,
 				341A498E1D844FB20039F3CB /* Controllers */,
@@ -406,9 +418,24 @@
 		3475F6C71D9495DC00D04A45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34BAEBFC1D9D4397001424B3 /* CoreGraphics.framework */,
+				34BAEBFA1D9D42F6001424B3 /* UIKit.framework */,
 				3475F6C81D9495DD00D04A45 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34BAEBEE1D9D4240001424B3 /* UIImage Categories */ = {
+			isa = PBXGroup;
+			children = (
+				34BAEBF11D9D425F001424B3 /* UIImage+Alpha.h */,
+				34BAEBF21D9D425F001424B3 /* UIImage+Alpha.m */,
+				34BAEBF31D9D425F001424B3 /* UIImage+Resize.h */,
+				34BAEBF41D9D425F001424B3 /* UIImage+Resize.m */,
+				34BAEBF51D9D425F001424B3 /* UIImage+RoundedCorner.h */,
+				34BAEBF61D9D425F001424B3 /* UIImage+RoundedCorner.m */,
+			);
+			name = "UIImage Categories";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,6 +599,7 @@
 				346A58991D89509F00B0F579 /* BookViewController.m in Sources */,
 				347BBE061D8D4B42006D6C08 /* PhotoViewController.m in Sources */,
 				341A4A101D8490520039F3CB /* _PhotoCover.m in Sources */,
+				34BAEBF81D9D425F001424B3 /* UIImage+Resize.m in Sources */,
 				341A49981D8453250039F3CB /* Model.xcdatamodeld in Sources */,
 				341A898B1D913CFB0025CA33 /* BookTag.m in Sources */,
 				346A58AC1D89BED800B0F579 /* NotesCollectionViewController.m in Sources */,
@@ -582,8 +610,10 @@
 				341A4A0C1D8490520039F3CB /* _Book.m in Sources */,
 				341A49871D844F470039F3CB /* AGTCoreDataCollectionViewController.m in Sources */,
 				341A4A0B1D8490520039F3CB /* Tag.m in Sources */,
+				34BAEBF71D9D425F001424B3 /* UIImage+Alpha.m in Sources */,
 				341A498A1D844F5A0039F3CB /* AGTSimpleCoreDataStack.m in Sources */,
 				341A4A0A1D8490520039F3CB /* Book.m in Sources */,
+				34BAEBF91D9D425F001424B3 /* UIImage+RoundedCorner.m in Sources */,
 				341A4A0D1D8490520039F3CB /* _Location.m in Sources */,
 				341A4A0F1D8490520039F3CB /* _Pdf.m in Sources */,
 				341A4A111D8490520039F3CB /* _PhotoNote.m in Sources */,
