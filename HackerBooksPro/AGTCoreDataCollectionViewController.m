@@ -156,7 +156,7 @@
                         case NSFetchedResultsChangeUpdate:
                             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
                             break;
-                    }
+                                        }
                 }];
             }
         } completion:nil];

@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic, readonly) NSManagedObjectContext *context;
 
-+(NSString *) persistentStoreCoordinatorErrorNotificationName;
+//+(NSString *) persistentStoreCoordinatorErrorNotificationName;
 
 +(AGTCoreDataStack *) coreDataStackWithModelName:(NSString *)aModelName
                                databaseFilename:(NSString*) aDBName;
@@ -27,7 +27,7 @@
 -(id) initWithModelName:(NSString *)aModelName
             databaseURL:(NSURL*) aDBURL;
 
--(void) resetStack;
+//-(void) resetStack;
 -(void) zapAllData;
 
 -(void) saveWithErrorBlock: (void(^)(NSError *error))errorBlock;

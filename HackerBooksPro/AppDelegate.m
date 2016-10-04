@@ -139,7 +139,7 @@
                 }
 
                 // Creamos la tag Favorite si no existe
-                Tag *tag = [Tag uniqueObjectWithValue:@"favorites" forKey:@"name" inManagedObjectContext:self.model.context];
+                [Tag uniqueObjectWithValue:@"favorites" forKey:@"name" inManagedObjectContext:self.model.context];
 
             }else{
                 // Se ha producido un error al parsear el JSON
