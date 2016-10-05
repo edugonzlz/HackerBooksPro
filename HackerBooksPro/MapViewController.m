@@ -112,6 +112,7 @@
     // Boton derecho del callout lleva a la app de Mapas
     UIButton *goToMapsButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [goToMapsButton setImage:[UIImage imageNamed:@"car"] forState:UIControlStateNormal];
+    // TODO: - se queja porque no pasamos accion, pero lo correcto es indicarla en el metodo que vemos justo abajo.
     [goToMapsButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
 
     annotationView.rightCalloutAccessoryView = goToMapsButton;

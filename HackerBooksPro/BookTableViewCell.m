@@ -19,6 +19,10 @@
 
 @implementation BookTableViewCell
 
+// TODO: - No se porque tengo que añadir este synthesize, pero me quita este warning:
+// Auto property synthesis will not synthesize property 'imageView' because it is 'readwrite' but it will be synthesized 'readonly' via another property
+@synthesize imageView;
+
 // MARK: - Class Methods
 +(NSString *)cellId{
     return NSStringFromClass(self);
