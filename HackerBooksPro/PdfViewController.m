@@ -17,7 +17,7 @@
 
 @implementation PdfViewController
 
-
+// MARK: - Init
 -(id)initWithModel:(Book *)model{
 
     if (self = [super initWithNibName:nil bundle:nil]) {

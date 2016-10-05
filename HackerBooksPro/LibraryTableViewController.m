@@ -22,8 +22,8 @@
 @property (strong, nonatomic)UISearchController *searchController;
 
 // Para la restuaracion del estado
-@property BOOL searchControllerWasActive;
-@property BOOL searchControllerSearchFieldWasFirstResponder;
+//@property BOOL searchControllerWasActive;
+//@property BOOL searchControllerSearchFieldWasFirstResponder;
 
 @end
 

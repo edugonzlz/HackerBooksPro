@@ -98,6 +98,10 @@
         case NSFetchedResultsChangeDelete:
             change[@(type)] = @(sectionIndex);
             break;
+        default:
+            break;
+            //            case NSFetchedResultsChangeMove:
+            //            case NSFetchedResultsChangeUpdate:
     }
     
     [self.sectionChanges addObject:change];
@@ -156,7 +160,10 @@
                         case NSFetchedResultsChangeUpdate:
                             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
                             break;
-                                        }
+                        default:
+                            break;
+                            //            case NSFetchedResultsChangeMove:
+                    }
                 }];
             }
         } completion:nil];

@@ -17,7 +17,6 @@
 - (IBAction)displayPhoto:(id)sender;
 - (IBAction)displayMap:(id)sender;
 - (IBAction)deleteNote:(id)sender;
-- (IBAction)addNewNote:(id)sender;
 - (IBAction)shareNote:(id)sender;
 
 -(id)initWithModel:(id)model;

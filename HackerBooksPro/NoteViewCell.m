@@ -18,10 +18,13 @@
 
 @implementation NoteViewCell
 
+// MARK: - Class Methods
 +(NSArray *)observableKeys{
 
     return @[@"text", @"modificationDate", @"photo.imageData"];
 }
+
+// MARK: - Utils
 -(void)observeNote:(Note *)note{
 
     self.note = note;
@@ -46,14 +49,6 @@
     [self syncModelView];
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
-                      context:(void *)context{
-
-    [self syncModelView];
-}
-
 -(void)syncModelView{
 
     self.titleLabel.text = self.note.text;
@@ -71,5 +66,15 @@
     }
     self.photoView.image = image;
 }
+
+// MARK: - KVO
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context{
+
+    [self syncModelView];
+}
+
 
 @end

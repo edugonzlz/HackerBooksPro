@@ -17,7 +17,6 @@
 
 -(id)initWithLocation:(Location *)location;
 
-// Crear un inicializador
 -(id)initWithLocations:(NSArray<Location *>*)locations;
 
 @end

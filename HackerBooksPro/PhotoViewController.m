@@ -20,7 +20,7 @@
 
 @implementation PhotoViewController
 
-
+// MARK: - Inits
 -(id)initWithNote:(Note *)note{
 
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -31,6 +31,7 @@
     return self;
 }
 
+// MARK: - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -48,6 +49,7 @@
 //    self.model.photo.image = self.photoView.image;
 }
 
+// MARK: - Actions
 - (IBAction)takePhoto:(id)sender {
 
 

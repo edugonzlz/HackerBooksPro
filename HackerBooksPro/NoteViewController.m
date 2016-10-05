@@ -139,10 +139,6 @@
     }];
 }
 
-
-- (IBAction)addNewNote:(id)sender {
-}
-
 - (void)shareNote:(id)sender {
 
     UIActivityViewController *aVC = [[UIActivityViewController alloc]initWithActivityItems:[self arrayOfItems]
@@ -150,6 +146,8 @@
 
     [self presentViewController:aVC animated:true completion:nil];
 }
+
+// MARK: - Utils
 
 // Metodo para agregar elementos para compartir en redes y otros
 -(NSArray *)arrayOfItems{
