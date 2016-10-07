@@ -19,6 +19,7 @@
     return tag;
 }
 
+// TODO: - cuando no persistia funcionaba esto,,, ahora que persisto no funciona, genial!!
 - (NSComparisonResult)compare:(Tag *)otherObject{
 
 

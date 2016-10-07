@@ -90,6 +90,7 @@
 
     if (self.deleteNote) {
         [self.model.managedObjectContext deleteObject:self.model];
+//        [self.model.managedObjectContext processPendingChanges];
 
     }else{
         self.model.text = self.textView.text;

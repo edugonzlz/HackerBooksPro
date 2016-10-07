@@ -306,7 +306,7 @@
 
     req.fetchBatchSize = 40;
 
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tag" ascending:YES],
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tag.name" ascending:YES],
                             [NSSortDescriptor sortDescriptorWithKey:@"book.title" ascending:YES]];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req

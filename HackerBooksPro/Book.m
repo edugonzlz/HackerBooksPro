@@ -56,6 +56,8 @@
                                                inManagedObjectContext:context];
     book.title = title;
 
+    //    [book setValue:title forKey:BookAttributes.title];
+
     // Para crear autor y tag primero buscamos si existen ya
     // TODO: - en las busquedas de autor y tag a veces se cae la app,
     // sobre todo si es la primera vez que arranca, porque cambia el NSSet sobre la marcha
@@ -74,8 +76,10 @@
     }
 
     PhotoCover *cover = [PhotoCover photoCoverWithURL:coverURL inContext:context];
+    //    [book setValue:cover forKey:BookRelationships.photoCover];
     book.photoCover = cover;
     Pdf *pdf = [Pdf pdfWithURL:pdfURL inContext:context];
+    //    [book setValue:pdf forKey:BookRelationships.pdf];
     book.pdf = pdf;
 
     return book;

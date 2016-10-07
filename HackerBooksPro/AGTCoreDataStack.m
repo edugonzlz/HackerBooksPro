@@ -161,26 +161,35 @@
 
         }else if (self.context.hasChanges) {
 
-            BOOL isSaved = [self.context save:&err]; //
+            BOOL isSaved = [self.context save:&err];
 
             if (isSaved == NO) {
                 if (errorBlock != nil) {
                     errorBlock(err);
                 }
 
+            // TODO: - por alguna extraña razon comprobando el error asi NO PERSISTE COREDATA
+//                            if (![self.context save:&err]) {
+//                                if (errorBlock != nil) {
+//                                    errorBlock(err);
+//                                }
 
-                //            if (![self.context save:&err]) {
-                //                if (errorBlock != nil) {
-                //                    errorBlock(err);
-                //                }
             } else {
                 // Now save in the background
                 [self.persistingContext performBlock:^{
-                    if(![self.persistingContext save:&err]){
-                        if (errorBlock != nil){
+
+                    BOOL isSaved = [self.persistingContext save:&err];
+
+                    if (isSaved == NO) {
+                        if (errorBlock != nil) {
                             errorBlock(err);
                         }
                     }
+//                    if(![self.persistingContext save:&err]){
+//                        if (errorBlock != nil){
+//                            errorBlock(err);
+//                        }
+//                    }
                 }];
 
             }
