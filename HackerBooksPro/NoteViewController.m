@@ -28,7 +28,7 @@
 
     if (self = [super initWithNibName:nil bundle:nil]) {
 
-        self.model = model;
+        _model = model;
     }
     
     return self;

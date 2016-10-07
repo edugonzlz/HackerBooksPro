@@ -55,18 +55,6 @@ static NSString *cellId = @"noteCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
-//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
-//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
-//
-//    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", self.book];
-//
-//    NSFetchedResultsController *frC = [[NSFetchedResultsController alloc]initWithFetchRequest:req
-//                                                                         managedObjectContext:self.context
-//                                                                           sectionNameKeyPath:nil
-//                                                                                    cacheName:nil];
-//    self.fetchedResultsController = frC;
-
-
     // Notificacion cuando se selecciona book en SplitView
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(didSelectedBook:)
@@ -116,8 +104,6 @@ static NSString *cellId = @"noteCell";
 
     Book *book = [notification.userInfo objectForKey:@"lastBookSelected"];
     self.book = book;
-
-//    [self.collectionView reloadData];
 }
 
 -(void)registerCell{
