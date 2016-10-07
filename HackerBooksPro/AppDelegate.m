@@ -53,7 +53,7 @@
     } else {
         if (res.count > 0) {
 
-            NSLog(@"Parece que hay datos en la DB: %@", res);
+            NSLog(@"Parece que hay datos en la DB");
             [def setBool:YES forKey:SAVE_IN_COREDATA_COMPLETED];
 
         } else {

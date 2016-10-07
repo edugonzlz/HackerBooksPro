@@ -48,42 +48,42 @@
 }
 
 +(AGTCoreDataStack *) coreDataStackWithModelName:(NSString *)aModelName
-                               databaseFilename:(NSString*) aDBName{
-    
+                                databaseFilename:(NSString*) aDBName{
+
     NSURL *url = nil;
-    
+
     if (aDBName) {
         url = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:aDBName];
     }else{
         url = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:aModelName];
     }
-    
+
     return [self coreDataStackWithModelName:aModelName
                                 databaseURL:url];
 }
 
 +(AGTCoreDataStack *) coreDataStackWithModelName:(NSString *)aModelName{
-    
+
     return [self coreDataStackWithModelName:aModelName
                            databaseFilename:nil];
 }
 
 +(AGTCoreDataStack *) coreDataStackWithModelName:(NSString *)aModelName
-                                    databaseURL:(NSURL*) aDBURL{
+                                     databaseURL:(NSURL*) aDBURL{
     return [[self alloc] initWithModelName: aModelName databaseURL:aDBURL];
-    
+
 }
 
 #pragma mark - Init
 
 -(id) initWithModelName:(NSString *)aModelName
             databaseURL:(NSURL*) aDBURL{
-    
+
     if (self = [super init]) {
         self.modelURL = [[NSBundle mainBundle] URLForResource:aModelName
                                                 withExtension:@"momd"];
         self.dbURL = aDBURL;
-        
+
         _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:_modelURL];
         _storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
         // Add the contexts
@@ -93,26 +93,26 @@
         _context.parentContext = _persistingContext;
         _backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _backgroundContext.parentContext = _context;
-        
-        
+
+
         // Add the sqlite store
         NSError *err = nil;
         if (![_storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                        configuration:nil
-                                                  URL:_dbURL
-                                              options:nil
+                                             configuration:nil
+                                                       URL:_dbURL
+                                                   options:nil
                                                      error:&err]){
             NSLog(@"Error while creating SQLite at %@.\n\r%@", _dbURL, err);
             return nil;
         }
-        
-        
-        
-        
+
+
+
+
     }
-    
+
     return self;
-    
+
 }
 
 
@@ -121,24 +121,24 @@
 
 // deletes all objects in the db. This won't delete the files, just leva empty tables.
 -(void) zapAllData{
-    
+
     NSError *err;
     if (![_storeCoordinator destroyPersistentStoreAtURL:self.dbURL
-                                          withType:NSSQLiteStoreType
-                                           options:nil
-                                                 error:&err]){
-        
+                                               withType:NSSQLiteStoreType
+                                                options:nil
+                                                  error:&err]){
+
         NSLog(@"%@", err);
     }
-    
+
     if (![_storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                    configuration:nil
-                                              URL:self.dbURL
-                                          options:nil
+                                         configuration:nil
+                                                   URL:self.dbURL
+                                               options:nil
                                                  error:&err]){
         NSLog(@"%@", err);
     }
-    
+
 }
 
 
@@ -160,11 +160,20 @@
 
 
         }else if (self.context.hasChanges) {
-            if (![self.context save:&err]) {
+
+            BOOL isSaved = [self.context save:&err]; //
+
+            if (isSaved == NO) {
                 if (errorBlock != nil) {
                     errorBlock(err);
                 }
-                
+
+
+                //            if (![self.context save:&err]) {
+                //                if (errorBlock != nil) {
+                //                    errorBlock(err);
+                //                }
+            } else {
                 // Now save in the background
                 [self.persistingContext performBlock:^{
                     if(![self.persistingContext save:&err]){
@@ -173,38 +182,39 @@
                         }
                     }
                 }];
+
             }
         }
 
     }];
-    
-    
+
+
 }
 
 
 
 -(NSArray *) executeFetchRequest:(NSFetchRequest *)req
                       errorBlock:(void(^)(NSError *error)) errorBlock{
-    
+
     NSError *err;
     NSArray *res = [self.context executeFetchRequest:req
                                                error:&err];
-    
+
     if (res == nil) {
         // la cagamos
         if (errorBlock != nil) {
             errorBlock(err);
         }
-        
+
     }
     return res;
 }
 
 -(void) performBackgroundTask:(void(^)(NSManagedObjectContext *worker))task{
-    
-    
+
+
     [self.backgroundContext performBlock:^{
-        
+
         task(self.backgroundContext);
         
         // Save to the parent context
