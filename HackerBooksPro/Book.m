@@ -145,7 +145,6 @@
     // Cuando vemos el cambio en la propiedad favorito añadimos o borramos la relacion con la tag
 
     // Recupero la tag favorites
-
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Tag entityName]];
     req.predicate = [NSPredicate predicateWithFormat:@"name == 'favorites'"];
     req.fetchLimit = 1;
@@ -165,9 +164,9 @@
             if ([favsSet count] == 0) {
 
                 [BookTag bookTagWithBook:self andTag:favTag];
-                NSLog(@"te hago fav con favTag: %@", favTag.name);
+
                 // la relacion se realiza en el booktag, pero si no lo hago aqui no presenta la tag favorites
-                //            [self addBookTagsObject:bookTag];
+//                [self addBookTagsObject:bookTag];
             }
 
         } else if (!fav) {

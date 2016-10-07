@@ -19,7 +19,9 @@
     return tag;
 }
 
-// TODO: - cuando no persistia funcionaba esto,,, ahora que persisto no funciona, genial!!
+// TODO: - cuando hago un sortDescriptor en el Library que ordena por Tag funciona
+// Si ordeno por tag.name en el primer arranque ordenamos bien los tags
+// En lo siguientes arranque no pasamos por aqui y favorites no aparece al inicio
 - (NSComparisonResult)compare:(Tag *)otherObject{
 
 

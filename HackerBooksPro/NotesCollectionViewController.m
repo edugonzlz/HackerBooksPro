@@ -40,10 +40,13 @@ static NSString *cellId = @"noteCell";
     layout.itemSize = CGSizeMake(140, 150);
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
 
+    
     if (self = [super initWithFetchedResultsController:frC
                                                 layout:layout]) {
         self.fetchedResultsController = frC;
         self.book  = book;
+        self.context = context;
+        self.title = @"Notes";
     }
     return self;
 }
@@ -51,6 +54,18 @@ static NSString *cellId = @"noteCell";
 // MARK: - LifeCycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+
+//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[Note entityName]];
+//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:NoteAttributes.modificationDate ascending:NO]];
+//
+//    req.predicate = [NSPredicate predicateWithFormat:@"book == %@", self.book];
+//
+//    NSFetchedResultsController *frC = [[NSFetchedResultsController alloc]initWithFetchRequest:req
+//                                                                         managedObjectContext:self.context
+//                                                                           sectionNameKeyPath:nil
+//                                                                                    cacheName:nil];
+//    self.fetchedResultsController = frC;
+
 
     // Notificacion cuando se selecciona book en SplitView
     [[NSNotificationCenter defaultCenter]addObserver:self

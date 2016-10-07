@@ -28,7 +28,7 @@
 
     if (self = [super initWithNibName:nil bundle:nil]) {
 
-        _model = model;
+        self.model = model;
     }
     
     return self;
@@ -90,10 +90,13 @@
 
     if (self.deleteNote) {
         [self.model.managedObjectContext deleteObject:self.model];
-//        [self.model.managedObjectContext processPendingChanges];
+        [self.model.managedObjectContext processPendingChanges];
 
     }else{
+        // TODO: - aqui se cae la app al actualizar un nota despues de volver al Book y venir de nuevo
         self.model.text = self.textView.text;
+        //        [self.model setValue:self.textView.text forKey:@"text"];
+
     }
 }
 
@@ -171,6 +174,8 @@
     [self.navigationController popViewControllerAnimated:true];
 }
 -(void)hideKeyboard:(id) sender{
+
     [self.view endEditing:YES];
 }
+
 @end

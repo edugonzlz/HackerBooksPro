@@ -63,7 +63,6 @@
     }
 
 
-
     // Mirar si tenemos JSON en local
     if (![fm fileExistsAtPath:fileUrl.path]) {
 
@@ -100,8 +99,6 @@
             NSLog(@"Los datos estan guardados en CoreData, no hacemos nada");
         }
     }
-
-
 
 
     // Dependiendo del dispositivo presentamos splitView o no
@@ -162,10 +159,7 @@
             // Error al descargar los datos del servidor
             NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
         }
-
     }];
-
-
 }
 
 -(UIViewController *)rootViewControllerForPhoneWithContext:(NSManagedObjectContext *)context{
@@ -237,6 +231,4 @@
                afterDelay:5];
     
 }
-
-
 @end

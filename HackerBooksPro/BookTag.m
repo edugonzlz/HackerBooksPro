@@ -20,16 +20,5 @@
 
     return bookTag;
 }
-// TODO: - nunca pasamos por aqui
-- (NSComparisonResult)compare:(BookTag *)otherObject{
-
-
-    if ([otherObject.tag.name isEqualToString:@"favorites"]) {
-        return NSOrderedDescending;
-    }
-
-    return [self.tag.name compare:otherObject.tag.name];
-    
-}
 
 @end

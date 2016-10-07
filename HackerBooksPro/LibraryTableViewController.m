@@ -55,7 +55,6 @@
 }
 
 // MARK: - Lifecycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -72,9 +71,9 @@
     self.definesPresentationContext = YES;
 
     //     Ocultamos la barra de busqueda debajo de la navigationBar
-//        CGRect newBounds = self.tableView.bounds;
-//        newBounds.origin.y = newBounds.origin.y + self.searchController.searchBar.bounds.size.height;
-//        self.tableView.bounds = newBounds;
+    //        CGRect newBounds = self.tableView.bounds;
+    //        newBounds.origin.y = newBounds.origin.y + self.searchController.searchBar.bounds.size.height;
+    //        self.tableView.bounds = newBounds;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
