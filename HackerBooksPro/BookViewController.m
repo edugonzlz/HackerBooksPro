@@ -57,9 +57,12 @@
 
     BOOL fav = self.model.isFavoriteValue;
     if (!fav) {
+
+//        [self.model setValue:@YES forKey:@"isFavorite"];
         self.model.isFavoriteValue = YES;
 
     } else if (fav){
+//        [self.model setValue:@NO forKey:@"isFavorite"];
         self.model.isFavoriteValue = NO;
     }
 

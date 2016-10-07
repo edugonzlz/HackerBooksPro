@@ -122,7 +122,7 @@
     for (NSString *key in [Book observableKeyNames]) {
         [self addObserver:self
                forKeyPath:key
-                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                  options:NSKeyValueObservingOptionOld
                   context:NULL];
     }
 }
@@ -139,6 +139,9 @@
                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                       context:(void *)context{
 
+    // TODO: - me esta llegando dos veces la notificacion
+    NSLog(@"notificacion de cambio en propiedad isFavorite");
+
     // Cuando vemos el cambio en la propiedad favorito añadimos o borramos la relacion con la tag
 
     // Recupero la tag favorites
@@ -154,17 +157,27 @@
 
         Tag *favTag = [res lastObject];
         BOOL fav = self.isFavoriteValue;
+        NSSet *favsSet = [self.bookTags filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"tag.name == 'favorites'"]];
 
         if (fav) {
 
-            BookTag *bookTag =  [BookTag bookTagWithBook:self andTag:favTag];
-            [self addBookTagsObject:bookTag];
+            // me esta llegando dos veces la notificacion asi que compruebo si ya existe la bookTag favorites
+            if ([favsSet count] == 0) {
+
+                [BookTag bookTagWithBook:self andTag:favTag];
+                NSLog(@"te hago fav con favTag: %@", favTag.name);
+                // la relacion se realiza en el booktag, pero si no lo hago aqui no presenta la tag favorites
+                //            [self addBookTagsObject:bookTag];
+            }
 
         } else if (!fav) {
 
-            NSSet *favsSet = [self.bookTags filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"tag.name == 'favorites'"]];
             [self removeBookTags:favsSet];
-            [self.managedObjectContext deleteObject:[favsSet anyObject]];
+
+            // no estoy seguro de que sea necesario borrar del contexto... pero tengo que comprobrar
+            if ([favsSet count] != 0){
+                [self.managedObjectContext deleteObject:[favsSet anyObject]];
+            }
         }
     }
     
